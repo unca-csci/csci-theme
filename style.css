@@ -50,6 +50,38 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 --------------------------------------------------------------*/
 
+:root {
+    --bulldog-blue: #003DA5;
+    --evening-blue: #0076A5;
+    --sky-blue: #4298B5;
+    --bright-blue: #71B2C9;
+    --morning-blue: #AFCDD7;
+    --daybreak-blue: #C6D6E3;
+    --light-blue: #D1DDE6;
+    --forest: #7F9C90;
+    --river: #3F6C7D;
+    --night-sky: #003865;
+    --frost-gray: #D9D9D6;
+    --steel-gray: #C8C9C7;
+    --stone-gray: #888B8D;
+    --dark-gray: #5b5d5e;
+    --honeybee: #EBBC4E;
+    --autumn: #E6A65D;
+    --clay: #C26E60;
+    --gold: #BD9B60;
+    --chestnut: #7C4D3A;
+    --maple: #A6192E;
+    --banner-text-color: white;
+    --banner-bg-color: var(--night-sky);
+    --link-color: var(--maple);
+    --banner-one-height: 50px;
+    --banner-two-height: 120px;
+    --banner-two-height-mobile: 70px;
+    --main-margin: 170px;
+    --main-margin-mobile: 70px;
+    --bg-img2: url(https://png.pngtree.com/background/20210714/original/pngtree-vector-abstract-futuristic-digital-landscape-with-particles-dots-and-stars-on-picture-image_1240800.jpg);
+}
+
 /*--------------------------------------------------------------
 # Generic
 --------------------------------------------------------------*/
@@ -482,25 +514,6 @@ hr {
 	margin-bottom: 1.5em;
 }
 
-ul,
-ol {
-	margin: 0 0 1.5em 3em;
-}
-
-ul {
-	list-style: disc;
-}
-
-ol {
-	list-style: decimal;
-}
-
-li > ul,
-li > ol {
-	margin-bottom: 0;
-	margin-left: 1.5em;
-}
-
 dt {
 	font-weight: 700;
 }
@@ -533,17 +546,17 @@ table {
 /* Links
 --------------------------------------------- */
 a {
-	color: #4169e1;
+	color: var(--night-sky);
 }
 
 a:visited {
-	color: #800080;
+	color: var(--night-sky);
 }
 
 a:hover,
 a:focus,
 a:active {
-	color: #191970;
+	color: var(--night-sky);
 }
 
 a:focus {
@@ -747,10 +760,10 @@ textarea {
 	display: block;
 }
 
-.post,
+/* .post,
 .page {
 	margin: 0 0 1.5em;
-}
+} */
 
 .updated:not(.published) {
 	display: none;

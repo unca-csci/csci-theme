@@ -48,7 +48,7 @@
 
         <nav id="unca">
             <img class="unca-logo" src="https://www.unca.edu/wp-content/themes/tin/assets/logo.svg">
-            <a class="button" href="https://www.unca.edu/admission/apply/">Apply</a>
+            <a class="button" href="https://new.unca.edu/admission/apply/">Apply</a>
         </nav>
 		
 

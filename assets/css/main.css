@@ -8,7 +8,7 @@ body {
 header and navigation
 */
 
-.admin-bar #masthead {
+.admin-bar #masthead{
     top: 32px;
 }
 
@@ -24,7 +24,7 @@ header and navigation
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 50px 1.25em;
+    padding: 50px 5vw;
     height: 50px;
 }
 
@@ -35,6 +35,15 @@ header and navigation
 #unca-navigation a:active {
     color: white;
     text-decoration: none;
+}
+#unca-navigation a:hover {
+    border-bottom: 1px solid rgba(255,255,255,.8);
+    opacity: .8;
+}
+
+.programs-submenu a:hover {
+    border-bottom: 1px solid var(--night-sky);
+    opacity: .8;
 }
 
 
@@ -52,7 +61,46 @@ header and navigation
 #site-navigation ul {
     display: flex;
     justify-content: flex-end;
-    column-gap: 12px;
+    column-gap: 15px;
+}
+
+/************* Two Column Layout **************/
+.entry-wrapper.two-column {
+    display: grid;
+    grid-template-columns: auto 350px;
+    padding: 0 5vw;
+    column-gap: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+    .entry-wrapper.two-column {
+        grid-template-columns: auto;
+        padding: 0;
+    }
+}
+
+/************** Footer ************************/
+.site-footer {
+    background-color: #003865;
+}
+
+.site-footer a,
+.site-footer a:link,
+.site-footer a:visited,
+.site-footer a:hover,
+.site-footer a:active {
+    color: white;
+    text-decoration: none;
+}
+.site-footer a:hover {
+    border-bottom: 1px solid rgba(255,255,255,.8);
+    opacity: .8;
+}
+
+.copyright {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 5vw;
 }
 
 .button, .button:active, .button:visited, .button:hover, .button:link {
@@ -83,9 +131,9 @@ header and navigation
     /* font-size: 1em; */
 }
 
-.no-blink {
+/* .no-blink {
     width: 100vw !important;
-}
+} */
 
 /* Top margin for page accounting for the fixed navbar */
 .admin-bar #masthead + * {
@@ -93,40 +141,10 @@ header and navigation
 }
 
 #masthead + * {
-    margin-top: 108px;
+    /* margin-top: 108px; */
+    margin-top: 150px;
 }
 
-:root {
-    --bulldog-blue: #003DA5;
-    --evening-blue: #0076A5;
-    --sky-blue: #4298B5;
-    --bright-blue: #71B2C9;
-    --morning-blue: #AFCDD7;
-    --daybreak-blue: #C6D6E3;
-    --light-blue: #D1DDE6;
-    --forest: #7F9C90;
-    --river: #3F6C7D;
-    --night-sky: #003865;
-    --frost-gray: #D9D9D6;
-    --steel-gray: #C8C9C7;
-    --stone-gray: #888B8D;
-    --dark-gray: #5b5d5e;
-    --honeybee: #EBBC4E;
-    --autumn: #E6A65D;
-    --clay: #C26E60;
-    --gold: #BD9B60;
-    --chestnut: #7C4D3A;
-    --maple: #A6192E;
-    --banner-text-color: white;
-    --banner-bg-color: var(--night-sky);
-    --link-color: var(--maple);
-    --banner-one-height: 50px;
-    --banner-two-height: 120px;
-    --banner-two-height-mobile: 70px;
-    --main-margin: 170px;
-    --main-margin-mobile: 70px;
-    --bg-img2: url(https://png.pngtree.com/background/20210714/original/pngtree-vector-abstract-futuristic-digital-landscape-with-particles-dots-and-stars-on-picture-image_1240800.jpg);
-}
 
 .page .entry-content, .page .entry-header .inner-wrap, .page:not(.inspiro-front-page) .entry-footer, .single .entry-content, .single .entry-footer, .single .entry-header .inner-wrap {
     margin: 0 auto;
@@ -358,6 +376,8 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 .programs-submenu {
     background: #F0F0F0;
     padding: 30px;
+    position: sticky;
+    top: 150px;
 }
 
 .programs-submenu h2,

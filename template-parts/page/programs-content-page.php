@@ -50,7 +50,7 @@
 		echo '</div><!-- .entry-cover-image -->';
 	}
 	?>
-    <div class="entry-wrapper">
+    <div class="entry-wrapper two-column">
         <div class="entry-content">
             <?php
                 the_content();

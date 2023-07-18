@@ -13,17 +13,22 @@
 
 	<footer id="colophon" class="site-footer">
 		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'unca-csci' ) ); ?>">
-				<?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'unca-csci' ), 'WordPress' );
-				?>
-			</a>
-			<span class="sep"> | </span>
-				<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'unca-csci' ), 'unca-csci', '<a href="http://underscores.me/">Underscores.me</a>' );
-				?>
+            <?php
+            if ( function_exists( 'the_privacy_policy_link' ) ) {
+                the_privacy_policy_link( '', '<span role="separator" aria-hidden="true"></span>' );
+            }
+            ?>
+            <span class="copyright">
+                <span>
+                    © 2023 UNC Asheville
+                </span>
+                <span>
+                    <a title="Careers" href="http://jobs.unca.edu" class="nav-link" aria-label="Careers">Careers</a>
+                    <a title="Accessibility" href="https://accessibility.unca.edu/" class="nav-link" aria-label="Accessibility">Accessibility</a>
+                    <a title="Title IX" href="https://titleix.unca.edu/" class="nav-link" aria-label="Title IX">Title IX</a>
+                    <a title="Sitemap" href="https://csci.unca.edu/sitemap_index.xml" class="nav-link" aria-label="Sitemap">Sitemap</a>
+                </span>
+            </span>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
