@@ -1,0 +1,387 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css');
+
+body {
+    font-family: "Montserrat";
+}
+
+/*
+header and navigation
+*/
+
+.admin-bar #masthead {
+    top: 32px;
+}
+
+#masthead {
+    width: 100%;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+}
+
+#unca-navigation {
+    background-color: #003865;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 1.25em;
+    height: 50px;
+}
+
+#unca-navigation a,
+#unca-navigation a:link,
+#unca-navigation a:visited,
+#unca-navigation a:hover,
+#unca-navigation a:active {
+    color: white;
+    text-decoration: none;
+}
+
+
+.header-logo-wrapper {
+    min-width: 350px;
+    max-width: 350px;
+    font-size: 26px;
+    line-height: 1.8;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+#site-navigation ul {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 12px;
+}
+
+.button, .button:active, .button:visited, .button:hover, .button:link {
+    color: white;
+    font-family: Montserrat,sans-serif;
+    font-weight: 700;
+    display: inline-block;
+    padding: 10px 25px;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    border: 2px solid rgba(68,68,68,.19);
+    background-image: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: color .2s ease,border-color .2s ease,background-color .2s ease;
+}
+
+.link {
+    padding: 0;
+    text-decoration: underline;
+    background: transparent;
+    border: none;
+    letter-spacing: 0px;
+    /* font-size: 1em; */
+}
+
+.no-blink {
+    width: 100vw !important;
+}
+
+/* Top margin for page accounting for the fixed navbar */
+.admin-bar #masthead + * {
+    margin-top: 140px;
+}
+
+#masthead + * {
+    margin-top: 108px;
+}
+
+:root {
+    --bulldog-blue: #003DA5;
+    --evening-blue: #0076A5;
+    --sky-blue: #4298B5;
+    --bright-blue: #71B2C9;
+    --morning-blue: #AFCDD7;
+    --daybreak-blue: #C6D6E3;
+    --light-blue: #D1DDE6;
+    --forest: #7F9C90;
+    --river: #3F6C7D;
+    --night-sky: #003865;
+    --frost-gray: #D9D9D6;
+    --steel-gray: #C8C9C7;
+    --stone-gray: #888B8D;
+    --dark-gray: #5b5d5e;
+    --honeybee: #EBBC4E;
+    --autumn: #E6A65D;
+    --clay: #C26E60;
+    --gold: #BD9B60;
+    --chestnut: #7C4D3A;
+    --maple: #A6192E;
+    --banner-text-color: white;
+    --banner-bg-color: var(--night-sky);
+    --link-color: var(--maple);
+    --banner-one-height: 50px;
+    --banner-two-height: 120px;
+    --banner-two-height-mobile: 70px;
+    --main-margin: 170px;
+    --main-margin-mobile: 70px;
+    --bg-img2: url(https://png.pngtree.com/background/20210714/original/pngtree-vector-abstract-futuristic-digital-landscape-with-particles-dots-and-stars-on-picture-image_1240800.jpg);
+}
+
+.page .entry-content, .page .entry-header .inner-wrap, .page:not(.inspiro-front-page) .entry-footer, .single .entry-content, .single .entry-footer, .single .entry-header .inner-wrap {
+    margin: 0 auto;
+}
+
+#unca {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    z-index: 100;
+    /* position: fixed; */
+    width: 100%;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bulldog-blue);
+    height: var(--banner-one-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.unca-logo {
+    height: 70%;
+    width: auto;
+}
+
+/* .navbar {
+    padding: 0;
+}
+
+.has-header-image.home.blog .headroom--not-top .navbar, 
+.has-header-image.inspiro-front-page .headroom--not-top .navbar, 
+.has-header-video.home.blog .headroom--not-top .navbar, 
+.has-header-video.inspiro-front-page .headroom--not-top .navbar {
+    padding: 0;
+}
+
+.navbar {
+    height: 150px;
+} */
+
+#menu-main-menu-1 li:last-child {
+    border: solid 3px white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#menu-main-menu-1 li:last-child:hover {
+    background: #FFFFFF66;
+}
+
+.has-header-image .navbar, .has-header-video .navbar {
+    background-color: var(--night-sky);
+    background-image: none;
+}
+
+.header-inner.inner-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/***********************/
+/* Elementor Overrides */
+/***********************/
+.entry-content h2 {
+    font-weight: 400;
+}
+.entry-content h2,
+.entry-content h3,
+.entry-content h4 {
+    margin-bottom: 5px;
+}
+
+body.elementor-page .entry-content a, body.fl-builder .entry-content a, body.woocommerce-page .entry-content a {
+    text-decoration: underline;
+}
+
+body.elementor-page .entry-content a.elementor-toggle-title {
+    text-decoration: none;
+}
+
+body:not(.elementor-editor-active) .elementor-widget-menu-anchor {
+    position: relative;
+    z-index: -1;
+}
+body:not(.elementor-editor-active) .elementor-menu-anchor:before {
+    content: "";
+    display: block;
+    height: 160px; 
+    margin: -160px 0 0; 
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.entry-content li {
+    list-style-position: outside;
+}
+
+
+/**********/
+/* Footer */
+/**********/
+
+.nav-link {
+    margin-left: 30px;
+}
+
+.copyright {
+    color: white;
+}
+
+/**********/
+/* People */
+/**********/
+.people-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+    row-gap: 30px;
+}
+.people-card {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto 45px;
+    column-gap: 20px;
+    row-gap: 5px;
+    background-color: #F9F9F9;
+    padding: 15px;
+}
+
+.people-card .span-2 {
+    grid-column: 1 / span 2;
+}
+.people-card img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+.people-card .more-link {
+    margin: 0;
+}
+
+.people-card p {
+    line-height: 1.4em;
+    margin: 0 0 6px 0;
+}
+
+.people-card h2 {
+    font-weight: 400;
+    font-size: 1.4em;
+    color: var(--night-sky);
+    margin-bottom: 6px;
+}
+
+.people-card .title {
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    margin-left: 20px;
+}
+
+.meta {
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: 20px auto;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.people-card .meta {
+    line-height: 1.5em;
+    font-size: 0.95em;
+}
+
+.people-card .interests {
+    margin-top: 10px;
+}
+
+.person-header {
+    color: var(--night-sky);
+}
+
+.people-thumb {
+    border-radius: 50% !important;
+    margin: 0 auto;
+    height: 250px;
+    width: 250px;
+}
+
+/*****************/
+/* Programs Page */
+/*****************/
+.entry-content {
+    min-height: 70vh;
+}
+
+@media screen and (min-width: 48em) {
+    .page-layout-sidebar-right.has-sidebar.programs .entry-wrapper .entry-content {
+        width: 66%;
+    }
+    .page-layout-sidebar-right.has-sidebar.programs #secondary {
+        width: 33%;
+        padding: 0 5vw 0 0;
+    }
+
+    .page-layout-sidebar-right.has-sidebar.programs .header-inner.inner-wrap {
+        max-width: 1200px;
+    }
+
+    .page-layout-sidebar-right.has-sidebar.programs #content .inner-wrap {
+        max-width: 100%;
+    }
+
+    .page-layout-sidebar-right.has-sidebar:not(.archive) #primary, .page-layout-sidebar-right.has-sidebar:not(.error404) #primary, 
+    .page-layout-sidebar-right.has-sidebar.programs #primary {
+        float: none;
+        width: 100%;
+        padding-right: 0;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 800px) {
+    .page-layout-sidebar-right.has-sidebar.programs #secondary {
+        padding: 0 2vw 0 0;
+    }
+}
+
+.programs-submenu {
+    background: #F0F0F0;
+    padding: 30px;
+}
+
+.programs-submenu h2,
+.programs-submenu h3 {
+    color: var(--e-global-color-primary );
+    font-family: var(--e-global-typography-primary-font-family ), Sans-serif;
+    font-weight: 500;
+    font-size: 1.5em;
+}
+
+.programs-submenu h3 {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+/******
+ FAQs */
+.elementor-938 .elementor-element.elementor-element-93e8de3 .elementor-toggle-icon.elementor-toggle-icon-left {
+    line-height: 1.5em;
+}
+
+@media screen and (max-width: 1000px) {
+    .people-list {
+        grid-template-columns: 1fr;
+    }
+}

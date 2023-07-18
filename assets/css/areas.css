@@ -1,0 +1,43 @@
+.areas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 30px;
+    row-gap: 30px;
+}
+.areas section {
+    min-height: 270px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin: 5px;
+    transition: all 0.2s ease-in;
+}
+
+.areas section .overlay-box {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #00000077;
+    transition: all 0.2s ease-in;
+}
+
+.areas section h2 {
+    margin: 0;
+    color: white;
+    text-shadow: 1px 1px 1px #000;
+    font-weight: 700;
+    text-align: center;
+}
+
+.areas section:hover {
+    /* margin: 0px; */
+    transform: scale(1.05);
+}
+
+.areas section:hover .overlay-box {
+    background-color: #00000000;
+}
