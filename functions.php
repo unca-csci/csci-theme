@@ -185,3 +185,22 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+
+
+
+// Sidebar for Blog Post
+function post_sidebar() {
+
+	$args = array(
+		'id'            => 'sidebar-post',
+		'name'          => __( 'Post Sidebar (Right-Hand Side)', 'text_domain' ),
+		'description'   => __( 'Post Sidebar', 'text_domain' ),
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+	);
+	register_sidebar( $args );
+
+}
+add_action( 'widgets_init', 'post_sidebar' );

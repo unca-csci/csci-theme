@@ -44,9 +44,7 @@ window.CourseBrowser = class {
         console.log(this.peopleWordpress);
     }
 
-
-    getCourseId(course) {
-
+    _getCourse(course) {
         function matchScore(title, tokens) {
             const matches = tokens.filter(token => title.includes(token));
             return matches.length / tokens.length;
@@ -63,7 +61,23 @@ window.CourseBrowser = class {
         });
         console.log(results);
         if (results.length > 0) {
-            return results[0].id;
+            return results[0];
+        }
+        return null;
+    }
+
+    getCourseId(course) {
+        const courseWP = this._getCourse(course);
+        if (courseWP) {
+            return courseWP.id;
+        }
+        return null;
+    }
+
+    getCourseDescription(course) {
+        const courseWP = this._getCourse(course);
+        if (courseWP) {
+            return courseWP.description || courseWP.acf.description;
         }
         return null;
     }
@@ -165,6 +179,7 @@ window.CourseBrowser = class {
         const template = `
             <section class="course">
                 ${ this.getTitle(course) }
+                <!-- p> ${ this.getCourseDescription(course) }</p -->
                 <p>
                     ${closed ? '<i class="fa-solid fa-circle-xmark"></i> Closed' : '<i class="fa-solid fa-circle-check"></i> Open'} 
                     &bull; ${course.CRN}

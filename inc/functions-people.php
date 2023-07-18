@@ -69,7 +69,7 @@ function shortcode_people_card($atts) {
         '<p class="span-2">' .
             // '<a class="more-link" href="' . get_permalink($post) . '">More</a>' .
             // '<a class="more-link" href="/wp-json/wp/v2/people/' . $post->ID .
-            '<button class="more-link" onclick="showPerson(' . $post->ID . ')">More</button>' . 
+            '<button class="button dark" onclick="showPerson(' . $post->ID . ')">More</button>' . 
         '</p>';
     $html = $html . '</div>';
     return $html;

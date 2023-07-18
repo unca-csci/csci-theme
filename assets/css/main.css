@@ -58,18 +58,16 @@ header and navigation
     vertical-align: middle;
 }
 
-#site-navigation ul {
-    display: flex;
-    justify-content: flex-end;
-    column-gap: 15px;
-}
-
 /************* Two Column Layout **************/
 .entry-wrapper.two-column {
     display: grid;
     grid-template-columns: auto 350px;
     padding: 0 5vw;
     column-gap: 30px;
+}
+
+.entry-wrapper.two-column .entry-content {
+    width: 100%;
 }
 
 @media screen and (max-width: 1000px) {
@@ -121,6 +119,13 @@ header and navigation
     user-select: none;
     transition: color .2s ease,border-color .2s ease,background-color .2s ease;
 }
+.button.dark {
+    background-color: var(--night-sky);
+}
+
+.button.dark:hover {
+    opacity: 0.8;
+}
 
 .link {
     padding: 0;
@@ -168,30 +173,6 @@ header and navigation
 .unca-logo {
     height: 70%;
     width: auto;
-}
-
-/* .navbar {
-    padding: 0;
-}
-
-.has-header-image.home.blog .headroom--not-top .navbar, 
-.has-header-image.inspiro-front-page .headroom--not-top .navbar, 
-.has-header-video.home.blog .headroom--not-top .navbar, 
-.has-header-video.inspiro-front-page .headroom--not-top .navbar {
-    padding: 0;
-}
-
-.navbar {
-    height: 150px;
-} */
-
-#menu-main-menu-1 li:last-child {
-    border: solid 3px white;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-#menu-main-menu-1 li:last-child:hover {
-    background: #FFFFFF66;
 }
 
 .has-header-image .navbar, .has-header-video .navbar {
@@ -335,6 +316,14 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     width: 250px;
 }
 
+/******Single Blog Post ******/
+
+.entry-title {
+    margin-top: 50px;
+    color: var(--night-sky);
+    font-weight: 300;
+}
+
 /*****************/
 /* Programs Page */
 /*****************/
@@ -376,8 +365,8 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 .programs-submenu {
     background: #F0F0F0;
     padding: 30px;
-    position: sticky;
-    top: 150px;
+    /* position: sticky;
+    top: 150px; */
 }
 
 .programs-submenu h2,

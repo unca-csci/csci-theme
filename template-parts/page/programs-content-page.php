@@ -27,23 +27,6 @@
 	}
 	?>
 
-	<header class="entry-header">
-
-		<?php
-
-		if ( ( is_single() || is_page() ) && has_post_thumbnail( get_the_ID() ) ) {
-			echo '<div class="inner-wrap">';
-			the_title( '<h1 class="entry-title">', '</h1>' );
-			echo '</div><!-- .inner-wrap -->';
-		} else {
-			echo '<div class="inner-wrap">';
-			the_title( '<h1 class="entry-title">', '</h1>' );
-			echo '</div><!-- .inner-wrap -->';
-		}
-
-		?>
-
-	</header><!-- .entry-header -->
 
 	<?php
 	if ( ( is_single() || is_page() ) && has_post_thumbnail( get_the_ID() ) ) {
@@ -59,6 +42,7 @@
 
         <aside id="secondary" class="widget-area" role="complementary">
             <div class="programs-submenu">
+
                 <h2>Learning CS at UNCA</h2>
                 <h3>For Prospective Students</h3>
                 <ul>
