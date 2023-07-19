@@ -28,7 +28,9 @@ window.CourseBrowser = class {
 
     async fetchCourses () {
         const baseScheduleUrl = 'https://meteor.unca.edu/registrar/class-schedules/api/v1/courses/';
-        document.querySelector('#course-list').innerHTML = "Searching...";
+        document.querySelector('#course-list').innerHTML = `
+            <p style="margin-top: 20px;">Loading the university course catalog...</p>
+        `;
         const termUrl = document.querySelector('#term').value;
         const url = baseScheduleUrl + termUrl;
         return await fetch(url).then(response => response.json());

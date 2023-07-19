@@ -18,9 +18,9 @@ function shortcode_schedule_of_classes($atts) {
             <option value="2021/spring/">Spring 2021</option>
         </select>
         <div id="course-list">
-        
-            Loading...
-        
+            <p style="margin-top: 20px;">
+                Loading the university course catalog...
+            </p>        
         </div>
         <section class="" id="lightbox" onclick="hideLightbox(event)">
             <button id="close" class="close" onclick="hideLightbox(event)">
