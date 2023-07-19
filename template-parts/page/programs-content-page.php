@@ -42,38 +42,11 @@
 
         <aside id="secondary" class="widget-area" role="complementary">
             <div class="programs-submenu">
-
-                <h2>Learning CS at UNCA</h2>
-                <h3>For Prospective Students</h3>
-                <ul>
-                    <li>
-                        <a href="/cs-areas">What is Computer Science?</a>
-                    </li>
-                    <li>
-                        <a href="/our-programs">Majoring / Minoring in Computer Science</a>
-                    </li>
-                    <li>
-                        <a href="/our-programs/about-the-capstone">About the Capstone</a>
-                    </li>
-                    <li>
-                        <a href="/our-programs/faqs/">FAQs</a>
-                    </li>
-                </ul>
-                <h3>For Current Students</h3>
-                <ul>
-                    <li>
-                        <a href="/our-programs/schedule-of-classes">Schedule of Classes</a>
-                    </li>
-                    <li>
-                        <a href="/our-programs/course-offerings">Course Offerings</a>
-                    </li>
-                    <li>
-                        <a href="/our-programs/sample-plans">Sample Course Plans</a>
-                    </li>
-                    <li>
-                        <a href="/our-programs/student-projects">Student Projects</a>
-                    </li>
-                </ul>
+                <?php
+                if ( is_active_sidebar( 'sidebar-programs' ) ) {
+                    dynamic_sidebar( 'sidebar-programs' );
+                }
+                ?>
             </div>
         </aside>
 

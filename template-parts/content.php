@@ -66,7 +66,5 @@
                 ?>
         </aside>
     </div>
-	<footer class="entry-footer">
-		<?php unca_csci_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
+	
 </article><!-- #post-<?php the_ID(); ?> -->

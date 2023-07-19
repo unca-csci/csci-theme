@@ -203,4 +203,20 @@ function post_sidebar() {
 	register_sidebar( $args );
 
 }
+add_action( 'widgets_init', 'programs_sidebar' );
+
+function programs_sidebar() {
+
+	$args = array(
+		'id'            => 'sidebar-programs',
+		'name'          => __( 'CS Programs Sidebar (Right-Hand Side)', 'text_domain' ),
+		'description'   => __( 'CS Programs Sidebar', 'text_domain' ),
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+	);
+	register_sidebar( $args );
+
+}
 add_action( 'widgets_init', 'post_sidebar' );
