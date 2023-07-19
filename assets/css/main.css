@@ -78,28 +78,33 @@ header and navigation
 }
 
 /************** Footer ************************/
-.site-footer {
-    background-color: #003865;
+.footer-links {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 20px;
+    padding: 30px 0;
+    margin: 0;
 }
 
-.site-footer a,
-.site-footer a:link,
-.site-footer a:visited,
-.site-footer a:hover,
-.site-footer a:active {
-    color: white;
-    text-decoration: none;
+.footer-links a,
+.footer-links a:link,
+.footer-links a:visited,
+.footer-links a:active,
+.footer-links a:hover   {
+    color: white !important;
+    padding: 0;
+    margin: 0;
 }
-.site-footer a:hover {
+.footer-links a:hover {
     border-bottom: 1px solid rgba(255,255,255,.8);
     opacity: .8;
 }
 
-.copyright {
-    display: flex;
-    justify-content: space-between;
-    padding: 30px 5vw;
+footer p {
+    margin: 0;
 }
+
 
 .button, .button:active, .button:visited, .button:hover, .button:link {
     color: white;

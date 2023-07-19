@@ -201,9 +201,8 @@ function post_sidebar() {
 		'after_widget'  => '</aside>',
 	);
 	register_sidebar( $args );
-
 }
-add_action( 'widgets_init', 'programs_sidebar' );
+add_action( 'widgets_init', 'post_sidebar' );
 
 function programs_sidebar() {
 
@@ -217,6 +216,20 @@ function programs_sidebar() {
 		'after_widget'  => '</aside>',
 	);
 	register_sidebar( $args );
-
 }
-add_action( 'widgets_init', 'post_sidebar' );
+add_action( 'widgets_init', 'programs_sidebar' );
+
+function footer_sidebar() {
+
+	$args = array(
+		'id'            => 'sidebar-footer',
+		'name'          => __( 'Footer', 'text_domain' ),
+		'description'   => __( 'Footer', 'text_domain' ),
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+		'before_widget' => '<footer id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</footer>',
+	);
+	register_sidebar( $args );
+}
+add_action( 'widgets_init', 'footer_sidebar' );
