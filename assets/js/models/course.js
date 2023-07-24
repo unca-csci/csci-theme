@@ -1,8 +1,15 @@
 export default class Course {
     
     constructor(data) {
-        console.log(data);
-        this.code = data.title.rendered;
+        // console.log(data);
+        this.id = data.id;
+        this.course_catgory_id = this.getCourseCategoryId(data);
+        this.code = data.acf.csci_num;
+        try {
+            this.department = data.acf.csci_num.split(' ')[0];
+        } catch (e) {
+            this.department = '';
+        }
         this.name = data.acf.title;
         this.description = data.acf.description;
         this.prerequisites = null;
@@ -31,6 +38,18 @@ export default class Course {
         `;
         return html;
     }
+
+    getTemplateSimple() {
+        return `<li>${ this.code }. ${ this.name }</li>`;
+    }
+
+
+    getCourseCategoryId(data) {
+        if (data.acf.course_category) {
+            return data.acf.course_category.ID;
+        }
+        return null;
+    };
 
     getPrereqs() {
         if (!this.prerequisites) {

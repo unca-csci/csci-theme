@@ -105,6 +105,12 @@ footer p {
     margin: 0;
 }
 
+.entry-content p,
+.entry-content li
+ {
+    line-height: 1.7em;
+}
+
 
 .button, .button:active, .button:visited, .button:hover, .button:link {
     color: white;
@@ -398,4 +404,12 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     .people-list {
         grid-template-columns: 1fr;
     }
+}
+
+
+/** Hacks that I don't quite understand **/
+
+/* If you don't add this, the anchor links on "About the Major" don't work */
+.elementor-widget-wrap>.elementor-widget-menu-anchor {
+    width: auto !important;
 }

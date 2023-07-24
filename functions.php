@@ -14,6 +14,7 @@ require_once( __DIR__ . '/inc/functions-people.php');
 require_once( __DIR__ . '/inc/functions-cs-areas.php');
 require_once( __DIR__ . '/inc/functions-class-schedule.php');
 require_once( __DIR__ . '/inc/functions-courses.php');
+require_once( __DIR__ . '/inc/functions-course-navigator.php');
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.

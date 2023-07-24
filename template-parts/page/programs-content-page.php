@@ -14,7 +14,6 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
 	<?php
 	/*
 	 * If a regular page, and not the front page, show the featured image as header cover image.

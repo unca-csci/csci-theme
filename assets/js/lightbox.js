@@ -1,6 +1,6 @@
-import Person from './person.js';
-import Area from './cs-area.js';
-import Course from './course.js';
+import Person from './models/person.js';
+import Area from './models/cs-area.js';
+import Course from './models/course.js';
 
 window.showArea = async postID => {
     const response = await fetch(`/wp-json/wp/v2/cs-areas/${postID}?_embed=1`);

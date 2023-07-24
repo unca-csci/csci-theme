@@ -1,5 +1,8 @@
 <?php
 
+/************************/
+/* Show a Single Course */
+/************************/
 add_shortcode('course_card', 'shortcode_course_card');
 function shortcode_course_card($atts) {
     extract(shortcode_atts(array(
@@ -16,7 +19,7 @@ function shortcode_course_card($atts) {
 
     return '
         <section class="course" onclick="showCourse(' . $post->ID . ')">
-            <h3>' . get_the_title() . ': ' .  get_post_meta($post_id, 'title', true) . '</h3>' .
+            <h3>' . get_post_meta($post_id, 'csci_num', true) . ': ' .  get_post_meta($post_id, 'title', true) . '</h3>' .
             '<p>' . get_post_meta($post_id, 'description', true) . '</p>' .
             showPrerequisites($post_id) .
             showMajorMinorRequirements($post_id) .
@@ -24,6 +27,49 @@ function shortcode_course_card($atts) {
         '</section>';
 }
 
+/***************************/
+/* Show all of the courses */
+/***************************/
+add_shortcode('course_card_list', 'shortcode_course_card_list');
+function shortcode_course_card_list() {
+    $args = array(
+        'post_type' => 'course',
+        'posts_per_page' => '50',
+        'orderby'   => 'title',
+        'order' => 'ASC'
+    );
+
+    $post_query = new WP_Query($args);
+
+    $html_elements = array();
+    if($post_query->have_posts() ) {
+        while($post_query->have_posts() ) {
+            $post_query->the_post();
+            global $post;
+            array_push($html_elements, shortcode_course_card([$post->ID]));
+        }
+        wp_reset_postdata();
+    }
+
+    $script_ref = '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/lightbox.js"></script>';
+    $css_refs = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/lightbox.css">';
+    
+    return '<div>' . 
+        implode( '', $html_elements ) . 
+    '</div>' . 
+    '<section class="" id="lightbox" onclick="hideLightbox(event)">
+        <button id="close" class="close" onclick="hideLightbox(event)">
+            <i id="close-icon" class="fas fa-times"></i>
+        </button>
+        <div class="content"></div>
+    </section>' . "\r\n" . 
+    $css_refs . "\r\n" . 
+    $script_ref;
+}
+
+/********************/
+/* Helper Functions */
+/********************/
 function showPrerequisites($post_id) {
     $prereqs = get_post_meta($post_id, 'prerequisites', true);
     $html = '';
@@ -63,43 +109,6 @@ function showMajorMinorRequirements($post_id) {
         $html .= '</ul>';
     }
     return $html;
-}
-
-add_shortcode('course_card_list', 'shortcode_course_card_list');
-function shortcode_course_card_list() {
-    $args = array(
-        'post_type' => 'course',
-        'posts_per_page' => '50',
-        'orderby'   => 'title',
-        'order' => 'ASC'
-    );
-
-    $post_query = new WP_Query($args);
-
-    $html_elements = array();
-    if($post_query->have_posts() ) {
-        while($post_query->have_posts() ) {
-            $post_query->the_post();
-            global $post;
-            array_push($html_elements, shortcode_course_card([$post->ID]));
-        }
-        wp_reset_postdata();
-    }
-
-    $script_ref = '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/lightbox.js"></script>';
-    $css_refs = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/lightbox.css">';
-    
-    return '<div>' . 
-        implode( '', $html_elements ) . 
-    '</div>' . 
-    '<section class="" id="lightbox" onclick="hideLightbox(event)">
-        <button id="close" class="close" onclick="hideLightbox(event)">
-            <i id="close-icon" class="fas fa-times"></i>
-        </button>
-        <div class="content"></div>
-    </section>' . "\r\n" . 
-    $css_refs . "\r\n" . 
-    $script_ref;
 }
 
 ?>
