@@ -1,7 +1,7 @@
-export default class Area {
+export default class CSArea {
     
-    constructor(data) {
-        console.log(data);
+    constructor(data, availableCourses) {
+        this.id = data.id;
         this.name = data.title.rendered;
         this.overview = data.acf.overview || 'TBD';
         this.careers = data.acf.careers;
@@ -16,22 +16,38 @@ export default class Area {
             this.faculty = data.acf.associated_faculty.map(item => item.post_title)
         }
 
-        if (data.acf.course_offerings) {
-            this.courses = data.acf.course_offerings.map(item => item.post_title);
+        if (availableCourses) {
+            this.courses = availableCourses.filter(course => {
+                const area_ids = course.cs_areas.map(area => area.id);
+                return area_ids.includes(this.id);
+            });
         }
     }
 
-    getTemplate(data) {
-        console.log(data);
+    getListTemplate() {
+        let style = '';
+        if (this.featuredImageUrl) {
+            style = `background-image: url('${ this.featuredImageUrl }');`;
+        }
+        return `
+            <section class="hci" style="${style}">
+                <div class="overlay-box">
+                    <h2>${this.name}</h2>
+                </div>
+            </section>
+        `;
+    }
+
+    getTemplate() {
         let html = `
             <h2 class="person-header">${ this.name }</h2>
             ${ this.getFeaturedImage() }
             <h3>Overview</h3>
             ${ this.overview }
-            <h3>Careers</h3>
-            ${ this.careers }
             ${ this.showFaculty() }
             ${ this.showCourses() }
+            <h3>Careers</h3>
+            ${ this.careers }
         `;
         return html;
     }
@@ -53,7 +69,13 @@ export default class Area {
         }
         return `
             <h3>Course Offerings</h3>
-            <ul><li>${this.courses.join('</li><li>')}</li></ul>
+            <ul>
+                ${
+                    this.courses.map( course => {
+                        return `<li>${course.code}. ${course.name}</li>`
+                    }).join('\n')
+                }
+            </ul>
         `;
     }
     

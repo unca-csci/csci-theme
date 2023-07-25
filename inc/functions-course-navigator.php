@@ -8,9 +8,8 @@ function shortcode_course_navigator($atts) {
     '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/lightbox.css">';
     return 
         '
-        <h1>Course Navigator</h1>
         <div id="course-navigator">
-            List of courses goes here...       
+            <!-- populated via course-navigator.js -->      
         </div>
         <section class="" id="lightbox" onclick="hideLightbox(event)">
             <button id="close" class="close" onclick="hideLightbox(event)">

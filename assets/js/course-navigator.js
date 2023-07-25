@@ -18,7 +18,7 @@ window.CourseNavigator = class {
         const courseListWP = await response.json();
         return courseListWP
             .map(courseWP => new Course(courseWP))
-            .sort(CourseCategory.courseSortFunction);
+            .sort(Course.courseSortFunction);
     }
 
     async fetchWordpressCourseCategories () {

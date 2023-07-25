@@ -1,14 +1,5 @@
 export default class CourseCategory {
     /**/
-
-    static courseSortFunction (a, b) {
-        if (a.code < b.code) {
-            return -1;
-        } else if (a.code > b.code) {
-            return 1;
-        }
-        return 0;
-    }
     
     constructor(data, availableCourses) {
         // console.log(data);
