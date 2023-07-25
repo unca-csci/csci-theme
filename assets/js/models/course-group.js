@@ -18,13 +18,7 @@ export default class CourseGroup {
         );
         const ul = parent.lastElementChild.querySelector('ul');
         this.courses.forEach((course => {
-                ul.insertAdjacentHTML(
-                    'beforeend', course.getTemplateSimple()
-                );
-                ul.lastElementChild.addEventListener('click', (function () {
-                        window.showLightbox(course.getTemplate())
-                    }).bind(this));
-                
+                course.appendToHTMLElement(ul);
             }).bind(this)
         );
     }

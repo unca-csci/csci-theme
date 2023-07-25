@@ -68,6 +68,28 @@ export default class Course {
         </li>`;
     }
 
+    appendToHTMLElement (parent) {
+        if (!this.pick_one) {
+            parent.insertAdjacentHTML(
+                'beforeend', this.getTemplateSimple()
+            );
+            parent.lastElementChild.addEventListener('click', (function () {
+                window.showLightbox(this.getTemplate())
+            }).bind(this));
+        }
+        else {
+            parent.insertAdjacentHTML(
+                'beforeend', `<li>${this.name}. Pick One: <ul></ul></li>`
+            );
+            const ul = parent.lastElementChild.querySelector('ul');
+            this.pick_one.forEach((course => {
+                    course.appendToHTMLElement(ul);
+                }).bind(this)
+            );
+        }
+
+    }
+
     getCourseCategoryIds(data) {
         if (data.acf.course_categories && data.acf.course_categories.length > 0) {
             return data.acf.course_categories.map(cat => cat.ID);
@@ -91,13 +113,40 @@ export default class Course {
         if (!this.prerequisites) {
             return '<h3>Prerequisites</h3><p>None</p>';
         }
+        // if (!this.pick_one) {
+        //     parent.insertAdjacentHTML(
+        //         'beforeend', this.getTemplateSimple()
+        //     );
+        //     parent.lastElementChild.addEventListener('click', (function () {
+        //         window.showLightbox(this.getTemplate())
+        //     }).bind(this));
+        // }
+        // else {
+        //     parent.insertAdjacentHTML(
+        //         'beforeend', `<li>${this.name}. Pick One: <ul></ul></li>`
+        //     );
+        //     const ul = parent.lastElementChild.querySelector('ul');
+        //     this.pick_one.forEach((course => {
+        //             course.appendToHTMLElement(ul);
+        //         }).bind(this)
+        //     );
+        // }
         return `
             <h3>Prerequisites</h3>
             <ul>
             ${
                 this.prerequisites
                     .map(prereq => {
-                        return `<li>${ prereq.code }. ${ prereq.name }</li>`
+                        // handles the situation where there's an either / or:
+                        if (!prereq.pick_one) {
+                            return `<li>${ prereq.code }. ${ prereq.name }</li>`
+                        } else {
+                            return `<li>${prereq.name}. Pick One: <ul>${
+                                prereq.pick_one.map(course => {
+                                    return `<li>${ course.code }. ${ course.name }</li>`
+                                }).join('\n')
+                            }</ul></li>`
+                        }
                     })
                     .join('\n')
             }
