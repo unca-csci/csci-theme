@@ -10,8 +10,9 @@ export default class Course {
     }
     
     constructor(data) {
+        // console.log(data);
         this.id = data.id;
-        this.course_category_id = this.getCourseCategoryId(data);
+        this.course_category_ids = this.getCourseCategoryIds(data);
         this.cs_areas = this.getCSAreas(data);
         this.code = data.acf.csci_num;
         try {
@@ -21,16 +22,31 @@ export default class Course {
         }
         this.name = data.acf.title;
         this.description = data.acf.description;
+        this.prerequisites_ids = null;
         this.prerequisites = null;
+        this.pick_one_ids = null;
+        this.pick_one = null;
         this.requirements = null;
         if (data.acf.prerequisites) {
-            this.prerequisites = data.acf.prerequisites.map(item => item.post_title);
+            this.prerequisites_ids = data.acf.prerequisites.map(item => item.ID);
+        }
+        if (data.acf.pick_one) {
+            this.pick_one_ids = data.acf.pick_one.map(item => item.ID);
         }
         
         if (data.acf.major_minor_requirements && data.acf.major_minor_requirements.length > 0) {
             this.requirements = data.acf.major_minor_requirements;
         }
 
+    }
+
+    loadRelationships(availableCourses) {
+        if (this.prerequisites_ids) {
+            this.prerequisites = availableCourses.filter(course => this.prerequisites_ids.includes(course.id));
+        }
+        if (this.pick_one_ids) {
+            this.pick_one = availableCourses.filter(course => this.pick_one_ids.includes(course.id));
+        }
     }
 
     getTemplate() {
@@ -46,18 +62,17 @@ export default class Course {
 
     getTemplateSimple() {
         return `<li>
-            <a href="#" onclick="showCourse(${this.id})">
+            <a href="#">
                 ${ this.code }. ${ this.name }
             </a>
         </li>`;
     }
 
-
-    getCourseCategoryId(data) {
-        if (data.acf.course_category) {
-            return data.acf.course_category.ID;
+    getCourseCategoryIds(data) {
+        if (data.acf.course_categories && data.acf.course_categories.length > 0) {
+            return data.acf.course_categories.map(cat => cat.ID);
         }
-        return null;
+        return [];
     };
 
     getCSAreas(data) {
@@ -78,7 +93,15 @@ export default class Course {
         }
         return `
             <h3>Prerequisites</h3>
-            <ul><li>${this.prerequisites.join('</li><li>')}</li></ul>
+            <ul>
+            ${
+                this.prerequisites
+                    .map(prereq => {
+                        return `<li>${ prereq.code }. ${ prereq.name }</li>`
+                    })
+                    .join('\n')
+            }
+            </ul>
         `;
     }
 
@@ -88,7 +111,7 @@ export default class Course {
         }
         return '<div><h3>CS Areas</h3>' + 
             this.cs_areas.map(item => {
-                return `<span class="tag">${ item }</span>`;
+                return `<span class="tag">${ item.title }</span>`;
             }).join('') + 
         '</div>';
     }
