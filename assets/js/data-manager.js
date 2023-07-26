@@ -12,7 +12,7 @@ export default class DataManager {
     }
 
     async fetchWordpressCourseGroups () {
-        const url = '/wp-json/wp/v2/course-groupings?course-groupings';
+        const url = '/wp-json/wp/v2/course-groupings?per_page=100';
         const response = await fetch(url);
         return await response.json();
     }
@@ -36,16 +36,18 @@ export default class DataManager {
         
         // set up data structure:
         const courses = wpCourses
-            .map(courseWP => new Course(courseWP))
-            .sort(Course.courseSortFunction);
+            .map(courseWP => new Course(courseWP));
 
         // set up course dependency map
         courses.forEach(course => course.loadRelationships(courses));
+
+        courses.sort(Course.courseSortFunction);
         return courses;
     }
 
     async getGroups (availableCourses) {
         const wpGroups = await this.fetchWordpressCourseGroups();
+        console.log(wpGroups);
         return wpGroups.map(wpGroup => new CourseGroup(wpGroup, availableCourses));
     }
 

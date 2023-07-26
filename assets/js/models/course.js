@@ -1,9 +1,19 @@
 export default class Course {
 
     static courseSortFunction (a, b) {
-        if (a.code < b.code) {
+        // list "Pick One" courses before others
+        let code1 = a.code;
+        let code2 = b.code;
+        if (a.pick_one != null) {
+            code1 = a.pick_one[0].code;
+        }
+        if (b.pick_one != null) {
+            code2 = b.pick_one[0].code;
+        }
+        
+        if (code1 < code2) {
             return -1;
-        } else if (a.code > b.code) {
+        } else if (code1 > code2) {
             return 1;
         }
         return 0;
@@ -22,6 +32,8 @@ export default class Course {
         }
         this.name = data.acf.title;
         this.description = data.acf.description;
+        this.offered = data.acf.offered || '';
+        this.credits = data.acf.credits || 3;
         this.prerequisites_ids = null;
         this.prerequisites = null;
         this.pick_one_ids = null;
@@ -60,7 +72,7 @@ export default class Course {
         return html;
     }
 
-    getTemplateSimple() {
+    getTemplateListItem() {
         return `<li>
             <a href="#">
                 ${ this.code }. ${ this.name }
@@ -68,10 +80,43 @@ export default class Course {
         </li>`;
     }
 
+    getTemplateTableRow() {
+        if (!this.pick_one) {
+            return `<tr>
+                <td>
+                    <a href="#">${ this.code }</a>
+                </td>
+                <td>${ this.name }</td>
+                <td>${ this.offered }</td>
+                <td>${ this.credits }</td>
+            </tr>`;
+        } else {
+            return `<tr>
+                <td>${ this.name }</td>
+                <td></td>
+                <td>${ this.offered }</td>
+                <td>${ this.credits }</td>
+            </tr>`;
+        }
+    }
+
+    getTemplateCard() {
+        return `<div class="card">
+            <a href="#"><h3>${ this.code }</h3></a>
+            <p>${ this.name }</p>
+        </div>`;
+    }
+
+    getTemplateCardPickOne() {
+        return `<div class="card">
+            <h3>${ this.name }</h3>
+        </div>`;
+    }
+
     appendToHTMLElement (parent) {
         if (!this.pick_one) {
             parent.insertAdjacentHTML(
-                'beforeend', this.getTemplateSimple()
+                'beforeend', this.getTemplateListItem()
             );
             parent.lastElementChild.addEventListener('click', (function () {
                 window.showLightbox(this.getTemplate())
@@ -79,7 +124,7 @@ export default class Course {
         }
         else {
             parent.insertAdjacentHTML(
-                'beforeend', `<li>${this.name}. Pick One: <ul></ul></li>`
+                'beforeend', `<li>${this.name}Pick One: <ul></ul></li>`
             );
             const ul = parent.lastElementChild.querySelector('ul');
             this.pick_one.forEach((course => {
@@ -87,7 +132,77 @@ export default class Course {
                 }).bind(this)
             );
         }
+    }
 
+    appendToHTMLElementTable (parent) {
+        
+        parent.insertAdjacentHTML(
+            'beforeend', this.getTemplateTableRow()
+        );
+        const tr = parent.lastElementChild;
+        const a = tr.querySelector('a');
+        if (!this.pick_one) {
+            a.addEventListener('click', (function () {
+                window.showLightbox(this.getTemplate())
+            }).bind(this));
+        } else {
+            const cell2 = tr.querySelectorAll('td')[1];
+            this.showPickOneCourseOptions(cell2);
+        }
+    }
+
+    appendToHTMLElementCard (parent) {
+        if (!this.pick_one) {
+            parent.insertAdjacentHTML(
+                'beforeend', this.getTemplateCard()
+            );
+            const card = parent.lastElementChild;
+            const a = card.querySelector('a');
+            a.addEventListener('click', (function () {
+                window.showLightbox(this.getTemplate())
+            }).bind(this));
+        } else {
+            parent.insertAdjacentHTML(
+                'beforeend', this.getTemplateCardPickOne()
+            );
+            const card = parent.lastElementChild;
+            this.showPickOneCourseOptionsInline(card);
+        }
+    }
+
+    showPickOneCourseOptions(parent) {
+        parent.insertAdjacentHTML(
+            'beforeend', '. Pick One:<ul></ul>'
+        );
+        const ul = parent.lastElementChild;
+        this.pick_one.forEach((course => {
+            ul.insertAdjacentHTML(
+                'beforeend', course.getTemplateListItem()
+            );
+
+            const a = ul.lastElementChild.querySelector('a');
+            a.addEventListener('click', (function () {
+                window.showLightbox(course.getTemplate())
+            }).bind(course));
+
+        }).bind(this));
+    }
+
+    showPickOneCourseOptionsInline(parent) {
+        parent.insertAdjacentHTML(
+            'beforeend', 'Pick One:<br>'
+        );
+        this.pick_one.forEach((course => {
+            parent.insertAdjacentHTML(
+                'beforeend', `<a href="#">${course.code}</a> `
+            );
+
+            const a = parent.lastElementChild;
+            a.addEventListener('click', (function () {
+                window.showLightbox(course.getTemplate())
+            }).bind(course));
+
+        }).bind(this));
     }
 
     getCourseCategoryIds(data) {
@@ -113,24 +228,6 @@ export default class Course {
         if (!this.prerequisites) {
             return '<h3>Prerequisites</h3><p>None</p>';
         }
-        // if (!this.pick_one) {
-        //     parent.insertAdjacentHTML(
-        //         'beforeend', this.getTemplateSimple()
-        //     );
-        //     parent.lastElementChild.addEventListener('click', (function () {
-        //         window.showLightbox(this.getTemplate())
-        //     }).bind(this));
-        // }
-        // else {
-        //     parent.insertAdjacentHTML(
-        //         'beforeend', `<li>${this.name}. Pick One: <ul></ul></li>`
-        //     );
-        //     const ul = parent.lastElementChild.querySelector('ul');
-        //     this.pick_one.forEach((course => {
-        //             course.appendToHTMLElement(ul);
-        //         }).bind(this)
-        //     );
-        // }
         return `
             <h3>Prerequisites</h3>
             <ul>
