@@ -6,27 +6,6 @@
  */
 
 /**
- * Adds custom classes to the array of body classes.
- *
- * @param array $classes Classes for the body element.
- * @return array
- */
-function unca_csci_body_classes( $classes ) {
-	// Adds a class of hfeed to non-singular pages.
-	if ( ! is_singular() ) {
-		$classes[] = 'hfeed';
-	}
-
-	// Adds a class of no-sidebar when there is no sidebar present.
-	if ( ! is_active_sidebar( 'sidebar-1' ) ) {
-		$classes[] = 'no-sidebar';
-	}
-
-	return $classes;
-}
-add_filter( 'body_class', 'unca_csci_body_classes' );
-
-/**
  * Add a pingback url auto-discovery header for single posts, pages, or attachments.
  */
 function unca_csci_pingback_header() {
@@ -35,3 +14,22 @@ function unca_csci_pingback_header() {
 	}
 }
 add_action( 'wp_head', 'unca_csci_pingback_header' );
+
+
+function include_lightbox() {
+    $script_ref = '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/lightbox.js"></script>';
+    $css_ref = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/lightbox.css">';
+    return 
+        '
+        <section class="" id="lightbox" onclick="hideLightbox(event)">
+            <button id="close" class="close" onclick="hideLightbox(event)">
+                <i id="close-icon" class="fas fa-times"></i>
+            </button>
+            <div class="content"></div>
+        </section>
+        ' . 
+        "\r\n" .
+        $css_ref . 
+        "\r\n" . 
+        $script_ref; 
+}

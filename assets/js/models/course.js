@@ -219,10 +219,16 @@ export default class Course {
 
     showPickOneCourseOptionsInline(parent) {
         parent.insertAdjacentHTML(
-            'beforeend', 'Pick One:<br>'
+            'beforeend', 'Pick One:<div></div>'
         );
-        this.pick_one.forEach((course => {
-            parent.insertAdjacentHTML(
+        const container = parent.lastElementChild;
+        this.pick_one.forEach(((course, idx) => {
+            if (idx > 0) {
+                container.insertAdjacentHTML(
+                    'beforeend', ` &bull; `
+                );
+            }
+            container.insertAdjacentHTML(
                 'beforeend', `<a href="#">${course.code}</a> `
             );
 

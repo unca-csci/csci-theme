@@ -3,6 +3,7 @@ import Course from './models/course.js';
 import CourseGroup from './models/course-group.js';
 import CSArea from './models/cs-area.js';
 import Degree from './models/degree.js';
+import Person from './models/person.js';
 
 export default class DataManager {
 
@@ -26,7 +27,7 @@ export default class DataManager {
     }
 
     async fetchWordpressPeople () {
-        const url = '/wp-json/wp/v2/people?per_page=100';
+        const url = '/wp-json/wp/v2/people?per_page=100&_embed';
         const response = await fetch(url);
         return await response.json();
     }
@@ -75,7 +76,24 @@ export default class DataManager {
         return degreesWP.map(degreeWP => new Degree(degreeWP, availableGroups));
     }
 
-    async initializeData () {
+    async initializeDegreesCoursesData () {
+        this.courses = await this.getCourses();
+        this.groups = await this.getGroups(this.courses);
+        this.degrees = await this.getDegrees(this.groups);
+        this.courses.forEach(course => course.setRequirements(this.degrees));
+    }
+
+    async initializeCSAreas () {
+        this.courses = await this.getCourses();
+        this.csAreas = await this.getCSAreas(this.courses);
+    }
+
+    async initializePeople () {
+        const people = await this.fetchWordpressPeople();
+        this.people = people.map(person => new Person(person));
+    }
+
+    async initializeAllData () {
         this.courses = await this.getCourses();
         this.groups = await this.getGroups(this.courses);
         this.csAreas = await this.getCSAreas(this.courses);

@@ -1,21 +1,35 @@
 export default class CourseGroup {
     /**/
+
+    static getTemplateTable() {
+        return `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Title</th>
+                        <th>Offered</th>
+                        <th>Credits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- courses go here -->
+                </tbody>
+            </table>
+        `;
+    }
     
     constructor(data, availableCourses) {
-        // console.log(data);
+        console.log(data);
         this.id = data.id;
         this.name = data.acf.name || data.title.rendered;
         this.description = data.acf.description;
-        this.categories = data.acf.association || [];
-        this.categories = this.categories.map(assoc => assoc.split(":")[0]);
-        
-        this.isAll = this.categories.includes('all');
-        this.isInfo = this.categories.includes('info');
-        this.isSys = this.categories.includes('sys');
-        this.isMinor = this.categories.includes('minor');
-        if (availableCourses) {
+        this.courses = [];
+
+        if (availableCourses && data.acf.courses) {
+            const course_ids = data.acf.courses.map(course => course.ID);
             this.courses = availableCourses.filter(course => {
-                return course.course_category_ids.includes(this.id);
+                return course_ids.includes(course.id);
             });
         }
     }
@@ -69,20 +83,7 @@ export default class CourseGroup {
 
     appendTable(parent) {
         parent.insertAdjacentHTML(
-            'beforeend', `
-            <table>
-                <thead>
-                    <tr>
-                        <th>Course</th>
-                        <th>Title</th>
-                        <th>Offered</th>
-                        <th>Credits</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- courses go here -->
-                </tbody>
-            </table>`
+            'beforeend', CourseGroup.getTemplateTable()
         );
     }
 

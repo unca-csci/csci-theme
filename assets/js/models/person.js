@@ -3,6 +3,7 @@ export default class Person {
     constructor(data) {
         // this.data = data;
         // console.log(data);
+        this.id = data.id;
         this.name = data.title.rendered;
         this.title = data.acf.title;
         this.bio = data.acf.bio ? data.acf.bio.replaceAll("\n", "<br>") : null;
@@ -29,6 +30,23 @@ export default class Person {
             ${this.interests ? `<h3>Research & Professional Interests</h3>${this.interests}` : "" }
             ${this.website ? `<h3>Website</h3><a href="${this.website}" target="_blank">${this.website}</a>` : "" }
         `;
+    }
+
+    getCardTemplate() {
+        return `
+            <div class="people-card">
+                <div>
+                    <h2>${this.name}</h2>
+                    <p class="title">${this.title}</p>
+                    ${ this.getContactInfo() }
+                </div>
+                
+                ${ this.getFeaturedImage() }
+                <p class="span-2 interests">${this.interests}</p>
+                <p class="span-2">
+                    <button class="button dark" onclick="showPerson(${this.id})">More</button>
+                </p>
+            </div>`;
     }
 
     getFeaturedImage() {

@@ -11,24 +11,26 @@ export default class Degree {
         this.isInfo = this.name.toLowerCase().indexOf("information systems") != -1;
         this.isSys = this.name.toLowerCase().indexOf("computer systems") != -1;
         this.isMinor = this.name.toLowerCase().indexOf("minor") != -1;
+        
+        // need a list of groups  to set the groups and courses member variables:
         if (availableGroups) {
             const ids = data.acf.course_groups.map(g => g.ID);
-            this.groups = availableGroups.filter(g => {
-                return ids.includes(g.id);
-            })
-        }
-
-        if (this.groups) {
+            const getGroupById = id => {
+                return availableGroups.filter(g => {
+                    return g.id == id;
+                })[0];
+            }
+            this.groups = ids.map(id => getGroupById(id));
             this.courses = this.groups
                 .map(group => group.courses)
                 .reduce((a, b) => a.concat(b));
-            console.log(this.courses, this.isInfo, this.isSys, this.isMinor);
         }
+
     }
 
-    appendToHTMLElement (parent, displayMode) {
+    appendToHTMLElement (parent, displayMode, isStandalone=false) {
         parent.insertAdjacentHTML(
-            'beforeend', this.getTemplate()
+            'beforeend', this.getTemplate(isStandalone)
         );
         const groupContainer = parent.lastElementChild;
 
@@ -39,10 +41,9 @@ export default class Degree {
         }
     }
 
-
-    getTemplate() {
+    getTemplate(includeHeader=false) {
         let html = `
-            <!-- h1>${ this.name }</h1 -->
+            ${ includeHeader ? `<h1>${ this.name }</h1>` : ''}
             ${ this.description }
             <div class="groups">
                 <!-- groups go here -->

@@ -140,6 +140,14 @@ a:hover .material-symbols-rounded,
     text-decoration: underline !important;
 }
 
+.card div a,
+.card div a:link,
+.card div a:visited,
+.card div a:active {
+    text-decoration: underline !important;
+}
+
+
 .group h2 {
     margin-top: 0px;
     margin-bottom: 0px;

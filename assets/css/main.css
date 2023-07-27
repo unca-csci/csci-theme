@@ -8,6 +8,26 @@ body {
 header and navigation
 */
 
+.sidebar-programs ul {
+    padding-left: 10px;
+}
+
+.sidebar-programs ul ul {
+    padding-left: 20px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.sidebar-programs ul ul li {
+    font-size: 0.9em;
+}
+
+.h1 {
+    font-weight: 400;
+    color: var(--night-sky);
+}
+
+
 .admin-bar #masthead{
     top: 32px;
 }

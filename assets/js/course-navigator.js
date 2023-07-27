@@ -1,7 +1,8 @@
 import DataManager from './data-manager.js';
+import CourseGroup from './models/course-group.js';
 
 
-class CourseNavigator {
+export default class CourseNavigator {
 
     constructor() {
         this.display = 'card-view';
@@ -9,6 +10,7 @@ class CourseNavigator {
     }
 
     toggleDisplay (e) {
+        e.preventDefault();
         document.querySelectorAll('.buttons a').forEach(elem => {
             elem.classList.toggle('selected');
         });
@@ -16,18 +18,32 @@ class CourseNavigator {
         this.displayData();
     }
 
-    async fetchAndDisplay () {
-        await this.dm.initializeData();
-        this.initInterface();
+    async fetchAndDisplayNavigator () {
+        await this.dm.initializeDegreesCoursesData();
+        this.initNavigatorInterface();
+    }
+    
+    async fetchAndDisplayInfoMajor () {
+        await this.dm.initializeDegreesCoursesData();
+        this.displayInfoMajor();
     }
 
-    initInterface() {
+    initNavigatorInterface() {
         const parent = document.querySelector('#course-navigator');
         parent.innerHTML = '';
         this.appendSelectMenu(parent);
         this.appendToolbar(parent);
         parent.insertAdjacentHTML('beforeend', `<div id="results"></div>`);
         this.displayData();
+    }
+
+    displayInfoMajor() {
+        const parent = document.querySelector('#course-navigator');
+        parent.innerHTML = '';
+        this.appendToolbar(parent);
+        parent.insertAdjacentHTML('beforeend', `<div id="results"></div>`);
+        const degree = this.dm.degrees.filter(degree => degree.isInfo)[0];
+        this.displayCourseGroups(degree);
     }
 
     appendSelectMenu(parent) {
@@ -82,62 +98,39 @@ class CourseNavigator {
     }
 
     displayAllCSCICourses() {
+        // get all of the CSCI courses that aren't course groupings:
         const courses = this.dm.courses.filter(course => {
             return course.department === 'CSCI' && !course.pick_one;
         })
+
+        // display them:
         const parent = document.querySelector('#results');
-        parent.innerHTML = '';
         if (this.display === 'card-view') {
-            this.displayAllCSCICoursesCards(courses, parent);
+            parent.innerHTML = `<div class="cards"></div>`;
+            const container = parent.lastElementChild;
+            this.displayAllCSCICoursesCards(courses, container);
         } else {
-            this.displayAllCSCICoursesTable(courses, parent);
+            parent.innerHTML = `<div class="group"></div>`;
+            const container = parent.lastElementChild;
+            this.displayAllCSCICoursesTable(courses, container);
         }
     }
 
     displayAllCSCICoursesTable(courses, parent) {
-        
         parent.insertAdjacentHTML(
-            'beforeend', this.getTemplateTable()
+            'beforeend', CourseGroup.getTemplateTable()
         );
         const tbody = parent.lastElementChild.querySelector('tbody');
-        
-        console.log(courses);
+
         courses.forEach((course => {
             course.appendToHTMLElementTable(tbody);
         }).bind(this));
     }
 
     displayAllCSCICoursesCards(courses, parent) {
-        parent.insertAdjacentHTML(
-            'beforeend', `<div class="cards"></div>`
-        );
-        const cardsElement = parent.lastElementChild;
         courses.forEach((course => {
-            course.appendToHTMLElementCard(cardsElement);
+            course.appendToHTMLElementCard(parent);
         }).bind(this));
     }
 
-    getTemplateTable() {
-        let html = `
-            <section class="group">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Course</th>
-                            <th>Title</th>
-                            <th>Offered</th>
-                            <th>Credits</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- courses go here -->
-                    </tbody>
-                </table>
-            </section>
-        `;
-        return html;
-    }
 }
-
-const courseNavigator = new CourseNavigator();
-courseNavigator.fetchAndDisplay();

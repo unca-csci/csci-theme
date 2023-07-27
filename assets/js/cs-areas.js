@@ -5,7 +5,7 @@ class CSAreas {
     async fetchAndDisplay () {
         
         this.dm = new DataManager();
-        await this.dm.initializeData();
+        await this.dm.initializeCSAreas();
 
         this.displayCSAreas();
     }
