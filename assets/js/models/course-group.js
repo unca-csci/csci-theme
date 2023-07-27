@@ -4,7 +4,7 @@ export default class CourseGroup {
     constructor(data, availableCourses) {
         // console.log(data);
         this.id = data.id;
-        this.name = data.title.rendered;
+        this.name = data.acf.name || data.title.rendered;
         this.description = data.acf.description;
         this.categories = data.acf.association || [];
         this.categories = this.categories.map(assoc => assoc.split(":")[0]);
@@ -20,32 +20,22 @@ export default class CourseGroup {
         }
     }
 
-    appendToHTMLElement1 (parent) {
-        parent.insertAdjacentHTML(
-            'beforeend', this.getTemplate()
-        );
-        const ul = parent.lastElementChild.querySelector('ul');
-        this.courses.forEach((course => {
-                course.appendToHTMLElement(ul);
-            }).bind(this)
-        );
-    }
+    appendToHTMLElement(parent, idx, displayMode) {
+        if (displayMode === 'card-view') {
+            this.appendToHTMLElementCards(parent, idx);
+        } else {
+            this.appendToHTMLElementTable(parent, idx);
+        }
+    } 
 
     appendToHTMLElementTable (parent, idx) {
-        if (this.courses.length === 0) {
-            parent.insertAdjacentHTML(
-                'beforeend', `
-                <section class="group">
-                    <h2>${ idx }. ${ this.name }</h2>
-                    ${ this.description }
-                </section>
-                `
-            );
-        } else {
-            parent.insertAdjacentHTML(
-                'beforeend', this.getTemplateTable(idx)
-            );
-            const tbody = parent.lastElementChild.querySelector('tbody');
+        parent.insertAdjacentHTML(
+            'beforeend', this.getTemplate(idx)
+        );
+        if (this.courses.length > 0) {
+            const section = parent.lastElementChild;
+            this.appendTable(section);
+            const tbody = section.lastElementChild.querySelector('tbody');
             this.courses.forEach((course => {
                     course.appendToHTMLElementTable(tbody);
                 }).bind(this)
@@ -55,56 +45,54 @@ export default class CourseGroup {
 
     appendToHTMLElementCards (parent, idx) {
         parent.insertAdjacentHTML(
-            'beforeend', `
-            <section class="group">
-                <h2>${ idx }. ${ this.name }</h2>
-                ${ this.description }
-                <div class="cards"></div>
-            </section>
-            `
+            'beforeend', this.getTemplate(idx)
         );
-        const cards = parent.lastElementChild.querySelector('.cards');
-        this.courses.forEach((course => {
+        if (this.courses.length > 0) {
+            const section = parent.lastElementChild;
+            this.appendCardContainer(section);
+            const cards = section.lastElementChild;
+            this.courses.forEach((course => {
                 course.appendToHTMLElementCard(cards);
-            }).bind(this)
+            }).bind(this));
+        }
+    }
+
+
+    getTemplate(idx) {
+        return `
+        <section class="group">
+            <h2>${ idx }. ${ this.name }</h2>
+            ${ this.description }
+        </section>
+        `;
+    }
+
+    appendTable(parent) {
+        parent.insertAdjacentHTML(
+            'beforeend', `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Title</th>
+                        <th>Offered</th>
+                        <th>Credits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- courses go here -->
+                </tbody>
+            </table>`
         );
     }
 
-
-    getTemplate() {
-        let html = `
-            <section class="group">
-                <h2>${ this.name }</h2>
-                ${ this.description }
-                <ul>
-                    <!-- courses go here -->
-                </ul>
-            </section>
-        `;
-        return html;
-    }
-
-    getTemplateTable(idx) {
-        let html = `
-            <section class="group">
-                <h2>${ idx }. ${ this.name }</h2>
-                ${ this.description }
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Course</th>
-                            <th>Title</th>
-                            <th>Offered</th>
-                            <th>Credits</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- courses go here -->
-                    </tbody>
-                </table>
-            </section>
-        `;
-        return html;
+    appendCardContainer(parent) {
+        parent.insertAdjacentHTML(
+            'beforeend', `
+            <div class="cards">
+                <!-- courses go here -->
+            </div>`
+        );
     }
     
 }

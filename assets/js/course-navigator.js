@@ -5,6 +5,7 @@ class CourseNavigator {
 
     constructor() {
         this.display = 'card-view';
+        this.dm = new DataManager();
     }
 
     toggleDisplay (e) {
@@ -16,7 +17,6 @@ class CourseNavigator {
     }
 
     async fetchAndDisplay () {
-        this.dm = new DataManager();
         await this.dm.initializeData();
         this.initInterface();
     }
@@ -24,13 +24,30 @@ class CourseNavigator {
     initInterface() {
         const parent = document.querySelector('#course-navigator');
         parent.innerHTML = '';
+        this.appendSelectMenu(parent);
+        this.appendToolbar(parent);
+        parent.insertAdjacentHTML('beforeend', `<div id="results"></div>`);
+        this.displayData();
+    }
+
+    appendSelectMenu(parent) {
+        const degrees = this.dm.degrees;
+        const options = degrees.map(degree => {
+            return `
+                <option value="${degree.id}">${degree.name}</option>
+            `;
+        })
         parent.insertAdjacentHTML('beforeend', `
             <select id="term">
                 <option value="isAll">All CSCI Courses</option>
-                <option value="isInfo">CSCI Information Systems Major</option>
-                <option value="isSys">CSCI Computer Systems Major</option>
-                <option value="isMinor">CSCI Minor</option>
-            </select>
+                ${options.join('\n')}
+            </select>`
+        );
+        document.querySelector('#term').addEventListener('change', this.displayData.bind(this));
+    }
+
+    appendToolbar(parent) {
+        parent.insertAdjacentHTML('beforeend', `
             <div class="toolbar">
                 <div class="buttons">
                     <a href="#" id="card-view" class="selected">
@@ -43,11 +60,8 @@ class CourseNavigator {
                         </span></a>
                 </div>
             </div>`);
-        document.querySelector('#term').addEventListener('change', this.displayData.bind(this));
         document.querySelector('#card-view').addEventListener('click', this.toggleDisplay.bind(this));
-        document.querySelector('#table-view').addEventListener('click', this.toggleDisplay.bind(this));
-        parent.insertAdjacentHTML('beforeend', `<div id="results"></div>`);
-        this.displayData();
+        document.querySelector('#table-view').addEventListener('click', this.toggleDisplay.bind(this));   
     }
 
     displayData () {
@@ -55,35 +69,18 @@ class CourseNavigator {
         if (selection === 'isAll') {
             this.displayAllCSCICourses(selection);
         } else {
-            this.displayCourseGroups(selection);
+            const degree = this.dm.degrees.filter(degree => degree.id == selection)[0];
+            console.log(degree);
+            this.displayCourseGroups(degree);
         }
     }
 
-    displayCourseGroups (selection) {
-        if (this.display === 'card-view') {
-            this.displayCourseGroupsCards(selection);
-        } else {
-            this.displayCourseGroupsTable(selection);
-        }
-    }
-
-    displayCourseGroupsTable (selection) {
+    displayCourseGroups (degree) {
         const parent = document.querySelector('#results');
         parent.innerHTML = '';
-        const selectedGroups = this.dm.groups.filter(group => group[selection]);
-        selectedGroups.forEach((group, idx) => {
-            group.appendToHTMLElementTable(parent, idx+1);
-        });
+        degree.appendToHTMLElement(parent, this.display);
     }
 
-    displayCourseGroupsCards (selection) {
-        const parent = document.querySelector('#results');
-        parent.innerHTML = '';
-        const selectedGroups = this.dm.groups.filter(group => group[selection]);
-        selectedGroups.forEach((group, idx) => {
-            group.appendToHTMLElementCards(parent, idx+1);
-        });
-    }
     displayAllCSCICourses() {
         const courses = this.dm.courses.filter(course => {
             return course.department === 'CSCI' && !course.pick_one;
@@ -106,9 +103,8 @@ class CourseNavigator {
         
         console.log(courses);
         courses.forEach((course => {
-                course.appendToHTMLElementTable(tbody);
-            }).bind(this)
-        );
+            course.appendToHTMLElementTable(tbody);
+        }).bind(this));
     }
 
     displayAllCSCICoursesCards(courses, parent) {
@@ -118,8 +114,7 @@ class CourseNavigator {
         const cardsElement = parent.lastElementChild;
         courses.forEach((course => {
             course.appendToHTMLElementCard(cardsElement);
-        }).bind(this)
-    );
+        }).bind(this));
     }
 
     getTemplateTable() {

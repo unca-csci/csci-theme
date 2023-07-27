@@ -38,7 +38,7 @@ export default class Course {
         this.prerequisites = null;
         this.pick_one_ids = null;
         this.pick_one = null;
-        this.requirements = null;
+        this.requirements = [];
         if (data.acf.prerequisites) {
             this.prerequisites_ids = data.acf.prerequisites.map(item => item.ID);
         }
@@ -53,9 +53,33 @@ export default class Course {
     }
 
     loadRelationships(availableCourses) {
+        // this._setPrereqs(availableCourses);
+        this.prerequisites = this. _getPrereqs(availableCourses);
+        this._setPickOneCourses(availableCourses);
+    }
+
+    _getPrereqs(availableCourses) {
+        // returns a unique, sorted list of prerequisites:
         if (this.prerequisites_ids) {
-            this.prerequisites = availableCourses.filter(course => this.prerequisites_ids.includes(course.id));
+            let prereqs = this._getPrereqsRecursive([], availableCourses);
+            return [...new Set(prereqs)].sort(Course.courseSortFunction);
         }
+        return null;
+    }
+
+    _getPrereqsRecursive(prereqs, availableCourses) {
+        if (this.prerequisites_ids) {
+            const newPrereqs = availableCourses.filter(course => this.prerequisites_ids.includes(course.id));
+            prereqs = prereqs.concat(newPrereqs);
+            console.log(prereqs);
+            for (const newPrereq of newPrereqs) {
+                return newPrereq._getPrereqsRecursive(prereqs, availableCourses)
+            }
+        }
+        return prereqs;
+    }
+
+    _setPickOneCourses(availableCourses) {
         if (this.pick_one_ids) {
             this.pick_one = availableCourses.filter(course => this.pick_one_ids.includes(course.id));
         }
@@ -65,6 +89,10 @@ export default class Course {
         let html = `
             <h2 class="person-header">${ this.code }: ${ this.name }</h2>
             <p>${ this.description }</p>
+            <ul>
+                <li>${this.credits} Credit Hours</li>
+                ${this.offered ? `<li>Offered ${this.offered}</li>` : ''}
+            </ul>
             ${ this.getPrereqs() }
             ${ this.getRequirements() }
             ${ this.getAreas() }
@@ -73,10 +101,11 @@ export default class Course {
     }
 
     getTemplateListItem() {
+        const tokens = this.name.split(": ");
+        const name = tokens.length > 1 ? tokens[1] : this.name;
         return `<li>
-            <a href="#">
-                ${ this.code }. ${ this.name }
-            </a>
+            ${ this.code }. 
+            <a href="#">${ name }</a>
         </li>`;
     }
 
@@ -84,9 +113,9 @@ export default class Course {
         if (!this.pick_one) {
             return `<tr>
                 <td>
-                    <a href="#">${ this.code }</a>
+                    ${ this.code }
                 </td>
-                <td>${ this.name }</td>
+                <td><a href="#">${ this.name }</a></td>
                 <td>${ this.offered }</td>
                 <td>${ this.credits }</td>
             </tr>`;
@@ -103,7 +132,7 @@ export default class Course {
     getTemplateCard() {
         return `<div class="card">
             <a href="#"><h3>${ this.code }</h3></a>
-            <p>${ this.name }</p>
+            <p>${ this.name }<br>(${ this.credits } Credits)</p>
         </div>`;
     }
 
@@ -263,13 +292,24 @@ export default class Course {
     }
 
     getRequirements() {
-        if (!this.requirements) {
+        if (this.requirements.length === 0) {
             return '';
         }
         return `
             <h3>Required for:</h3>
             <ul><li>${this.requirements.join('</li><li>')}</li></ul>
         `;
+    }
+
+    setRequirements(degrees) {
+        // look through all of the degree objects to see if the current course 
+        // is listed. If it is, add it to the requirements array:
+        degrees.forEach((degree => {
+            const courseIds = degree.courses.map(course => course.id);
+            if (courseIds.includes(this.id)) {
+                this.requirements.push(degree.name);
+            }
+        }).bind(this));
     }
     
 }

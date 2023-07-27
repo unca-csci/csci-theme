@@ -80,19 +80,19 @@ a:hover .material-symbols-rounded,
 
 .group table {
     border-collapse: collapse;
-    border-top: solid 1px var(--banner-bg-color);
-    border-bottom: solid 1px var(--banner-bg-color);
+    border-top: solid 1px #DDD;
+    border-bottom: solid 1px #DDD;
     margin-bottom: 70px;
 }
 
 .group th {
-    border-bottom: solid 1px var(--banner-bg-color);
+    border-bottom: solid 1px #DDD;
     background-color: #f9f9f9;
     padding: 8px;
 }
 
 .group td {
-    border-bottom: solid 1px #CCC;
+    border-bottom: solid 1px #DDD;
     padding: 8px;
 }
 
@@ -117,7 +117,7 @@ a:hover .material-symbols-rounded,
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
     row-gap: 20px;
     margin-bottom: 70px;
