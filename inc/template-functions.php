@@ -33,3 +33,10 @@ function include_lightbox() {
         "\r\n" . 
         $script_ref; 
 }
+
+add_shortcode('linkify', 'shortcode_linkify');
+function shortcode_linkify() {
+    return '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/linkify.js"></script>' .
+    "\r\n" .
+    include_lightbox();
+}

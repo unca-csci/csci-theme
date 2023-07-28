@@ -71,7 +71,7 @@ export default class Course {
         if (this.prerequisites_ids) {
             const newPrereqs = availableCourses.filter(course => this.prerequisites_ids.includes(course.id));
             prereqs = prereqs.concat(newPrereqs);
-            console.log(prereqs);
+            // console.log(prereqs);
             for (const newPrereq of newPrereqs) {
                 return newPrereq._getPrereqsRecursive(prereqs, availableCourses)
             }
@@ -111,12 +111,18 @@ export default class Course {
 
     getTemplateTableRow() {
         if (!this.pick_one) {
+            let prereqs = this.prerequisites ? this.prerequisites.length : 0;
+            if (prereqs === 0) { prereqs = '--'; }
+            // if (prereqs === 0) { prereqs = 'None'; }
+            // else if (prereqs === 1) { prereqs = prereqs + ' Course'; }
+            // else { prereqs = prereqs + ' Courses'; }
             return `<tr>
                 <td>
                     ${ this.code }
                 </td>
                 <td><a href="#">${ this.name }</a></td>
                 <td>${ this.offered }</td>
+                <td>${ prereqs }</td>
                 <td>${ this.credits }</td>
             </tr>`;
         } else {
@@ -124,6 +130,7 @@ export default class Course {
                 <td>${ this.name }</td>
                 <td></td>
                 <td>${ this.offered }</td>
+                <td></td>
                 <td>${ this.credits }</td>
             </tr>`;
         }

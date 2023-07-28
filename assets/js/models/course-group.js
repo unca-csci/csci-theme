@@ -9,7 +9,8 @@ export default class CourseGroup {
                         <th>Course</th>
                         <th>Title</th>
                         <th>Offered</th>
-                        <th>Credits</th>
+                        <th># of Prereqs</th>
+                        <th>Credit Hours</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,7 +21,7 @@ export default class CourseGroup {
     }
     
     constructor(data, availableCourses) {
-        console.log(data);
+        // console.log(data);
         this.id = data.id;
         this.name = data.acf.name || data.title.rendered;
         this.description = data.acf.description;

@@ -98,20 +98,22 @@ a:hover .material-symbols-rounded,
 
 .group td:first-child,
 .group th:first-child {
-    width: 150px;
+    width: 100px;
     /* text-align: center; */
 }
 
 .group td:nth-child(3),
 .group th:nth-child(3) {
-    width: 140px;
+    width: 170px;
     /* text-align: center; */
 }
 
 .group td:last-child,
-.group th:last-child {
+.group th:last-child,
+.group td:nth-child(4),
+.group th:nth-child(4) {
     width: 80px;
-    /* text-align: center; */
+    text-align: center;
 }
 
 
@@ -215,4 +217,23 @@ a:hover .material-symbols-rounded,
 
 .course strong {
     font-weight: 600;
+}
+
+@media screen and (max-width: 1250px) {
+    #term {
+        float: none;
+        margin-top: 0px;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
 }
