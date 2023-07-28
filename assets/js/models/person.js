@@ -44,7 +44,7 @@ export default class Person {
                 ${ this.getFeaturedImage() }
                 <p class="span-2 interests">${this.interests}</p>
                 <p class="span-2">
-                    <button class="button dark" onclick="showPerson(${this.id})">More</button>
+                    <button class="button dark">More</button>
                 </p>
             </div>`;
     }

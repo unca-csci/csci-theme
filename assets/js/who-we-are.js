@@ -14,15 +14,18 @@ export default class WhoWeAre {
         const parent = document.querySelector('.people-list');
         this.dm.people.forEach((function(person) {
 
-            // 1. display each CS Area:
+            // 1. Display each CS Area:
             parent.insertAdjacentHTML(
                 'beforeend', person.getCardTemplate()
             )
 
-            // // 2. Add click event handler:
-            // parent.lastElementChild.addEventListener('click', (function () {
-            //     window.showLightbox(area.getTemplate())
-            // }).bind(this));
+            // 2. Add event handler:
+            const btn = parent.lastElementChild.querySelector('button');
+
+            btn.addEventListener('click', (function () {
+                window.showLightbox(person.getTemplate())
+            }).bind(this));
+
         }).bind(this));
     }
 
