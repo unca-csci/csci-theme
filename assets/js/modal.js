@@ -2,10 +2,11 @@
 class Modal {
 
     constructor (parent) {
-        parent.insertAdjacentHTML(
-            'beforeend', this.getTemplate()
-        )
-        this.modalElement = parent.lastElementChild
+        this.modalElement = document.querySelector('#modal');
+        if (!this.modalElement) {
+            document.body.insertAdjacentHTML('beforeend', this.getTemplate());
+            this.modalElement = document.lastElementChild;
+        }
         const closeBtn = this.modalElement.querySelector('.close');
         closeBtn.addEventListener('click', this.closeModal.bind(this));
         this.handleModalFocusAccessibility();
@@ -13,17 +14,32 @@ class Modal {
 
     getTemplate() {
         return `
-        <div class="modal-bg hidden" aria-hidden="true" role="dialog">
+        <div id="modal" class="modal-bg hidden" aria-hidden="true" role="dialog">
             <section class="modal">
                 <button class="close" aria-label="Close the modal window" onclick="closeModal(event);">Close</button>
-                <div class="modal-body">
+                <div class="modal-body"></div>
+            </section>
         </div>`;
     }
 
-    openModal(ev) {
+    getModalElement() {
+        let el = document.querySelector('#modal');
+        if (!el) {
+            document.insertAdjacentHTML('beforeend', getTemplate());
+            el = document.lastElementChild;
+        }
+        return el;
+    }
+
+    openModal(html) {
+        if (window.event) {
+            console.log('prevent default!');
+            window.event.preventDefault();
+        }
         console.log('open!');
         this.modalElement.classList.remove('hidden');
         this.modalElement.setAttribute('aria-hidden', 'false');
+        this.modalElement.querySelector('modal-body').innerHTML = html;
         this.document.querySelector('.close').focus();
     }
 

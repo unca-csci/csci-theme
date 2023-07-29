@@ -17,21 +17,10 @@ add_action( 'wp_head', 'unca_csci_pingback_header' );
 
 
 function include_lightbox() {
-    $script_ref = '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/lightbox.js"></script>';
-    $css_ref = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/lightbox.css">';
-    return 
-        '
-        <section class="" id="lightbox" onclick="hideLightbox(event)">
-            <button id="close" class="close" onclick="hideLightbox(event)">
-                <i id="close-icon" class="fas fa-times"></i>
-            </button>
-            <div class="content"></div>
-        </section>
-        ' . 
-        "\r\n" .
-        $css_ref . 
-        "\r\n" . 
-        $script_ref; 
+    return '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/lightbox.js"></script>' .
+    "\r\n" .
+    '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/lightbox.css">';
+    "\r\n";
 }
 
 add_shortcode('linkify', 'shortcode_linkify');

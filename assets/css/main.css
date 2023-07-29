@@ -8,6 +8,12 @@ body {
 header and navigation
 */
 
+a:focus, a h2:focus, a h3:focus, div:focus {
+    outline: 1px solid var(--evening-blue); /*gold !important;*/
+    outline-style: auto !important;
+}
+
+
 .sidebar-programs ul {
     padding-left: 10px;
 }

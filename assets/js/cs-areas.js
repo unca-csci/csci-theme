@@ -12,7 +12,7 @@ class CSAreas {
 
     displayCSAreas() {
         const parent = document.querySelector('#cs-areas');
-        this.dm.csAreas.forEach((function(area) {
+        this.dm.csAreas.forEach((function(area, idx) {
 
             // 1. display each CS Area:
             parent.insertAdjacentHTML(
@@ -20,9 +20,14 @@ class CSAreas {
             )
 
             // 2. Add click event handler:
-            parent.lastElementChild.addEventListener('click', (function () {
+            const el = parent.lastElementChild;
+            el.addEventListener('click', (function () {
                 window.showLightbox(area.getTemplate())
             }).bind(this));
+            el.addEventListener('keypress', (function () {
+                window.showLightbox(area.getTemplate())
+            }).bind(this));
+            el.setAttribute('tabindex', idx);
         }).bind(this));
     }
 

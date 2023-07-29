@@ -90,7 +90,7 @@ export default class Course {
             <h2 class="person-header">${ this.code }: ${ this.name }</h2>
             <p>${ this.description }</p>
             <ul>
-                <li>${this.credits} Credit Hours</li>
+                <li>${this.credits} Credit Hour(s)</li>
                 ${this.offered ? `<li>Offered ${this.offered}</li>` : ''}
             </ul>
             ${ this.getPrereqs() }
