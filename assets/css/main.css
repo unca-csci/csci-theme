@@ -404,6 +404,11 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     padding: 30px;
     /* position: sticky;
     top: 150px; */
+    margin-bottom: 50px;
+}
+
+.programs-submenu:first-child {
+    padding-top: 60px;
 }
 
 .programs-submenu h2,
@@ -418,6 +423,14 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     margin-top: 0;
     font-weight: 700;
     font-size: 1.2em;
+}
+
+.programs-submenu.featured-image figure {
+    margin: 30px 0 0 0;
+}
+.programs-submenu.featured-image figcaption {
+    text-align: center;
+    font-size: 0.9em;
 }
 
 /******
@@ -438,4 +451,71 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 /* If you don't add this, the anchor links on "About the Major" don't work */
 .elementor-widget-wrap>.elementor-widget-menu-anchor {
     width: auto !important;
+}
+
+
+
+
+/********************/
+/* For News Sidebar */
+/********************/
+.wpr-grid-image-wrap img {
+    display: block;
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+/* For Post Detail Page (hide images) */
+.news .wpr-grid-image-wrap {
+    display: none;
+}
+
+.news .wpr-grid-item-below-content {
+    padding: 0px 0px 10px 0px !important;
+}
+
+.h2-sidebar {
+    font-weight: 700 !important;
+    color: var(--evening-blue) !important;
+}
+
+/*****************/
+/* For News Post */
+/*****************/
+.header {
+    height: 300px;
+    overflow: hidden;
+}
+
+.header-image {
+    display: block;
+    border-style: none;
+    object-fit: cover;
+    object-position: center;
+    height: 100%;
+    width: 100%;
+}
+
+.news-header {
+    color: var(--night-sky);
+    position: absolute;
+    margin-top: 220px;
+    margin-left: 5vh;
+    color: #fff;
+    text-shadow: 2px 2px 7px black;
+}
+
+.breadcrumbs h1 a,
+.breadcrumbs h1 a:link,
+.breadcrumbs h1 a:active,
+.breadcrumbs h1 a:visited {
+    text-decoration: none !important;
+}
+.breadcrumbs h1 a:hover {
+    text-decoration: underline !important;
+}
+.breadcrumbs h1 i {
+    font-size: 20px;
+    margin: 0 10px;
 }

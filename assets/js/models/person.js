@@ -4,6 +4,7 @@ export default class Person {
         // this.data = data;
         // console.log(data);
         this.id = data.id;
+        this.dataType = 'person';
         this.name = data.title.rendered;
         this.title = data.acf.title;
         this.bio = data.acf.bio ? data.acf.bio.replaceAll("\n", "<br>") : null;

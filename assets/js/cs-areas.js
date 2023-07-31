@@ -14,6 +14,15 @@ class CSAreas {
         const parent = document.querySelector('#cs-areas');
         this.dm.csAreas.forEach((function(area, idx) {
 
+            function showLightbox(e) {
+                // for accessibility:
+                if (e && e.currentTarget.tagName === 'SECTION') {
+                    e.currentTarget.querySelector('a').click();
+                } else {
+                    window.showLightbox(area.getTemplate());
+                }
+            }
+
             // 1. display each CS Area:
             parent.insertAdjacentHTML(
                 'beforeend', area.getListTemplate()
@@ -21,15 +30,14 @@ class CSAreas {
 
             // 2. Add click event handler:
             const el = parent.lastElementChild;
-            el.addEventListener('click', (function () {
-                window.showLightbox(area.getTemplate())
-            }).bind(this));
-            el.addEventListener('keypress', (function () {
-                window.showLightbox(area.getTemplate())
-            }).bind(this));
-            el.setAttribute('tabindex', idx);
+
+            // multiple event handlers for accessibility:
+            el.addEventListener('click', showLightbox.bind(this));
+            el.querySelector('a').addEventListener('click', showLightbox.bind(this));
+
         }).bind(this));
     }
+    
 
 }
 

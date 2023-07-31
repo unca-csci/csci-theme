@@ -4,13 +4,12 @@ export default class Course {
         // list "Pick One" courses before others
         let code1 = a.code;
         let code2 = b.code;
-        if (a.pick_one != null) {
-            code1 = a.pick_one[0].code;
+        if (a.courses != null) {
+            code1 = a.courses[0].code;
         }
-        if (b.pick_one != null) {
-            code2 = b.pick_one[0].code;
+        if (b.courses != null) {
+            code2 = b.courses[0].code;
         }
-        
         if (code1 < code2) {
             return -1;
         } else if (code1 > code2) {
@@ -20,8 +19,8 @@ export default class Course {
     }
     
     constructor(data) {
-        // console.log(data);
         this.id = data.id;
+        this.dataType = 'course';
         this.course_category_ids = this.getCourseCategoryIds(data);
         this.cs_areas = this.getCSAreas(data);
         this.code = data.acf.csci_num;
@@ -36,53 +35,38 @@ export default class Course {
         this.credits = data.acf.credits || 3;
         this.prerequisites_ids = null;
         this.prerequisites = null;
-        this.pick_one_ids = null;
-        this.pick_one = null;
+
         this.requirements = [];
         if (data.acf.prerequisites) {
             this.prerequisites_ids = data.acf.prerequisites.map(item => item.ID);
         }
-        if (data.acf.pick_one) {
-            this.pick_one_ids = data.acf.pick_one.map(item => item.ID);
-        }
-        
-        if (data.acf.major_minor_requirements && data.acf.major_minor_requirements.length > 0) {
-            this.requirements = data.acf.major_minor_requirements;
-        }
 
     }
 
-    loadRelationships(availableCourses) {
-        // this._setPrereqs(availableCourses);
-        this.prerequisites = this. _getPrereqs(availableCourses);
-        this._setPickOneCourses(availableCourses);
+    loadPrerequisites(availableCourses, availableGroups) {
+        this.prerequisites = this._getPrereqs(availableCourses, availableGroups);
     }
 
-    _getPrereqs(availableCourses) {
+    _getPrereqs(availableCourses, availableGroups) {
         // returns a unique, sorted list of prerequisites:
         if (this.prerequisites_ids) {
-            let prereqs = this._getPrereqsRecursive([], availableCourses);
+            let prereqs = this._getPrereqsRecursive([], availableCourses, availableGroups);
             return [...new Set(prereqs)].sort(Course.courseSortFunction);
         }
         return null;
     }
 
-    _getPrereqsRecursive(prereqs, availableCourses) {
+    _getPrereqsRecursive(prereqs, availableCourses, availableGroups) {
         if (this.prerequisites_ids) {
             const newPrereqs = availableCourses.filter(course => this.prerequisites_ids.includes(course.id));
+            const newPrereqGroups = availableGroups.filter(group => this.prerequisites_ids.includes(group.id));
             prereqs = prereqs.concat(newPrereqs);
-            // console.log(prereqs);
+            prereqs = prereqs.concat(newPrereqGroups);
             for (const newPrereq of newPrereqs) {
-                return newPrereq._getPrereqsRecursive(prereqs, availableCourses)
+                return newPrereq._getPrereqsRecursive(prereqs, availableCourses, availableGroups)
             }
         }
         return prereqs;
-    }
-
-    _setPickOneCourses(availableCourses) {
-        if (this.pick_one_ids) {
-            this.pick_one = availableCourses.filter(course => this.pick_one_ids.includes(course.id));
-        }
     }
 
     getTemplate() {
@@ -113,9 +97,6 @@ export default class Course {
         if (!this.pick_one) {
             let prereqs = this.prerequisites ? this.prerequisites.length : 0;
             if (prereqs === 0) { prereqs = '--'; }
-            // if (prereqs === 0) { prereqs = 'None'; }
-            // else if (prereqs === 1) { prereqs = prereqs + ' Course'; }
-            // else { prereqs = prereqs + ' Courses'; }
             return `<tr>
                 <td>
                     ${ this.code }
@@ -143,31 +124,13 @@ export default class Course {
         </div>`;
     }
 
-    getTemplateCardPickOne() {
-        return `<div class="card">
-            <h3>${ this.name }</h3>
-        </div>`;
-    }
-
     appendToHTMLElement (parent) {
-        if (!this.pick_one) {
-            parent.insertAdjacentHTML(
-                'beforeend', this.getTemplateListItem()
-            );
-            parent.lastElementChild.addEventListener('click', (function () {
-                window.showLightbox(this.getTemplate())
-            }).bind(this));
-        }
-        else {
-            parent.insertAdjacentHTML(
-                'beforeend', `<li>${this.name}Pick One: <ul></ul></li>`
-            );
-            const ul = parent.lastElementChild.querySelector('ul');
-            this.pick_one.forEach((course => {
-                    course.appendToHTMLElement(ul);
-                }).bind(this)
-            );
-        }
+        parent.insertAdjacentHTML(
+            'beforeend', this.getTemplateListItem()
+        );
+        parent.lastElementChild.addEventListener('click', (function () {
+            window.showLightbox(this.getTemplate())
+        }).bind(this));
     }
 
     appendToHTMLElementTable (parent) {
@@ -177,73 +140,19 @@ export default class Course {
         );
         const tr = parent.lastElementChild;
         const a = tr.querySelector('a');
-        if (!this.pick_one) {
-            a.addEventListener('click', (function () {
-                window.showLightbox(this.getTemplate())
-            }).bind(this));
-        } else {
-            const cell2 = tr.querySelectorAll('td')[1];
-            this.showPickOneCourseOptions(cell2);
-        }
-    }
-
-    appendToHTMLElementCard (parent) {
-        if (!this.pick_one) {
-            parent.insertAdjacentHTML(
-                'beforeend', this.getTemplateCard()
-            );
-            const card = parent.lastElementChild;
-            const a = card.querySelector('a');
-            a.addEventListener('click', (function () {
-                window.showLightbox(this.getTemplate())
-            }).bind(this));
-        } else {
-            parent.insertAdjacentHTML(
-                'beforeend', this.getTemplateCardPickOne()
-            );
-            const card = parent.lastElementChild;
-            this.showPickOneCourseOptionsInline(card);
-        }
-    }
-
-    showPickOneCourseOptions(parent) {
-        parent.insertAdjacentHTML(
-            'beforeend', '. Pick One:<ul></ul>'
-        );
-        const ul = parent.lastElementChild;
-        this.pick_one.forEach((course => {
-            ul.insertAdjacentHTML(
-                'beforeend', course.getTemplateListItem()
-            );
-
-            const a = ul.lastElementChild.querySelector('a');
-            a.addEventListener('click', (function () {
-                window.showLightbox(course.getTemplate())
-            }).bind(course));
-
+        a.addEventListener('click', (function () {
+            window.showLightbox(this.getTemplate())
         }).bind(this));
     }
 
-    showPickOneCourseOptionsInline(parent) {
+    appendToHTMLElementCard (parent) {
         parent.insertAdjacentHTML(
-            'beforeend', 'Pick One:<div></div>'
+            'beforeend', this.getTemplateCard()
         );
-        const container = parent.lastElementChild;
-        this.pick_one.forEach(((course, idx) => {
-            if (idx > 0) {
-                container.insertAdjacentHTML(
-                    'beforeend', ` &bull; `
-                );
-            }
-            container.insertAdjacentHTML(
-                'beforeend', `<a href="#">${course.code}</a> `
-            );
-
-            const a = parent.lastElementChild;
-            a.addEventListener('click', (function () {
-                window.showLightbox(course.getTemplate())
-            }).bind(course));
-
+        const card = parent.lastElementChild;
+        const a = card.querySelector('a');
+        a.addEventListener('click', (function () {
+            window.showLightbox(this.getTemplate())
         }).bind(this));
     }
 
@@ -277,11 +186,11 @@ export default class Course {
                 this.prerequisites
                     .map(prereq => {
                         // handles the situation where there's an either / or:
-                        if (!prereq.pick_one) {
+                        if (prereq.dataType == 'course') {
                             return `<li>${ prereq.code }. ${ prereq.name }</li>`
                         } else {
-                            return `<li>${prereq.name}. Pick One: <ul>${
-                                prereq.pick_one.map(course => {
+                            return `<li>${prereq.code}. ${prereq.name} Pick One: <ul>${
+                                prereq.courses.map(course => {
                                     return `<li>${ course.code }. ${ course.name }</li>`
                                 }).join('\n')
                             }</ul></li>`

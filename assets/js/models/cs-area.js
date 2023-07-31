@@ -2,6 +2,7 @@ export default class CSArea {
     
     constructor(data, availableCourses) {
         this.id = data.id;
+        this.dataType = 'cs-area';
         this.name = data.title.rendered;
         this.overview = data.acf.overview || 'TBD';
         this.careers = data.acf.careers;
@@ -32,7 +33,7 @@ export default class CSArea {
         return `
             <section class="hci" style="${style}">
                 <div class="overlay-box">
-                    <h2>${this.name}</h2>
+                    <a href="#"><h2>${this.name}</h2></a>
                 </div>
             </section>
         `;

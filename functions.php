@@ -188,6 +188,21 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 
 
 
+/* 7/31/2023
+   Caution: Made the default sort order by title.
+   May not be advisable for everything!
+*/
+function change_posts_order( $query ) {
+    $query->set( 'orderby', 'title' );
+    $query->set( 'order', 'ASC' );
+}
+if (is_admin()) {
+    add_action( 'pre_get_posts', 'change_posts_order');
+}
+
+
+
+
 // Sidebar for Blog Post
 function post_sidebar() {
 

@@ -31,6 +31,11 @@
     text-shadow: 1px 1px 1px #000;
     font-weight: 700;
     text-align: center;
+    padding: 2px 5px;
+}
+
+a h2:focus {
+    outline: 1px dotted white !important;
 }
 
 .areas section:hover {

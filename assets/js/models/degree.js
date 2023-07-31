@@ -4,6 +4,7 @@ export default class Degree {
     constructor(data, availableGroups) {
         console.log(data);
         this.id = data.id;
+        this.dataType = 'degree';
         this.name = data.title.rendered;
         this.description = data.acf.description;
         this.groups = [];
