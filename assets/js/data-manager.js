@@ -5,6 +5,8 @@ import CourseGroup from './models/course-group.js';
 import CSArea from './models/cs-area.js';
 import Degree from './models/degree.js';
 import Person from './models/person.js';
+import Student from './models/student.js';
+import Project from './models/project.js';
 
 export default class DataManager {
 
@@ -13,6 +15,8 @@ export default class DataManager {
         this.groups = [];
         this.csAreas = [];
         this.degrees = [];
+        this.students = [];
+        this.projects = [];
     }
 
     async fetchWordpressCourses () {
@@ -35,6 +39,18 @@ export default class DataManager {
 
     async fetchWordpressPeople () {
         const url = '/wp-json/wp/v2/people?per_page=100&_embed';
+        const response = await fetch(url);
+        return await response.json();
+    }
+
+    async fetchWordpressStudents () {
+        const url = '/wp-json/wp/v2/students?per_page=100&_embed';
+        const response = await fetch(url);
+        return await response.json();
+    }
+
+    async fetchWordpressProjects () {
+        const url = '/wp-json/wp/v2/student-projects?per_page=100&_embed';
         const response = await fetch(url);
         return await response.json();
     }
@@ -82,7 +98,17 @@ export default class DataManager {
 
     async getPeople() {
         const people = await this.fetchWordpressPeople();
-        return people.map(person => new Person(person));
+        return people.map(person => new Person(person)).sort(Person.sortFunction);
+    }
+
+    async getStudents() {
+        const students = await this.fetchWordpressStudents();
+        return students.map(student => new Student(student));
+    }
+
+    async getProjects() {
+        const projects = await this.fetchWordpressProjects();
+        return projects.map(project => new Project(project, this.students, this.people));
     }
 
     async getCSAreas (availableCourses) {
@@ -128,6 +154,12 @@ export default class DataManager {
 
     async initializePeople () {
         this.people = await this.getPeople();
+    }
+
+    async initializeStudentProjects () {
+        this.students = await this.getStudents();
+        this.people = await this.getPeople();
+        this.projects = await this.getProjects();
     }
 
     async initializeAllData () {

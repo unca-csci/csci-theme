@@ -1,12 +1,23 @@
 export default class Person {
-    
+    static sortFunction (a, b) {
+        if (a.ordering < b.ordering) {
+            return -1;
+        } else if (a.ordering > b.ordering) {
+            return 1;
+        }
+        return 0;
+    }
     constructor(data) {
-        // this.data = data;
-        // console.log(data);
+
+        const tokens = data.title.rendered.split(', ');
         this.id = data.id;
         this.dataType = 'person';
-        this.name = data.title.rendered;
+        this.name = tokens[0];
+        this.degree = tokens.length > 1 ? tokens[tokens.length -1] : '';
+        this.firstName = this.name.split(' ')[0];
+        this.lastName = this.name.replace(this.firstName, '').trim();
         this.title = data.acf.title;
+        this.ordering = data.acf.ordering;
         this.bio = data.acf.bio ? data.acf.bio.replaceAll("\n", "<br>") : null;
         this.education = data.acf.education;
         this.interests = data.acf.interests;
@@ -22,7 +33,7 @@ export default class Person {
 
     getTemplate() {
         return `
-            <h2 class="person-header">${this.name}</h2>
+            <h2 class="person-header">${this.name}${this.degree ? `, ${ this.degree }` : ''}</h2>
             ${ this.getFeaturedImage() }
             <h3>${this.title}</h3>
             ${ this.getContactInfo() }
@@ -37,7 +48,7 @@ export default class Person {
         return `
             <div class="people-card">
                 <div>
-                    <h2>${this.name}</h2>
+                    <h2>${this.name}${this.degree ? `, ${ this.degree }` : ''}</h2>
                     <p class="title">${this.title}</p>
                     ${ this.getContactInfo() }
                 </div>

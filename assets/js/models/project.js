@@ -1,51 +1,13 @@
-export default class UncaClass {
-    constructor(data, availableCourses, availablePeople) {
-        this.code = data.Code;
-        this.dataType = 'unca-class';
-        this.title = data.Title;
-        this.department = data.Department;
-        this.spaceLeft = Math.max(data.EnrollmentMax - data.EnrollmentCurrent, 0);
-        this.isClosed = this.spaceLeft === 0 ? true : false;
-        this.numOnWaitlist = data.WaitlistMax - data.WaitlistAvailable;
-        this.startTime = new Date(data.StartTime).toLocaleTimeString([], {timeStyle: 'short'});
-        this.endTime = new Date(data.EndTime).toLocaleTimeString([], {timeStyle: 'short'});
-        this.meets = data.Days ? data.Days : "";
-        this.location = data.Location.FullLocation;
-        this.crn = data.CRN;
-        this.creditHours = data.Hours;
-        this.instructorNames = data.Instructors.map(instructor => instructor.Name);
-        this.instructorName = this.instructorNames.length > 0 ? this.instructorNames[0] : 'TBD';
-        
-        // match class to our in-house course list:
-        this.course = this.getCourse(availableCourses);
+export default class Project {
 
+    constructor(data, availbleStudents, availablePeople) {
+        console.log(data);
+        this.id = data.id;
+        this.dataType = 'student-project';
+        this.name = data.title.rendered;
         // match instructor to our in-house instructor list:
-        this.instructor = this.getInstructor(availablePeople);
+        // this.instructor = this.getInstructor(availablePeople);
 
-    }
-
-    getCourse (availableCourses) {
-        if (availableCourses) {
-            function matchScore(title, tokens) {
-                const matches = tokens.filter(token => title.includes(token));
-                return matches.length / tokens.length;
-            }
-            const code = this.code.split('.')[0];
-            let title = this.title.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-            ['AND ', 'THE ', 'TO ', 'FOR '].forEach(stopword => {
-                title = title.replace(stopword, '');
-            });
-            const tokens = title.split(' ');
-            const results = availableCourses.filter(course => {
-                const score = matchScore(course.name.toUpperCase(), tokens);
-                return course.code == code.toUpperCase() &&
-                    score >= 0.5;
-            });
-            if (results.length > 0) {
-                return results[0];
-            }
-        }
-        return null;
     }
 
     getInstructor(availablePeople) {        

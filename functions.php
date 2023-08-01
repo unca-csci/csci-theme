@@ -193,12 +193,14 @@ if ( defined( 'JETPACK__VERSION' ) ) {
    May not be advisable for everything!
 */
 function change_posts_order( $query ) {
-    $query->set( 'orderby', 'title' );
-    $query->set( 'order', 'ASC' );
+    // $pt = $query->query_vars['post_type'];
+    // var_dump($pt);
+    if (is_admin() && $query->query_vars['post_type'] != 'acf-field') {
+        $query->set( 'orderby', 'title' );
+        $query->set( 'order', 'ASC' );
+    }
 }
-if (is_admin()) {
-    add_action( 'pre_get_posts', 'change_posts_order');
-}
+add_action( 'pre_get_posts', 'change_posts_order');
 
 
 
