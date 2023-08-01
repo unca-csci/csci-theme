@@ -27,32 +27,24 @@
                     the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
                 }
                 ?>
-            </header><!-- .entry-header -->
+            </header>
 
-            <h2>Project Description</h2>
-            <?php 
-                $desc = wpautop(get_post_field("description")); //get_post_meta($post->ID, 'description', true);
-                echo $desc;
+            <div id="project-main">
+                <!-- populated by JavaScript -->
+            </div>
 
-                echo shortcode_student_project();
-            ?>
+        </div>
 
-        </div><!-- .entry-content -->
         <aside id="secondary" class="widget-area" role="complementary">
-            <?php 
-                if(has_post_thumbnail()) {
-                    echo '
-                    <div class="programs-submenu featured-image">
-                        <figure>';
-                    the_post_thumbnail( 'medium' );
-                    echo '<figcaption> ' . the_title() . '</figcaption>' .
-                        '</figure>
-                    </div>';
-                }
-            ?>
-            
+            <div id="project-side">
+                <!-- populated by JavaScript -->
+            </div>
         </aside>
     </div>
 	
 </article><!-- #post-<?php the_ID(); ?> -->
+
+<?php 
+    echo displayProject();
+?>
 

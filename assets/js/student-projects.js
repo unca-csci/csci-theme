@@ -2,42 +2,35 @@ import DataManager from './data-manager.js';
 
 export default class StudentProjects {
 
-    async fetchAndDisplay (projectId) {
-        
+    constructor(id) {
+        // console.log('Constructor running:', )
+        this.parent = document.getElementById(id);
+        console.log(this.parent);
+        // this.parent.id = 'projects_' + Math.random().toString(36).slice(2);
+        console.log('Constructor running:', id);
         this.dm = new DataManager();
-        await this.dm.initializeStudentProjects();
-        console.log(this.dm.students);
-        console.log(this.dm.projects);
-        console.log(this.dm.people);
-        const parent = document.querySelector('.project-list');
-        if (projectId) {
-            console.log(projectId);
-            const project = this.dm.projects.filter(project => projectId === project.id)[0];
-            parent.insertAdjacentHTML('beforeend', project.getTemplate())
-        } else {
-            this.dm.projects.forEach(project => {
-                parent.insertAdjacentHTML('beforeend', project.getTemplate())
-            })
-        }
     }
 
-    displayPeople() {
-        const parent = document.querySelector('.people-list');
-        this.dm.people.forEach((function(person) {
+    async fetchAndDisplayById (projectId) {
+        await this.dm.initializeStudentProjects();
+        const project = this.dm.projects.filter(project => projectId === project.id)[0];
+        this.parent.insertAdjacentHTML('beforeend', project.getTemplate())
+    }
 
-            // 1. Display each CS Area:
-            parent.insertAdjacentHTML(
-                'beforeend', person.getCardTemplate()
-            )
-
-            // 2. Add event handler:
-            const btn = parent.lastElementChild.querySelector('button');
-
-            btn.addEventListener('click', (function () {
-                window.showLightbox(person.getTemplate())
-            }).bind(this));
-
-        }).bind(this));
+    async fetchAndDisplayByTerm(term) {
+        await this.dm.initializeStudentProjects();
+        let projects = this.dm.projects;
+        if (term) {
+            projects = projects.filter(p => p.term === term);
+        }
+        
+        this.parent.innerHTML = '<div class="projects"></div>';
+        console.log(this.parent.id);
+        const container = this.parent.lastElementChild;
+        projects.forEach(project => {
+            console.log(project.name, project.term);
+            container.insertAdjacentHTML('beforeend', project.getCardTemplate())
+        })
     }
 
 }
