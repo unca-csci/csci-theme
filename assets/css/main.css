@@ -407,7 +407,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     margin-bottom: 50px;
 }
 
-.programs-submenu:first-child {
+.category-news .programs-submenu:first-child {
     padding-top: 60px;
 }
 

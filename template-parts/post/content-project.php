@@ -34,7 +34,7 @@
                 $desc = wpautop(get_post_field("description")); //get_post_meta($post->ID, 'description', true);
                 echo $desc;
 
-                echo student_project_list();
+                echo shortcode_student_project();
             ?>
 
         </div><!-- .entry-content -->

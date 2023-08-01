@@ -1,10 +1,11 @@
 export default class Project {
 
-    constructor(data, availbleStudents, availablePeople) {
+    constructor(data, availableStudents, availablePeople) {
         console.log(data);
         this.id = data.id;
         this.dataType = 'student-project';
         this.name = data.title.rendered;
+        this.description = data.acf.description;
         // match instructor to our in-house instructor list:
         // this.instructor = this.getInstructor(availablePeople);
 
@@ -25,19 +26,9 @@ export default class Project {
 
     getTemplate() {
         return `
-        <section class="course">
-        <h3 class="title">${this.code}: ${this.title}</h3>
-            <p>
-                ${this.isClosed ? '<i class="fa-solid fa-circle-xmark"></i> Closed' : '<i class="fa-solid fa-circle-check"></i> Open'} 
-                &bull; ${this.crn}
-                &bull;  
-                ${!this.isClosed ? "Seats Available: " + this.spaceLeft : "Number on Waitlist " + this.numOnWaitlist}
-                &bull;
-                <strong>${this.meets} ${this.startTime} - ${this.endTime}</strong> &bull; 
-                ${ this.location } &bull;
-                ${this.creditHours} credit hour(s)
-            </p>
-            <div class="instructor">${ this.instructorName }</div>
+        <section class="project">
+        <h3 class="title">${this.name}</h3>
+        ${this.description}
         </section>`
     }
 

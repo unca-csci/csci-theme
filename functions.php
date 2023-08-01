@@ -11,6 +11,7 @@
  * Code for Custom Shortcodes *
  ******************************/
 require_once( __DIR__ . '/inc/functions-people.php');
+require_once( __DIR__ . '/inc/functions-projects.php');
 require_once( __DIR__ . '/inc/functions-cs-areas.php');
 require_once( __DIR__ . '/inc/functions-class-schedule.php');
 require_once( __DIR__ . '/inc/functions-courses.php');
