@@ -72,9 +72,9 @@ export default class CSArea {
             <h3>Course Offerings</h3>
             <ul>
                 ${
-                    this.courses.map( course => {
-                        return `<li>${course.code}. ${course.name}</li>`
-                    }).join('\n')
+                    this.courses.map( 
+                        course => course.getTemplateListItem(false)
+                    ).join('\n')
                 }
             </ul>
         `;

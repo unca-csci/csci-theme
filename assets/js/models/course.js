@@ -1,5 +1,5 @@
 export default class Course {
-
+    
     static courseSortFunction (a, b) {
         // list "Pick One" courses before others
         let code1 = a.code;
@@ -43,6 +43,14 @@ export default class Course {
 
     }
 
+    is300PlusElective() {
+        return (
+            this.department === 'CSCI' && 
+            ['3', '4'].includes(this.code[5]) &&
+            this.credits >= 3
+        );
+    }
+
     loadPrerequisites(availableCourses, availableGroups) {
         this.prerequisites = this._getPrereqs(availableCourses, availableGroups);
     }
@@ -84,14 +92,25 @@ export default class Course {
         return html;
     }
 
-    getTemplateListItem() {
+    getTemplateListItem(includeLinks=true) {
         const tokens = this.name.split(": ");
         const name = tokens.length > 1 ? tokens[1] : this.name;
-        return `<li>
-            ${ this.code }. 
-            <a href="#">${ name }</a>
-        </li>`;
+        if (includeLinks) {
+            return `<li>
+                ${ this.code }. 
+                <a href="#">${ name }</a>
+            </li>`;
+        } else {
+            return `<li>
+                ${ this.code }. ${ name } (${ this.credits } Credits)
+            </li>`;
+        }
     }
+
+    getTemplateLink() {
+        return `<a href="#">${ this.code }</a>`;
+    }
+    
 
     getTemplateTableRow() {
         if (!this.pick_one) {
@@ -128,9 +147,22 @@ export default class Course {
         parent.insertAdjacentHTML(
             'beforeend', this.getTemplateListItem()
         );
-        parent.lastElementChild.addEventListener('click', (function () {
+        this.addLinkEventHandler(parent.lastElementChild);
+    }
+
+    addLinkEventHandler(a) {
+       a.addEventListener('click', (function () {
             window.showLightbox(this.getTemplate())
         }).bind(this));
+    }
+
+    appendLinkToHTMLElement (parent) {
+        parent.insertAdjacentHTML('beforeend', this.getTemplateLink());
+        this.addLinkEventHandler(parent.lastElementChild);
+    }
+
+    appendListItemToHTMLElement (parent) {
+        return this.appendToHTMLElement(parent);
     }
 
     appendToHTMLElementTable (parent) {
@@ -138,19 +170,24 @@ export default class Course {
         parent.insertAdjacentHTML(
             'beforeend', this.getTemplateTableRow()
         );
+        
         const tr = parent.lastElementChild;
         const a = tr.querySelector('a');
         a.addEventListener('click', (function () {
             window.showLightbox(this.getTemplate())
         }).bind(this));
+
     }
 
     appendToHTMLElementCard (parent) {
         parent.insertAdjacentHTML(
             'beforeend', this.getTemplateCard()
         );
+
+        // Add event handler:
         const card = parent.lastElementChild;
         const a = card.querySelector('a');
+        
         a.addEventListener('click', (function () {
             window.showLightbox(this.getTemplate())
         }).bind(this));
@@ -203,7 +240,7 @@ export default class Course {
     }
 
     getAreas() {
-        if (!this.cs_areas) {
+        if (!this.cs_areas || this.cs_areas.length == 0) {
             return '';
         }
         return '<div><h3>CS Areas</h3>' + 
@@ -227,10 +264,16 @@ export default class Course {
         // look through all of the degree objects to see if the current course 
         // is listed. If it is, add it to the requirements array:
         degrees.forEach((degree => {
-            const courseIds = degree.courses.map(course => course.id);
-            if (courseIds.includes(this.id)) {
-                this.requirements.push(degree.name);
-            }
+            degree.groups.forEach(group => {
+                if (group.groupType == 'All') {
+                    const courseIds = group.courses.map(course => course.id);
+                    if (courseIds.includes(this.id)) {
+                        this.requirements.push(degree.name);
+                    }
+                }
+            })
+            
+            
         }).bind(this));
     }
     

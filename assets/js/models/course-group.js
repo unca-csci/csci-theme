@@ -1,6 +1,12 @@
 import Course from './course.js'
+import CourseGeneric300 from './course-generic-300.js';
+
 export default class CourseGroup {
     /**/
+
+    static get300LevelElective() {
+        return new CourseGeneric300();
+    }
 
     static getTemplateTable() {
         return `
@@ -28,8 +34,8 @@ export default class CourseGroup {
         this.code = data.title.rendered;
         this.name = data.acf.name;
         this.description = data.acf.description;
-        this.course_ids = data.acf.courses ?  data.acf.courses.map(course => course.ID) : null;
-        
+        this.groupType = data.acf.type_of_group;
+        this.course_ids = data.acf.courses ?  data.acf.courses.map(course => course.ID) : null; 
     }
 
     loadCourses(availableCourses, availableGroups) {
@@ -59,7 +65,7 @@ export default class CourseGroup {
 
     appendToHTMLElementTable (parent, idx) {
         parent.insertAdjacentHTML(
-            'beforeend', this.getTemplate(idx)
+            'beforeend', this.getTemplateContainer(idx)
         );
         if (this.courses.length > 0) {
             const section = parent.lastElementChild;
@@ -73,6 +79,16 @@ export default class CourseGroup {
                     }
                 }).bind(this)
             );
+        } else if (['Pick Two', 'Pick Three'].includes(this.groupType)) {
+            const section = parent.lastElementChild;
+            this.appendTable(section);
+            const tbody = section.lastElementChild.querySelector('tbody');
+            const course = CourseGroup.get300LevelElective();
+            course.appendToHTMLElementTable(tbody);
+            course.appendToHTMLElementTable(tbody);
+            if (this.groupType === 'Pick Three') {
+                course.appendToHTMLElementTable(tbody);
+            }
         }
     }
 
@@ -93,7 +109,7 @@ export default class CourseGroup {
 
     appendToHTMLElementCards (parent, idx) {
         parent.insertAdjacentHTML(
-            'beforeend', this.getTemplate(idx)
+            'beforeend', this.getTemplateContainer(idx)
         );
         if (this.courses.length > 0) {
             const section = parent.lastElementChild;
@@ -102,20 +118,35 @@ export default class CourseGroup {
             this.courses.forEach((course => {
                 course.appendToHTMLElementCard(cards);
             }).bind(this));
+        } else if (['Pick Two', 'Pick Three'].includes(this.groupType)) {
+            const section = parent.lastElementChild;
+            this.appendCardContainer(section);
+            const cards = section.lastElementChild;
+            const course = CourseGroup.get300LevelElective();
+            course.appendToHTMLElementCard(cards);
+            course.appendToHTMLElementCard(cards);
+            if (this.groupType === 'Pick Three') {
+                course.appendToHTMLElementCard(cards);
+            }
         }
     }
 
     appendToHTMLElementCard (parent) {
         parent.insertAdjacentHTML(
-            'beforeend', this.getTemplateCardPickOne()
+            'beforeend', this.getTemplateCard()
         );
         const card = parent.lastElementChild;
+        card.querySelector('a').addEventListener('click', (function () {
+            window.showLightbox(this.getTemplate())
+        }).bind(this));
+
+        // append child courses:
         this.showPickOneCourseOptionsInline(card);
     }
 
-    getTemplateCardPickOne() {
+    getTemplateCard() {
         return `<div class="card">
-            <h3>${ this.name }</h3>
+            <a href="#"><h3>${ this.name }</h3></a>
         </div>`;
     }
 
@@ -125,14 +156,7 @@ export default class CourseGroup {
         );
         const ul = parent.lastElementChild;
         this.courses.forEach((course => {
-            ul.insertAdjacentHTML(
-                'beforeend', course.getTemplateListItem()
-            );
-
-            const a = ul.lastElementChild.querySelector('a');
-            a.addEventListener('click', (function () {
-                window.showLightbox(course.getTemplate())
-            }).bind(course));
+            course.appendListItemToHTMLElement(ul);
 
         }).bind(this));
     }
@@ -148,24 +172,41 @@ export default class CourseGroup {
                     'beforeend', ` &bull; `
                 );
             }
-            container.insertAdjacentHTML(
-                'beforeend', `<a href="#">${course.code}</a> `
-            );
+            course.appendLinkToHTMLElement(container);
+            // container.insertAdjacentHTML(
+            //     'beforeend', `<a href="#">${course.code}</a> `
+            // );
 
-            const a = parent.lastElementChild;
-            a.addEventListener('click', (function () {
-                window.showLightbox(course.getTemplate())
-            }).bind(course));
+            // const a = parent.lastElementChild;
+            // a.addEventListener('click', (function () {
+            //     window.showLightbox(course.getTemplate())
+            // }).bind(course));
 
         }).bind(this));
     }
 
 
-    getTemplate(idx) {
+    getTemplateContainer(idx) {
         return `
         <section class="group">
             <h2>${ idx }. ${ this.name }</h2>
             ${ this.description }
+        </section>
+        `;
+    }
+
+    getTemplate() {
+        return `
+        <section class="group">
+            <h2>${ this.name }</h2>
+            ${ this.description }
+            <ul>
+                ${
+                    this.courses.map( 
+                        course => course.getTemplateListItem(false)
+                    ).join('\n')
+                }
+            </ul>
         </section>
         `;
     }

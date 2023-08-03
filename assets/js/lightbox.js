@@ -35,6 +35,7 @@ window.hideLightbox = ev => {
     if (!doClose) {return};
     const lightboxEl = document.querySelector("#lightbox");
     lightboxEl.classList.remove("show");
+    lightboxEl.setAttribute('aria-hidden', "true");
     document.body.style.overflowY = "scroll";
     if (window.callingElement) {
         console.log('calling element:', window.callingElement);
@@ -44,19 +45,23 @@ window.hideLightbox = ev => {
 
 const showLightbox = html => {
     if (window.event) {
-        console.log('event!');
         window.event.preventDefault();
         window.callingElement = window.event.target;
     } else {
-        console.log('no event!');
         window.callingElement = null;
     }
     const lightboxEl = getLightboxContainer();
-    lightboxEl.querySelector(".content").innerHTML = html;
-    lightboxEl.classList.add("show");
-    document.body.style.overflowY = "hidden";
-    lightboxEl.querySelector("#close").focus();
-    lightboxEl.classList.remove("people-detail");
+    
+    // hack so that first lightbox slides in:
+    setTimeout(function() {
+        lightboxEl.setAttribute('aria-hidden', "false");
+        lightboxEl.querySelector(".content").innerHTML = html;
+        lightboxEl.classList.add("show");
+        document.body.style.overflowY = "hidden";
+        lightboxEl.querySelector("#close").focus();
+        lightboxEl.classList.remove("people-detail");
+    }, 5);
+    
 };
 
 const getLightboxContainer = () => {

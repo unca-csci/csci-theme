@@ -1,4 +1,5 @@
 import DataManager from './data-manager.js';
+import CourseGeneric300 from './models/course-generic-300.js';
 
 export default class Linkify {
     constructor() {
@@ -7,16 +8,24 @@ export default class Linkify {
 
     async fetchAndDisplayCourseLinks () {
         await this.dm.initializeDegreesCoursesData();
+        this.courses = this.dm.courses.concat(this.dm.groups);
         this.linkify();
     }
 
     getCourse(elem) {
         const code = elem.innerHTML.split('.')[0];
-        const results = this.dm.courses.filter(course => {
-            return course.code.includes(code.toUpperCase());
+        const results = this.courses.filter(course => {
+            if (course.code === 'Sys: Data Science Requirement') {
+                course.code = 'CSCI Data Science Requirement (Systems)';
+            } else if (course.code === 'Info: Data Science Requirement') {
+                course.code = 'CSCI Data Science Requirement (Information)';
+            }
+            return course.code.toUpperCase().includes(code.toUpperCase());
         });
         if (results.length > 0) {
             return results[0];
+        } else if (code === 'CSCI 300+ Elective') {
+            return new CourseGeneric300();
         }
         return null;
     }
