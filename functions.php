@@ -10,6 +10,7 @@
 /******************************
  * Code for Custom Shortcodes *
  ******************************/
+require_once( __DIR__ . '/inc/functions-sidebars.php');
 require_once( __DIR__ . '/inc/functions-people.php');
 require_once( __DIR__ . '/inc/functions-projects.php');
 require_once( __DIR__ . '/inc/functions-cs-areas.php');
@@ -148,7 +149,8 @@ add_action( 'widgets_init', 'unca_csci_widgets_init' );
  */
 function unca_csci_scripts() {
 	wp_enqueue_style( 'unca-csci-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_enqueue_style( 'extras', get_template_directory_uri() . '/assets/css/main.css');
+	wp_enqueue_style( 'nav', get_template_directory_uri() . '/assets/css/navigation.css', array(), null, 'all' );
+	wp_enqueue_style( 'main', get_template_directory_uri() . '/assets/css/main.css', get_template_directory_uri() . '/assets/css/navigation.css', array(), null, 'all' );
 	wp_style_add_data( 'unca-csci-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'unca-csci-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
@@ -216,48 +218,3 @@ function generateRandomString($length = 10) {
 }
 
 
-// Sidebar for Blog Post
-function post_sidebar() {
-
-	$args = array(
-		'id'            => 'sidebar-post',
-		'name'          => __( 'Post Sidebar (Right-Hand Side)', 'text_domain' ),
-		'description'   => __( 'Post Sidebar', 'text_domain' ),
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-	);
-	register_sidebar( $args );
-}
-add_action( 'widgets_init', 'post_sidebar' );
-
-function programs_sidebar() {
-
-	$args = array(
-		'id'            => 'sidebar-programs',
-		'name'          => __( 'CS Programs Sidebar (Right-Hand Side)', 'text_domain' ),
-		'description'   => __( 'CS Programs Sidebar', 'text_domain' ),
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-	);
-	register_sidebar( $args );
-}
-add_action( 'widgets_init', 'programs_sidebar' );
-
-function footer_sidebar() {
-
-	$args = array(
-		'id'            => 'sidebar-footer',
-		'name'          => __( 'Footer', 'text_domain' ),
-		'description'   => __( 'Footer', 'text_domain' ),
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-		'before_widget' => '<footer id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</footer>',
-	);
-	register_sidebar( $args );
-}
-add_action( 'widgets_init', 'footer_sidebar' );

@@ -54,7 +54,6 @@ export default class Person {
                 </div>
                 
                 ${ this.getFeaturedImage() }
-                <p class="span-2 interests">${this.interests}</p>
                 <p class="span-2">
                     <button class="button dark">More</button>
                 </p>

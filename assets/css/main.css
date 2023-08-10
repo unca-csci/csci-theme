@@ -67,9 +67,28 @@ a:focus, a h2:focus, a h3:focus, div:focus {
     opacity: .8;
 }
 
+.programs-submenu h2 {
+    margin: 40px 0 5px 0 !important;
+}
+
+.programs-submenu ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.programs-submenu aside:last-child {
+    margin-bottom: 50px;
+}
+
 .programs-submenu a:hover {
     border-bottom: 1px solid var(--night-sky);
     opacity: .8;
+}
+
+.programs-submenu .current-menu-item a {
+    border-bottom: solid 1px var(--night-sky);
+    /* font-weight: bold; */
 }
 
 
@@ -286,7 +305,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 .people-card {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto auto 45px;
+    grid-template-rows: auto 45px;
     column-gap: 20px;
     row-gap: 5px;
     background-color: #F9F9F9;
