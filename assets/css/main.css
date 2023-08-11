@@ -150,6 +150,12 @@ footer p {
     margin: 0;
 }
 
+@media screen and (max-width: 800px) {
+    #footer-animation {
+        display: none;
+    }
+}
+
 .entry-content p,
 .entry-content li
  {

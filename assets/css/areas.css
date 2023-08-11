@@ -50,3 +50,9 @@ a h2:focus {
 .areas a {
     text-decoration: none !important;
 }
+
+@media screen and (max-width: 600px) {
+    .areas {
+        grid-template-columns: auto;
+    }
+}
