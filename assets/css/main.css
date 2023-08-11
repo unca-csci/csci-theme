@@ -313,7 +313,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 /*****************/
 .entry-content {
     min-height: 70vh;
-    padding: 0 3vw;
+    /* padding: 0 3vw; */
 }
 
 @media screen and (min-width: 48em) {

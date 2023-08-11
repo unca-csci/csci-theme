@@ -12,7 +12,8 @@ function shortcode_cs_areas() {
     $css_refs . "\r\n" . 
     $script_ref . 
     "\r\n" .
-    include_lightbox();
+    include_lightbox() .
+    include_modal();
 }
 
 ?>

@@ -8,7 +8,8 @@ function shortcode_people_card_list() {
     "\r\n" .
     '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/who-we-are.js"></script>'.
     "\r\n" .
-    include_lightbox();
+    include_lightbox() .
+    include_modal();
 }
 
 ?>

@@ -12,6 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10000000000;
 }
 
 .modal {
@@ -24,8 +25,14 @@
     padding: 20px;
 }
 
-.close {
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
     align-self: flex-end;
+    position: absolute;
+    padding: 0;
 }
 
 .hidden {
@@ -34,11 +41,8 @@
 
 
 .modal-body {
-    margin-top: 30px;
-    padding-bottom: 30px;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    height: calc(var(--modal-height) - 10vh);
+    height: var(--modal-height);
+    overflow-y: scroll;
 }
 
 .image {
@@ -62,4 +66,15 @@
     padding: 5px;
     align-items: center;
     border-bottom: solid 1px #CCC;
+}
+
+@media screen and (max-width: 1000px) {
+    .modal {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+    }
+    .modal-body {
+        height: 100vh;
+    }
 }

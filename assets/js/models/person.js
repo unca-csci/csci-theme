@@ -92,7 +92,7 @@ export default class Person {
         }
         return '<div><h3>CS Areas</h3>' + 
             this.cs_areas.map(item => {
-                return `<span class="tag">${ item.title }</span>`;
+                return `<a href="#" onclick="window.modal.showCSArea(${item.id})" class="tag">${ item.title }</a>`;
             }).join('') + 
         '</div>';
     }
