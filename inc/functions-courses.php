@@ -15,7 +15,7 @@ function shortcode_course_navigator($atts) {
         include_lightbox() . 
         "\r\n" .
         '<script type="module">
-            import CourseNavigator from "'. get_stylesheet_directory_uri() . '/assets/js/course-navigator.js";' .
+            import CourseNavigator from "'. get_stylesheet_directory_uri() . '/assets/js/course-navigation/course-navigator.js";' .
             "\r\n" . '
             const courseNavigator = new CourseNavigator();
             courseNavigator.fetchAndDisplayNavigator();
@@ -40,7 +40,7 @@ function shortcode_degree_requirements($atts) {
         include_lightbox() . 
         "\r\n" .
         '<script type="module">
-            import DegreeRequirements from "'. get_stylesheet_directory_uri() . '/assets/js/degree-requirements.js";' .
+            import DegreeRequirements from "'. get_stylesheet_directory_uri() . '/assets/js/course-navigation/degree-requirements.js";' .
             "\r\n" . '
             const requirements = new DegreeRequirements();
             requirements.fetchAndDisplayDegreeRequirements("' . $code . '");

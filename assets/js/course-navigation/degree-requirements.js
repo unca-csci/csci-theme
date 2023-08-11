@@ -1,22 +1,6 @@
-import DataManager from './data-manager.js';
+import BaseNavigator from './base-navigator.js';
 
-export default class DegreeRequirements {
-
-    constructor() {
-        this.display = 'card-view';
-        this.dm = new DataManager();
-    }
-
-    toggleDisplay (e) {
-        e.preventDefault();
-        console.log(document.querySelectorAll('.buttons a'));
-        document.querySelectorAll('.buttons a').forEach(elem => {
-            elem.classList.toggle('selected');
-        });
-        this.display = e.currentTarget.id;
-        console.log(this.display);
-        this.redrawGroups();
-    }
+export default class DegreeRequirements extends BaseNavigator {
 
     async fetchAndDisplayDegreeRequirements (degreeType) {
         await this.dm.initializeDegreesCoursesData();
@@ -35,24 +19,6 @@ export default class DegreeRequirements {
         parent.innerHTML = '';
         parent.insertAdjacentHTML('beforeend', `<div id="results"></div>`);
         this.displayCourseGroups();
-    }
-
-    appendToolbar(parent) {
-        parent.insertAdjacentHTML('beforeend', `
-            <div class="toolbar">
-                <div class="buttons">
-                    <a href="#" id="card-view" class="selected">
-                        <span class="material-symbols-rounded">
-                            grid_view
-                        </span></a>
-                    <a href="#" id="table-view">
-                        <span class="material-symbols-rounded">
-                            table
-                        </span></a>
-                </div>
-            </div>`);
-        document.querySelector('#card-view').addEventListener('click', this.toggleDisplay.bind(this));
-        document.querySelector('#table-view').addEventListener('click', this.toggleDisplay.bind(this));   
     }
 
 
@@ -76,7 +42,7 @@ export default class DegreeRequirements {
         }).bind(this));
     }
 
-    redrawGroups() {
+    render() {
         const groupContainer = document.querySelector('.groups');
         groupContainer.innerHTML = '';
         this.degree.groups.forEach(((group, idx) => {

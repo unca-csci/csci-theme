@@ -1,22 +1,7 @@
-import DataManager from './data-manager.js';
-import CourseGroup from './models/course-group.js';
+import BaseNavigator from './base-navigator.js';
+import CourseGroup from '../models/course-group.js';
 
-
-export default class CourseNavigator {
-
-    constructor() {
-        this.display = 'card-view';
-        this.dm = new DataManager();
-    }
-
-    toggleDisplay (e) {
-        e.preventDefault();
-        document.querySelectorAll('.buttons a').forEach(elem => {
-            elem.classList.toggle('selected');
-        });
-        this.display = e.currentTarget.id;
-        this.displayData();
-    }
+export default class CourseNavigator extends BaseNavigator {
 
     async fetchAndDisplayNavigator () {
         await this.dm.initializeDegreesCoursesData();
@@ -34,7 +19,7 @@ export default class CourseNavigator {
         this.appendSelectMenu(parent);
         this.appendToolbar(parent);
         parent.insertAdjacentHTML('beforeend', `<div id="results"></div>`);
-        this.displayData();
+        this.render();
     }
 
     displayInfoMajor() {
@@ -59,28 +44,10 @@ export default class CourseNavigator {
                 ${options.join('\n')}
             </select>`
         );
-        document.querySelector('#term').addEventListener('change', this.displayData.bind(this));
+        document.querySelector('#term').addEventListener('change', this.render.bind(this));
     }
 
-    appendToolbar(parent) {
-        parent.insertAdjacentHTML('beforeend', `
-            <div class="toolbar">
-                <div class="buttons">
-                    <a href="#" id="card-view" class="selected">
-                        <span class="material-symbols-rounded">
-                            grid_view
-                        </span></a>
-                    <a href="#" id="table-view">
-                        <span class="material-symbols-rounded">
-                            table
-                        </span></a>
-                </div>
-            </div>`);
-        document.querySelector('#card-view').addEventListener('click', this.toggleDisplay.bind(this));
-        document.querySelector('#table-view').addEventListener('click', this.toggleDisplay.bind(this));   
-    }
-
-    displayData () {
+    render () {
         const selection = document.querySelector('#term').value;
         if (selection === 'isAll') {
             this.displayAllCSCICourses(selection);

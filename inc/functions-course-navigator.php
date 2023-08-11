@@ -4,7 +4,7 @@ add_shortcode('course_navigator', 'shortcode_course_navigator');
 function shortcode_course_navigator($atts) {
     $script_ref = '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/lightbox.js"></script>' . 
         "\r\n" . 
-        '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/course-navigator.js"></script>';
+        '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/course-navigation/course-navigator.js"></script>';
     $css_ref = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/class-schedule.css">' . 
         "\r\n" . 
         '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/lightbox.css">';
