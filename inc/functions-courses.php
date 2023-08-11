@@ -2,7 +2,7 @@
 
 add_shortcode('course_navigator', 'shortcode_course_navigator');
 function shortcode_course_navigator($atts) {
-    $css_ref = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/class-schedule.css">';
+    // $css_ref = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/class-schedule.css">';
     return 
         '
         <div id="course-navigator">
@@ -10,8 +10,8 @@ function shortcode_course_navigator($atts) {
         </div>
         ' . 
         "\r\n" .
-        $css_ref .  
-        "\r\n" .
+        // $css_ref .  
+        // "\r\n" .
         include_lightbox() .
         include_modal() .
         "\r\n" .
@@ -28,7 +28,7 @@ function shortcode_course_navigator($atts) {
 add_shortcode('degree_requirements', 'shortcode_degree_requirements');
 function shortcode_degree_requirements($atts) {
     $code = $atts['code'];
-    $css_ref = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/class-schedule.css">';
+    // $css_ref = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/class-schedule.css">';
     return 
         '
         <div id="course-navigator">
@@ -36,8 +36,8 @@ function shortcode_degree_requirements($atts) {
         </div>
         ' . 
         "\r\n" .
-        $css_ref .  
-        "\r\n" .
+        // $css_ref .  
+        // "\r\n" .
         include_lightbox() .
         include_modal() . 
         "\r\n" .
