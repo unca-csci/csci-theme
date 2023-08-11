@@ -46,3 +46,7 @@ a h2:focus {
 .areas section:hover .overlay-box {
     background-color: #00000000;
 }
+
+.areas a {
+    text-decoration: none !important;
+}

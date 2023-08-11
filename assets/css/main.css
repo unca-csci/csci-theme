@@ -293,86 +293,6 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     color: white;
 }
 
-/**********/
-/* People */
-/**********/
-.people-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 30px;
-    row-gap: 30px;
-}
-.people-card {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto 45px;
-    column-gap: 20px;
-    row-gap: 5px;
-    background-color: #F9F9F9;
-    padding: 15px;
-}
-
-.people-card .span-2 {
-    grid-column: 1 / span 2;
-}
-.people-card img {
-    border-radius: 50%;
-    width: 100%;
-}
-
-.people-card .more-link {
-    margin: 0;
-}
-
-.people-card p {
-    line-height: 1.4em;
-    margin: 0 0 6px 0;
-}
-
-.people-card h2 {
-    font-weight: 400;
-    font-size: 1.4em;
-    color: var(--night-sky);
-    margin-bottom: 6px;
-}
-
-.people-card .title {
-    margin-bottom: 20px;
-}
-
-.contact-info {
-    margin-left: 20px;
-}
-
-.meta {
-    display: grid;
-    column-gap: 10px;
-    grid-template-columns: 20px auto;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.people-card .meta {
-    line-height: 1.5em;
-    font-size: 0.95em;
-}
-
-.people-card .interests {
-    margin-top: 10px;
-}
-
-.person-header {
-    color: var(--night-sky);
-    text-align: center;
-    align-self: stretch;
-}
-
-.people-thumb {
-    border-radius: 50% !important;
-    margin: 0 auto;
-    height: 250px;
-    width: 250px;
-}
 
 /******Single Blog Post ******/
 
@@ -387,6 +307,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 /*****************/
 .entry-content {
     min-height: 70vh;
+    padding: 0 3vw;
 }
 
 @media screen and (min-width: 48em) {

@@ -1,6 +1,7 @@
 export default class CSArea {
     
     constructor(data, availableCourses) {
+        console.log(data);
         this.id = data.id;
         this.dataType = 'cs-area';
         this.name = data.title.rendered;
@@ -11,7 +12,7 @@ export default class CSArea {
         this.courses = null;
 
         if (data._embedded && data._embedded["wp:featuredmedia"] && data._embedded["wp:featuredmedia"].length > 0) {
-            this.featuredImageUrl = data._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
+            this.featuredImageUrl = data._embedded["wp:featuredmedia"][0].source_url;
         }
         if (data.acf.associated_faculty) {
             this.faculty = data.acf.associated_faculty.map(item => item.post_title)

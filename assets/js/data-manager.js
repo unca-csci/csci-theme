@@ -153,6 +153,11 @@ export default class DataManager {
     }
 
     async initializePeople () {
+        // this.courses = await this.getCourses();
+        // this.groups = await this.getGroups();
+        // this.groups.forEach(group => group.loadCourses(this.courses, this.groups));
+        // this.courses.forEach(course => course.loadPrerequisites(this.courses, this.groups));
+        // this.csAreas = await this.getCSAreas(this.courses);
         this.people = await this.getPeople();
     }
 

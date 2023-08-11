@@ -20,11 +20,13 @@ export default class WhoWeAre {
             )
 
             // 2. Add event handler:
-            const btn = parent.lastElementChild.querySelector('button');
+            const btns = parent.lastElementChild.querySelectorAll('button');
 
-            btn.addEventListener('click', (function () {
-                window.showLightbox(person.getTemplate())
-            }).bind(this));
+            btns.forEach(btn => {
+                btn.addEventListener('click', (function () {
+                    window.showLightbox(person.getTemplate())
+                }).bind(this));
+            });
 
         }).bind(this));
     }

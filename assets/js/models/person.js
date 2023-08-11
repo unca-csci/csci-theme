@@ -8,7 +8,6 @@ export default class Person {
         return 0;
     }
     constructor(data) {
-
         const tokens = data.title.rendered.split(', ');
         this.id = data.id;
         this.dataType = 'person';
@@ -21,6 +20,7 @@ export default class Person {
         this.bio = data.acf.bio ? data.acf.bio.replaceAll("\n", "<br>") : null;
         this.education = data.acf.education;
         this.interests = data.acf.interests;
+        this.cs_areas = this.getCSAreas(data);
         this.website = data.acf.website;
         this.phone = data.acf.phone_number;
         this.email = data.acf.email;
@@ -40,6 +40,7 @@ export default class Person {
             ${this.bio ? `<h3>Bio</h3>${this.bio.replaceAll("\n","<br>")}` : "" }
             ${this.education ? `<h3>Education</h3>${this.education}` : "" }
             ${this.interests ? `<h3>Research & Professional Interests</h3>${this.interests}` : "" }
+            ${ this.getAreas() }
             ${this.website ? `<h3>Website</h3><a href="${this.website}" target="_blank">${this.website}</a>` : "" }
         `;
     }
@@ -47,17 +48,53 @@ export default class Person {
     getCardTemplate() {
         return `
             <div class="people-card">
-                <div>
-                    <h2>${this.name}${this.degree ? `, ${ this.degree }` : ''}</h2>
-                    <p class="title">${this.title}</p>
-                    ${ this.getContactInfo() }
+                <div class="desktop">
+                    <div>
+                        <h2>${this.name}${this.degree ? `, ${ this.degree }` : ''}</h2>
+                        <p class="title">${this.title}</p>
+                        ${ this.getContactInfo() }
+                    </div>
+                    
+                    ${ this.getFeaturedImage() }
+                    <p class="span-2">
+                        <button class="button dark">More</button>
+                    </p>
                 </div>
-                
-                ${ this.getFeaturedImage() }
-                <p class="span-2">
-                    <button class="button dark">More</button>
-                </p>
+                <div class="mobile">
+                    <div class="content">
+                        <h2>${this.name}${this.degree ? `, ${ this.degree }` : ''}</h2>                
+                        ${ this.getFeaturedImage() }
+                        <p class="title">${this.title}</p>
+                        ${ this.getContactInfo() }
+                    </div>
+                    <p class="span-2">
+                        <button class="button dark">More</button>
+                    </p>
+                </div>
             </div>`;
+    }
+
+    getCSAreas(data) {
+        if (data.acf.cs_areas && data.acf.cs_areas.length > 0) {
+            return data.acf.cs_areas.map(area => {
+                return {
+                    "id": area.ID, 
+                    "title": area.post_title
+                }
+            });
+        }
+        return [];
+    }
+
+    getAreas() {
+        if (!this.cs_areas || this.cs_areas.length == 0) {
+            return '';
+        }
+        return '<div><h3>CS Areas</h3>' + 
+            this.cs_areas.map(item => {
+                return `<span class="tag">${ item.title }</span>`;
+            }).join('') + 
+        '</div>';
     }
 
     getFeaturedImage() {
