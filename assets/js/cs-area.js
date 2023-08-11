@@ -1,7 +1,7 @@
 export default class Area {
     
     constructor(data) {
-        console.log(data);
+        // console.log(data);
         this.name = data.title.rendered;
         this.overview = data.acf.overview || 'TBD';
         this.careers = data.acf.careers;

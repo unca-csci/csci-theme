@@ -1,7 +1,7 @@
 export default class CSArea {
     
     constructor(data, availableCourses) {
-        console.log(data);
+        // console.log(data);
         this.id = data.id;
         this.dataType = 'cs-area';
         this.name = data.title.rendered;
