@@ -1,13 +1,13 @@
 #lightbox-bg { 
     box-sizing: border-box;
     min-height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: -100vw;
     width: 100vw;
     height: 100vh;
     overflow-y: scroll;
-    z-index: 100;
+    z-index: 99999;
     background-color: rgba(50, 50, 50, 0.9);
 }
 
