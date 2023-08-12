@@ -27,7 +27,7 @@
     transition: all 0.2s ease-in;
     margin-left: -65vw;
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     z-index: 100000;
 }
 

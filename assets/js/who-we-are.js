@@ -1,9 +1,12 @@
 import DataManager from './data-manager.js';
+import utils from './utilities.js';
+
 
 export default class WhoWeAre {
 
     async fetchAndDisplay () {
-        
+        this.parent = document.querySelector('.people-list');
+        utils.showSpinner(this.parent);
         this.dm = new DataManager();
         await this.dm.initializePeople();
 
@@ -12,6 +15,7 @@ export default class WhoWeAre {
 
     displayPeople() {
         const parent = document.querySelector('.people-list');
+        parent.innerHTML = '';
         this.dm.people.forEach((function(person) {
 
             // 1. Display each CS Area:

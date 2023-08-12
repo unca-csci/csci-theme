@@ -1,9 +1,11 @@
 import DataManager from './data-manager.js';
+import utils from './utilities.js';
 
 export default class ClassSchedule {
     
     constructor () {
         document.querySelector('#unca-classes').innerHTML = this.getInterfaceHTML();
+        utils.showSpinner(document.querySelector('#course-list'), 'Loading the university course catalog...');
         document.querySelector('#term').addEventListener('change', this.showNewTerm.bind(this));
         this.dm = new DataManager();
     }
@@ -20,11 +22,7 @@ export default class ClassSchedule {
             <option value="2021/summer/">Summer 2021</option>
             <option value="2021/spring/">Spring 2021</option>
         </select>
-        <div id="course-list">
-            <p style="margin-top: 20px;">
-                Loading the university course catalog...
-            </p>        
-        </div> 
+        <div id="course-list"></div> 
         `;
     }
 
@@ -47,13 +45,10 @@ export default class ClassSchedule {
     }
 
     async showNewTerm() {
-        const term = document.querySelector('#term').value;
         const parent = document.querySelector('#course-list');
-        parent.innerHTML = `
-            <p style="margin-top: 20px;">
-                Loading the university course catalog...
-            </p>`;
+        utils.showSpinner(parent, 'Loading the university course catalog...');
         
+        const term = document.querySelector('#term').value;
         await this.dm.updateClassesByTerm(term);
         this.displayClasses(parent);
     }

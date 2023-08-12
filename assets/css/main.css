@@ -589,3 +589,14 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     background-color: #DDD;
 }
 
+.loading {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading p {
+    font-size: 1.2rem !important;
+}
