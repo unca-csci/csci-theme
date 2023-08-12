@@ -26,6 +26,8 @@
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     transition: all 0.2s ease-in;
     margin-left: -65vw;
+    height: 100vh;
+    overflow-y: scroll;
     z-index: 100000;
 }
 
@@ -51,13 +53,13 @@
     transition: all 0.2s ease-in;
 }
 @media screen and (max-width: 1000px) {
-    #lightbox-bg .content {
+    #lightbox.show {
         margin-left: 0vw;
         width: 100%;
         padding: 20px;
     }
 
-    #lightbox-bg.show .close {
+    #lightbox.show .close {
         transition: none;
         top: 0px;
         right: 0;
