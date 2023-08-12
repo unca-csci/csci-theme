@@ -1,29 +1,20 @@
-.tag {
-    border-radius: 6px;
-    margin: 0px 10px 10px 0px;
-    padding: 5px 10px;
-    background-color: #F0F0F0;
-    display: inline-block;
-}
-
-.tag:hover {
-    background-color: #DDD;
-}
-
-#lightbox {
+#lightbox-bg { 
     box-sizing: border-box;
     min-height: 100vh;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: -100vw;
     width: 100vw;
     height: 100vh;
     overflow-y: scroll;
-    z-index: 2000000;
+    z-index: 100;
     background-color: rgba(50, 50, 50, 0.9);
 }
 
-#lightbox .content {
+#lightbox {
+    position: fixed;
+    left: 0px;
+    top: 0px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -35,13 +26,14 @@
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     transition: all 0.2s ease-in;
     margin-left: -65vw;
+    z-index: 100000;
 }
 
-#lightbox.show {
+#lightbox-bg.show {
     left: 0;
 }
 
-#lightbox.show .content {
+#lightbox.show {
     margin-left: 0vw;
 }
 
@@ -52,20 +44,20 @@
     font-size: 30px;
     cursor: pointer;
     position: absolute;
-    right: 35vw;
-    top: 0px;
+    right: 0;
+    top: 0;
 }
 #lightbox.show .close {
     transition: all 0.2s ease-in;
 }
 @media screen and (max-width: 1000px) {
-    #lightbox .content {
+    #lightbox-bg .content {
         margin-left: 0vw;
         width: 100%;
         padding: 20px;
     }
 
-    #lightbox.show .close {
+    #lightbox-bg.show .close {
         transition: none;
         top: 0px;
         right: 0;

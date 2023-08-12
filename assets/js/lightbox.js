@@ -33,12 +33,20 @@ window.hideLightbox = ev => {
         }
     })
     if (!doClose) {return};
-    const lightboxEl = document.querySelector("#lightbox");
-    lightboxEl.classList.remove("show");
-    lightboxEl.setAttribute('aria-hidden', "true");
+
+    // hide bg overlay:
+    const lightboxBg = document.querySelector("#lightbox-bg");
+    lightboxBg.classList.remove("show");
+    lightboxBg.setAttribute('aria-hidden', "true");
+    
+    // hide lightbox:
+    const lightbox = document.querySelector('#lightbox');
+    lightbox.classList.remove("show");
+    lightbox.setAttribute('aria-hidden', "true");
+    
+    // cleanup and cursor focus:
     document.body.style.overflowY = "scroll";
     if (window.callingElement) {
-        console.log('calling element:', window.callingElement);
         window.callingElement.focus();
     }
 };
@@ -50,34 +58,40 @@ const showLightbox = html => {
     } else {
         window.callingElement = null;
     }
-    const lightboxEl = getLightboxContainer();
+    addLightboxContainer();
     
     // hack so that first lightbox slides in:
     setTimeout(function() {
-        lightboxEl.setAttribute('aria-hidden', "false");
-        lightboxEl.querySelector(".content").innerHTML = html;
-        lightboxEl.classList.add("show");
+        const lightboxBg = document.querySelector("#lightbox-bg");
+        lightboxBg.setAttribute('aria-hidden', "false");
+        lightboxBg.classList.add("show");
+
+        const lightbox = document.querySelector('#lightbox');
+        lightbox.setAttribute('aria-hidden', "false");
+        lightbox.querySelector('.content').innerHTML = html;
+        lightbox.classList.add("show");
+
         document.body.style.overflowY = "hidden";
-        lightboxEl.querySelector("#close").focus();
-        lightboxEl.classList.remove("people-detail");
+        
+        // cursor focus:
+        lightbox.querySelector("#close").focus();
     }, 5);
     
 };
 
-const getLightboxContainer = () => {
+const addLightboxContainer = () => {
     let lightboxEl = document.querySelector("#lightbox");
     if (!lightboxEl) {
         document.body.insertAdjacentHTML('beforeend', `
-            <section class="" id="lightbox" onclick="hideLightbox(event)">
+            <section class="" id="lightbox-bg" onclick="hideLightbox(event)"></section>
+            <div id="lightbox">
                 <button id="close" class="close" onclick="hideLightbox(event)">
                     <i id="close-icon" class="fas fa-times"></i>
                 </button>
                 <div class="content"></div>
-            </section>
+            </div>
         `);
-        lightboxEl = document.body.lastElementChild;
     }
-    return lightboxEl;
 }
 
 window.showLightbox = showLightbox;
