@@ -79,15 +79,17 @@ export default class Course {
 
     getTemplate() {
         let html = `
-            <h2 class="person-header">${ this.code }: ${ this.name }</h2>
-            <p>${ this.description }</p>
-            <ul>
-                <li>${this.credits} Credit Hour(s)</li>
-                ${this.offered ? `<li>Offered ${this.offered}</li>` : ''}
-            </ul>
-            ${ this.getPrereqs() }
-            ${ this.getRequirements() }
-            ${ this.getAreas() }
+            <section class="content-wrapper">
+                <h2 class="person-header">${ this.code }: ${ this.name }</h2>
+                <p>${ this.description }</p>
+                <ul>
+                    <li>${this.credits} Credit Hour(s)</li>
+                    ${this.offered ? `<li>Offered ${this.offered}</li>` : ''}
+                </ul>
+                ${ this.getPrereqs() }
+                ${ this.getRequirements() }
+                ${ this.getAreas() }
+            </section>
         `;
         return html;
     }

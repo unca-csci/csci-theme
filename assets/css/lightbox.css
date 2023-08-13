@@ -21,7 +21,6 @@
     align-items: flex-start;
     width: 65vw;
     min-height: 100vh;
-    padding: 50px;
     background-color: rgba(255, 255, 255);
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     transition: all 0.2s ease-in;
@@ -31,8 +30,17 @@
     z-index: 100000;
 }
 
+#lightbox .content {
+    width: 100%;
+}
+
+#lightbox .content-wrapper {
+    padding: 50px;
+}
+
 #lightbox-bg.show {
     left: 0;
+    padding: 0px;
 }
 
 #lightbox.show {
@@ -48,7 +56,16 @@
     position: absolute;
     right: 0;
     top: 0;
+    text-shadow: 1px 1px 1px #FFF, 
+        -1px -1px 1px #FFF, 
+        1px -1px 1px #FFF, 
+        -1px 1px 1px #FFF;
 }
+
+#lightbox .close:hover {
+    color: #555;
+}
+
 #lightbox.show .close {
     transition: all 0.2s ease-in;
 }
@@ -56,6 +73,9 @@
     #lightbox.show {
         margin-left: 0vw;
         width: 100%;
+        padding: 0px;
+    }
+    #lightbox .content-wrapper {
         padding: 20px;
     }
 

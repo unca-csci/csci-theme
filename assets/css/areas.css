@@ -51,6 +51,28 @@ a h2:focus {
     text-decoration: none !important;
 }
 
+div.area-header {
+    height: 250px;
+    background-size: cover;
+    background-position: center -125px;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+}
+
+div.area-header h2 {
+    color: white;
+    text-shadow: 1px 1px 1px #000;
+    font-size: 2rem;
+    margin-left: 20px;
+}
+
+h2.area-header {
+    color: var(--night-sky);
+    text-align: center;
+    align-self: stretch;
+}
+
 @media screen and (max-width: 600px) {
     .areas {
         grid-template-columns: auto;

@@ -16,14 +16,16 @@ export default class Student {
 
     getTemplate() {
         return `
-            <h2 class="person-header">${this.name}</h2>
-            ${ this.getFeaturedImage() }
-            ${this.bio}
-            <div style="text-align: center;align-self: stretch;">
-                <a href="${this.github}">GitHub</a> &bull;
-                <a href="${this.linkedin}">LinkedIn</a> &bull;
-                <a href="${this.website}">Website</a>
-            </div>
+            <section class="content-wrapper">
+                <h2 class="person-header">${this.name}</h2>
+                ${ this.getFeaturedImage() }
+                ${this.bio}
+                <div style="text-align: center;align-self: stretch;">
+                    <a href="${this.github}">GitHub</a> &bull;
+                    <a href="${this.linkedin}">LinkedIn</a> &bull;
+                    <a href="${this.website}">Website</a>
+                </div>
+            </section>
         `;
     }
 

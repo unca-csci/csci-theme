@@ -197,7 +197,7 @@ export default class CourseGroup {
 
     getTemplate() {
         return `
-        <section class="group">
+        <section class="group content-wrapper">
             <h2>${ this.name }</h2>
             ${ this.description }
             <ul>

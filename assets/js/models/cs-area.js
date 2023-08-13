@@ -42,14 +42,15 @@ export default class CSArea {
 
     getTemplate() {
         let html = `
-            <h2 class="person-header">${ this.name }</h2>
-            ${ this.getFeaturedImage() }
-            <h3>Overview</h3>
-            ${ this.overview }
-            ${ this.showFaculty() }
-            ${ this.showCourses() }
-            <h3>Careers</h3>
-            ${ this.careers }
+            ${ this.getHeader() }
+            <section class="content-wrapper">
+                <h3>Overview</h3>
+                ${ this.overview }
+                <h3>Careers</h3>
+                ${ this.careers }
+                ${ this.showFaculty() }
+                ${ this.showCourses() }
+            </section>
         `;
         return html;
     }
@@ -85,6 +86,14 @@ export default class CSArea {
         return this.featuredImageUrl ?
             `<img src="${this.featuredImageUrl}" />`
             : '';
+    }
+
+    getHeader() {
+        return this.featuredImageUrl ?
+            `<div class="area-header" style="background-image: url('${this.featuredImageUrl}');">
+                <h2>${ this.name }</h2>
+            </div>`
+            : `<h2 class="area-header">${ this.name }</h2>`;
     }
 
 }

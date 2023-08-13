@@ -33,15 +33,17 @@ export default class Person {
 
     getTemplate() {
         return `
-            <h2 class="person-header">${this.name}${this.degree ? `, ${ this.degree }` : ''}</h2>
-            ${ this.getFeaturedImage() }
-            <h3>${this.title}</h3>
-            ${ this.getContactInfo() }
-            ${this.bio ? `<h3>Bio</h3>${this.bio.replaceAll("\n","<br>")}` : "" }
-            ${this.education ? `<h3>Education</h3>${this.education}` : "" }
-            ${this.interests ? `<h3>Research & Professional Interests</h3>${this.interests}` : "" }
-            ${ this.getAreas() }
-            ${this.website ? `<h3>Website</h3><a href="${this.website}" target="_blank">${this.website}</a>` : "" }
+            <section class="content-wrapper">
+                <h2 class="person-header">${this.name}${this.degree ? `, ${ this.degree }` : ''}</h2>
+                ${ this.getFeaturedImage() }
+                <h3>${this.title}</h3>
+                ${ this.getContactInfo() }
+                ${this.bio ? `<h3>Bio</h3>${this.bio.replaceAll("\n","<br>")}` : "" }
+                ${this.education ? `<h3>Education</h3>${this.education}` : "" }
+                ${this.interests ? `<h3>Research & Professional Interests</h3>${this.interests}` : "" }
+                ${ this.getAreas() }
+                ${this.website ? `<h3>Website</h3><a href="${this.website}" target="_blank">${this.website}</a>` : "" }
+            </section>
         `;
     }
 

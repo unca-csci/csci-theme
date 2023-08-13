@@ -20,19 +20,21 @@ export default class CourseGeneric300 extends Course {
         // console.log(this.courses);
         
         return `
-        <h3>CSCI 300+ Level Electives</h3>
-        <p>
-            Note that you cannot "double-count" CSCI Electives. 
-            In other words, pick an elective that hasn't already 
-            counted towards another requirement.
-        </p>
-        <ul>
-            ${ this.courses
-                .filter(course => course.is300PlusElective())
-                .map(course => course.getTemplateListItem(false))
-                .join('\n')
-            }
-        </ul>
+        <section class="content-wrapper">
+            <h3>CSCI 300+ Level Electives</h3>
+            <p>
+                Note that you cannot "double-count" CSCI Electives. 
+                In other words, pick an elective that hasn't already 
+                counted towards another requirement.
+            </p>
+            <ul>
+                ${ this.courses
+                    .filter(course => course.is300PlusElective())
+                    .map(course => course.getTemplateListItem(false))
+                    .join('\n')
+                }
+            </ul>
+        </section>
         `;
     }
 
