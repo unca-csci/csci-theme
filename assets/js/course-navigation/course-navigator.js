@@ -1,9 +1,11 @@
 import BaseNavigator from './base-navigator.js';
 import CourseGroup from '../models/course-group.js';
+import utils from '../utilities.js';
 
 export default class CourseNavigator extends BaseNavigator {
 
     async fetchAndDisplayNavigator () {
+        utils.showSpinner(document.querySelector('#course-navigator'));
         await this.dm.initializeDegreesCoursesData();
         this.initNavigatorInterface();
     }

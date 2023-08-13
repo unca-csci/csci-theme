@@ -26,6 +26,7 @@ class Modal {
             el = document.body.lastElementChild;
             const btn = el.querySelector('button');
             btn.addEventListener('click', this.hide.bind(this));
+            el.addEventListener('click', this.hide.bind(this));
         }
         return el;
     }
@@ -50,6 +51,16 @@ class Modal {
     }
 
     hide(ev) {
+        const classList = ev.target.classList;
+        let doClose = false;
+        classList.forEach(className => {
+            if (["fa-times", "close", "close-icon", "show", "modal-bg"].includes(className)) {
+                doClose = true;
+                return;
+            }
+        })
+        if (!doClose) {return};
+
         this.modalElement.classList.add('hidden');
         this.modalElement.setAttribute('aria-hidden', 'false');
     };

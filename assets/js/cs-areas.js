@@ -1,9 +1,10 @@
 import DataManager from './data-manager.js';
+import utils from './utilities.js';
 
 class CSAreas {
 
     async fetchAndDisplay () {
-        
+        utils.showSpinner(document.querySelector('#cs-areas'));
         this.dm = new DataManager();
         await this.dm.initializeCSAreas();
 
@@ -12,6 +13,7 @@ class CSAreas {
 
     displayCSAreas() {
         const parent = document.querySelector('#cs-areas');
+        parent.innerHTML = '';
         this.dm.csAreas.forEach((function(area, idx) {
 
             function showLightbox(e) {

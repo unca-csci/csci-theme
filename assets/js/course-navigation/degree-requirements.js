@@ -1,8 +1,10 @@
 import BaseNavigator from './base-navigator.js';
+import utils from '../utilities.js';
 
 export default class DegreeRequirements extends BaseNavigator {
 
     async fetchAndDisplayDegreeRequirements (degreeType) {
+        utils.showSpinner(document.querySelector('#course-navigator'), 'Loading degree requirements...');
         await this.dm.initializeDegreesCoursesData();
         this.displayDegreeRequirements(degreeType);
     }
