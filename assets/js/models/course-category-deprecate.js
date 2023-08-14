@@ -11,8 +11,6 @@ export default class CourseCategory {
     }
     
     constructor(data, availableCourses) {
-        // console.log(data);
-        // console.log(availableCourses);
         this.id = data.id;
         this.name = data.title.rendered;
         this.description = data.acf.description;
@@ -21,7 +19,6 @@ export default class CourseCategory {
                 return this.id === course.course_catgory_id;
             });
         }
-        // console.log(this.courses);
     }
 
     getTemplate() {

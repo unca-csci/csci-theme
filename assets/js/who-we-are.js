@@ -17,21 +17,7 @@ export default class WhoWeAre {
         const parent = document.querySelector('.people-list');
         parent.innerHTML = '';
         this.dm.people.forEach((function(person) {
-
-            // 1. Display each CS Area:
-            parent.insertAdjacentHTML(
-                'beforeend', person.getCardTemplate()
-            )
-
-            // 2. Add event handler:
-            const btns = parent.lastElementChild.querySelectorAll('button');
-
-            btns.forEach(btn => {
-                btn.addEventListener('click', (function () {
-                    window.lightbox.show(person.getTemplate())
-                }).bind(this));
-            });
-
+            parent.appendChild(person.getCardTemplateElement());
         }).bind(this));
     }
 

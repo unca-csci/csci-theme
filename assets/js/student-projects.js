@@ -25,7 +25,6 @@ export default class StudentProjects {
         }
         
         this.parent.innerHTML = '<div class="projects"></div>';
-        console.log(this.parent.id);
         const container = this.parent.lastElementChild;
         projects.forEach(project => {
             console.log(project.name, project.term);

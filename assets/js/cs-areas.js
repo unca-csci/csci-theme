@@ -21,7 +21,7 @@ class CSAreas {
                 if (e && e.currentTarget.tagName === 'SECTION') {
                     e.currentTarget.querySelector('a').click();
                 } else {
-                    window.lightbox.show(area.getTemplate());
+                    window.lightbox.show(area.getTemplateElement());
                 }
             }
 

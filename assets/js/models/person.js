@@ -1,3 +1,5 @@
+import utils from '../utilities.js';
+
 export default class Person {
     static sortFunction (a, b) {
         if (a.ordering < b.ordering) {
@@ -31,6 +33,10 @@ export default class Person {
         }
     }
 
+    getTemplateList() {
+        return `<li><a href="#">${this.name}</a></li>`;
+    }
+
     getTemplate() {
         return `
             <section class="content-wrapper">
@@ -45,6 +51,12 @@ export default class Person {
                 ${this.website ? `<h3>Website</h3><a href="${this.website}" target="_blank">${this.website}</a>` : "" }
             </section>
         `;
+    }
+
+    getTemplateElement() {
+        const el = utils.createElementFromHTML(this.getTemplate());
+        console.log(el);
+        return el;
     }
 
     getCardTemplate() {
@@ -74,6 +86,29 @@ export default class Person {
                     </p>
                 </div>
             </div>`;
+    }
+
+    getCardTemplateElement() {
+        const el = utils.createElementFromHTML(this.getCardTemplate());
+        el.querySelectorAll('button').forEach((btn => {
+            btn.addEventListener('click', (function () {
+                window.lightbox.show(this.getTemplate())
+            }).bind(this));
+        }).bind(this));
+        return el;
+    }
+
+    appendToHTMLElement(parent, modal=window.lightbox) {
+        parent.insertAdjacentHTML(
+            'beforeend', this.getTemplateList()
+        );
+        this.addLinkEventHandler(parent.lastElementChild.querySelector('a'), modal);
+    }
+
+    addLinkEventHandler(a, modal=window.lightbox) {
+        a.addEventListener('click', (function () {
+             modal.show(this.getTemplate())
+         }).bind(this));
     }
 
     getCSAreas(data) {

@@ -60,8 +60,8 @@ class Lightbox {
         }
     }
 
-    show(html) {
-        console.log(this);
+    show(htmlOrElement) {
+        console.log(htmlOrElement);
         if (window.event) {
             window.event.preventDefault();
             window.callingElement = window.event.target;
@@ -76,7 +76,13 @@ class Lightbox {
     
             this.el.setAttribute('aria-hidden', "false");
             this.el.classList.add("show");
-            this.el.querySelector('.content').innerHTML = html;
+            const contentEl = this.el.querySelector('.content');
+            if (!htmlOrElement.nodeName) {
+                contentEl.innerHTML = htmlOrElement;
+            } else {
+                contentEl.innerHTML = '';
+                contentEl.appendChild(htmlOrElement);
+            }
     
             document.body.style.overflowY = "hidden";
             

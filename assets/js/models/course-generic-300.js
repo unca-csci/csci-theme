@@ -15,10 +15,7 @@ export default class CourseGeneric300 extends Course {
     }
 
     getTemplate() {
-        
-        // await this.getCourses();
-        // console.log(this.courses);
-        
+
         return `
         <section class="content-wrapper">
             <h3>CSCI 300+ Level Electives</h3>

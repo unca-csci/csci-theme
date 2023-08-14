@@ -104,6 +104,7 @@
     }
 
     .main-navigation ul ul a {
+        font-size: 0.9em;
         width: 250px;
     }
     #unca-navigation ul ul a:hover {

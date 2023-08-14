@@ -145,16 +145,16 @@ export default class Course {
         </div>`;
     }
 
-    appendToHTMLElement (parent) {
+    appendToHTMLElement (parent, modal=window.lightbox) {
         parent.insertAdjacentHTML(
             'beforeend', this.getTemplateListItem()
         );
-        this.addLinkEventHandler(parent.lastElementChild);
+        this.addLinkEventHandler(parent.lastElementChild, modal);
     }
 
-    addLinkEventHandler(a) {
+    addLinkEventHandler(a, modal=window.lightbox) {
        a.addEventListener('click', (function () {
-            window.lightbox.show(this.getTemplate())
+            modal.show(this.getTemplate())
         }).bind(this));
     }
 

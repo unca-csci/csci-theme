@@ -111,10 +111,14 @@ export default class DataManager {
         return projects.map(project => new Project(project, this.students, this.people));
     }
 
-    async getCSAreas (availableCourses) {
+    async getCSAreas (availableCourses, availablePeople) {
         const csAreasWP = await this.fetchWordpressAreas();
         return csAreasWP
-            .map(csAreaWP => new CSArea(csAreaWP, availableCourses))
+            .map(csAreaWP => {
+                const area = new CSArea(csAreaWP, availableCourses);
+                area.setPeople(availablePeople);
+                return area;
+            })
             .sort(CSArea.sortFunction);
     }
 
@@ -151,7 +155,9 @@ export default class DataManager {
 
     async initializeCSAreas () {
         this.courses = await this.getCourses();
-        this.csAreas = await this.getCSAreas(this.courses);
+        this.courses.forEach(course => course.loadPrerequisites(this.courses, this.groups));
+        this.people = await this.getPeople();
+        this.csAreas = await this.getCSAreas(this.courses, this.people);
     }
 
     async initializePeople () {
@@ -172,9 +178,10 @@ export default class DataManager {
     async initializeAllData () {
         this.courses = await this.getCourses();
         this.groups = await this.getGroups();
+        this.people = await this.getPeople();
         this.groups.forEach(group => group.loadCourses(this.courses, this.groups));
         this.courses.forEach(course => course.loadPrerequisites(this.courses, this.groups));
-        this.csAreas = await this.getCSAreas(this.courses);
+        this.csAreas = await this.getCSAreas(this.courses, this.people);
         this.degrees = await this.getDegrees(this.groups);
         this.courses.forEach(course => course.setRequirements(this.degrees));
     }

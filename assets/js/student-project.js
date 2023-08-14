@@ -15,6 +15,5 @@ export default class StudentProject {
         const project = this.dm.projects.filter(project => projectId === project.id)[0];
         this.mainContainer.innerHTML = project.getMainTemplate();
         project.appendSideTemplate(this.sideContainer)
-        //this.sideContainer.insertAdjacentHTML('beforeend', project.getSideTemplate());
     }
 }
