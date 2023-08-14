@@ -113,7 +113,9 @@ export default class DataManager {
 
     async getCSAreas (availableCourses) {
         const csAreasWP = await this.fetchWordpressAreas();
-        return csAreasWP.map(csAreaWP => new CSArea(csAreaWP, availableCourses));
+        return csAreasWP
+            .map(csAreaWP => new CSArea(csAreaWP, availableCourses))
+            .sort(CSArea.sortFunction);
     }
 
     async getDegrees(availableGroups) {

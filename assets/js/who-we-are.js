@@ -28,7 +28,7 @@ export default class WhoWeAre {
 
             btns.forEach(btn => {
                 btn.addEventListener('click', (function () {
-                    window.showLightbox(person.getTemplate())
+                    window.lightbox.show(person.getTemplate())
                 }).bind(this));
             });
 

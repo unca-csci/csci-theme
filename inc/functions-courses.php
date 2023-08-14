@@ -13,7 +13,6 @@ function shortcode_course_navigator($atts) {
         // $css_ref .  
         // "\r\n" .
         include_lightbox() .
-        include_modal() .
         "\r\n" .
         '<script type="module">
             import CourseNavigator from "'. get_stylesheet_directory_uri() . '/assets/js/course-navigation/course-navigator.js";' .
@@ -39,7 +38,6 @@ function shortcode_degree_requirements($atts) {
         // $css_ref .  
         // "\r\n" .
         include_lightbox() .
-        include_modal() . 
         "\r\n" .
         '<script type="module">
             import DegreeRequirements from "'. get_stylesheet_directory_uri() . '/assets/js/course-navigation/degree-requirements.js";' .

@@ -18,8 +18,7 @@ function shortcode_course_navigator($atts) {
         ' .  
         "\r\n" . 
         $script_ref .
-        include_lightbox() .
-        include_modal();
+        include_lightbox();
 }
 
 ?>

@@ -41,7 +41,7 @@ export default class Linkify {
                 const code = elem.innerHTML.replace('.', '').trim();
                 elem.innerHTML = `<a href="#">${code}</a>. `;
                 elem.addEventListener('click', (function () {
-                    window.showLightbox(course.getTemplate())
+                    window.lightbox.show(course.getTemplate())
                 }).bind(this));
             }
         }).bind(this));

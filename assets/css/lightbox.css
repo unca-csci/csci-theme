@@ -1,4 +1,4 @@
-#lightbox-bg { 
+.background-sheet { 
     box-sizing: border-box;
     min-height: 100vh;
     position: fixed;
@@ -11,43 +11,64 @@
     background-color: rgba(50, 50, 50, 0.9);
 }
 
-#lightbox {
+.lightbox, .modal {
     position: fixed;
-    left: 0px;
-    top: 0px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 65vw;
-    min-height: 100vh;
     background-color: rgba(255, 255, 255);
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     transition: all 0.2s ease-in;
-    margin-left: -65vw;
-    height: 100vh;
     overflow-y: auto;
     z-index: 100000;
 }
 
-#lightbox .content {
+.lightbox {
+    left: 0;
+    top: 0;
+    margin-left: -65vw;
+    width: 65vw;
+    height: 100vh;
+}
+
+.modal {
+    margin-left: 0;
+    margin-top: -105vh;
+    width: 70vw;
+    left: 15vw;
+    top: 10vh;
+}
+
+.lightbox .content,
+.modal .content {
     width: 100%;
 }
 
-#lightbox .content-wrapper {
+.modal .content {
+    height: 80vh;
+}
+
+.lightbox .content-wrapper,
+.modal .content-wrapper {
     padding: 50px;
 }
 
-#lightbox-bg.show {
+.background-sheet.show {
     left: 0;
     padding: 0px;
 }
 
-#lightbox.show {
+.lightbox.show {
     margin-left: 0vw;
 }
 
-#lightbox .close {
+.modal.show {
+    margin-top: 0;
+}
+
+.lightbox .close,
+.modal .close {
     align-self: flex-end;
     background: transparent;
     border: none;
@@ -56,30 +77,38 @@
     position: absolute;
     right: 0;
     top: 0;
-    text-shadow: 1px 1px 1px #FFF, 
-        -1px -1px 1px #FFF, 
-        1px -1px 1px #FFF, 
-        -1px 1px 1px #FFF;
+    background-color: #eeeeee8f;
+    padding: 10px 20px;
+    border-radius: 0;
 }
 
-#lightbox .close:hover {
+.lightbox .close:hover,
+.modal .close:hover {
     color: #555;
 }
 
-#lightbox.show .close {
-    transition: all 0.2s ease-in;
-}
 @media screen and (max-width: 1000px) {
-    #lightbox.show {
+    .lightbox.show,
+    .modal.show {
         margin-left: 0vw;
         width: 100%;
         padding: 0px;
     }
-    #lightbox .content-wrapper {
+
+    .modal {
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .lightbox .content-wrapper,
+    .modal .content-wrapper {
         padding: 20px;
     }
 
-    #lightbox.show .close {
+    .lightbox.show .close,
+    .modal.show .close {
         transition: none;
         top: 0px;
         right: 0;

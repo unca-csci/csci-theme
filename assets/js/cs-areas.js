@@ -14,14 +14,14 @@ class CSAreas {
     displayCSAreas() {
         const parent = document.querySelector('#cs-areas');
         parent.innerHTML = '';
-        this.dm.csAreas.forEach((function(area, idx) {
+        this.dm.csAreas.forEach((function(area) {
 
             function showLightbox(e) {
                 // for accessibility:
                 if (e && e.currentTarget.tagName === 'SECTION') {
                     e.currentTarget.querySelector('a').click();
                 } else {
-                    window.showLightbox(area.getTemplate());
+                    window.lightbox.show(area.getTemplate());
                 }
             }
 

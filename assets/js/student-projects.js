@@ -4,7 +4,6 @@ import utils from './utilities.js';
 export default class StudentProjects {
 
     constructor(id) {
-        // console.log('Constructor running:', )
         this.parent = document.getElementById(id);
         
         utils.showSpinner(this.parent);

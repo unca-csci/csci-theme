@@ -57,7 +57,7 @@ a h2:focus {
 }
 
 div.area-header {
-    height: 250px;
+    height: 350px;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -68,7 +68,7 @@ div.area-header {
 div.area-header h2 {
     color: white;
     text-shadow: 1px 1px 1px #000;
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-left: 20px;
 }
 

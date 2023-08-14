@@ -100,7 +100,7 @@ export default class Project {
             // Add event handler:
             const a = parent.lastElementChild.querySelector('a');
             a.addEventListener('click', (function () {
-                window.showLightbox(person.getTemplate())
+                window.lightbox.show(person.getTemplate())
             }).bind(this));
         })
     }
@@ -132,7 +132,7 @@ export default class Project {
             // Add event handler:
             const a = instructorEl.querySelector('a');
             a.addEventListener('click', (function () {
-                window.showLightbox(this.instructor.getTemplate())
+                window.lightbox.show(this.instructor.getTemplate())
             }).bind(this));
         }
     }

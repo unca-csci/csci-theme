@@ -1,9 +1,19 @@
 export default class CSArea {
+
+    static sortFunction (a, b) {
+        
+        if (a.ordering < b.ordering) {
+            return -1;
+        } else if (a.ordering > b.ordering) {
+            return 1;
+        }
+        return 0;
+    }
     
     constructor(data, availableCourses) {
-        // console.log(data);
         this.id = data.id;
         this.dataType = 'cs-area';
+        this.ordering = data.menu_order;
         this.name = data.title.rendered;
         this.overview = data.acf.overview || 'TBD';
         this.careers = data.acf.careers;

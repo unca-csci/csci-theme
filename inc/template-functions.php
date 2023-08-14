@@ -23,13 +23,6 @@ function include_lightbox() {
     "\r\n";
 }
 
-function include_modal() {
-    return '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/modal.js"></script>' .
-    "\r\n" .
-    '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/modal.css">';
-    "\r\n";
-}
-
 add_shortcode('linkify', 'shortcode_linkify');
 function shortcode_linkify() {
     return '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/linkify.js"></script>' .

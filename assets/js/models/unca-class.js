@@ -88,7 +88,7 @@ export default class UncaClass {
             // Add event handler:
             const a = instructorEl.querySelector('a');
             a.addEventListener('click', (function () {
-                window.showLightbox(this.instructor.getTemplate())
+                window.lightbox.show(this.instructor.getTemplate())
             }).bind(this));
         }
     }
@@ -102,7 +102,7 @@ export default class UncaClass {
             // Add event handler:
             const a = courseTitleEl.querySelector('a');
             a.addEventListener('click', (function () {
-                window.showLightbox(this.course.getTemplate())
+                window.lightbox.show(this.course.getTemplate())
             }).bind(this));
         }
     }

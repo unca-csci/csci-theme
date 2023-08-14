@@ -8,8 +8,7 @@ function shortcode_schedule_of_classes($atts) {
         '<div id="unca-classes"></div>' .  
         "\r\n" . $script_ref .
         "\r\n" .
-        include_lightbox() .
-        include_modal();
+        include_lightbox();
 }
 
 ?>

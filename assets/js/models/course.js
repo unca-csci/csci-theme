@@ -154,7 +154,7 @@ export default class Course {
 
     addLinkEventHandler(a) {
        a.addEventListener('click', (function () {
-            window.showLightbox(this.getTemplate())
+            window.lightbox.show(this.getTemplate())
         }).bind(this));
     }
 
@@ -176,7 +176,7 @@ export default class Course {
         const tr = parent.lastElementChild;
         const a = tr.querySelector('a');
         a.addEventListener('click', (function () {
-            window.showLightbox(this.getTemplate())
+            window.lightbox.show(this.getTemplate())
         }).bind(this));
 
     }
@@ -191,7 +191,7 @@ export default class Course {
         const a = card.querySelector('a');
         
         a.addEventListener('click', (function () {
-            window.showLightbox(this.getTemplate())
+            window.lightbox.show(this.getTemplate())
         }).bind(this));
     }
 

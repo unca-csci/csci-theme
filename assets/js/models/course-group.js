@@ -137,7 +137,7 @@ export default class CourseGroup {
         );
         const card = parent.lastElementChild;
         card.querySelector('a').addEventListener('click', (function () {
-            window.showLightbox(this.getTemplate())
+            window.lightbox.show(this.getTemplate())
         }).bind(this));
 
         // append child courses:
@@ -179,7 +179,7 @@ export default class CourseGroup {
 
             // const a = parent.lastElementChild;
             // a.addEventListener('click', (function () {
-            //     window.showLightbox(course.getTemplate())
+            //     window.lightbox.show(course.getTemplate())
             // }).bind(course));
 
         }).bind(this));
