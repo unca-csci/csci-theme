@@ -92,22 +92,22 @@ export default class Person {
         const el = utils.createElementFromHTML(this.getCardTemplate());
         el.querySelectorAll('button').forEach((btn => {
             btn.addEventListener('click', (function () {
-                window.lightbox.show(this.getTemplate())
+                window.modalManager.showModal(this.getTemplate())
             }).bind(this));
         }).bind(this));
         return el;
     }
 
-    appendToHTMLElement(parent, modal=window.lightbox) {
+    appendToHTMLElement(parent) {
         parent.insertAdjacentHTML(
             'beforeend', this.getTemplateList()
         );
-        this.addLinkEventHandler(parent.lastElementChild.querySelector('a'), modal);
+        this.addLinkEventHandler(parent.lastElementChild.querySelector('a'));
     }
 
-    addLinkEventHandler(a, modal=window.lightbox) {
+    addLinkEventHandler(a) {
         a.addEventListener('click', (function () {
-             modal.show(this.getTemplate())
+            window.modalManager.showModal(this.getTemplate())
          }).bind(this));
     }
 
@@ -129,7 +129,7 @@ export default class Person {
         }
         return '<div><h3>CS Areas</h3>' + 
             this.cs_areas.map(item => {
-                return `<a href="#" onclick="window.modal.showCSArea(${item.id})" class="tag">${ item.title }</a>`;
+                return `<a href="#" onclick="window.modalManager.showCSArea(${item.id})" class="tag">${ item.title }</a>`;
             }).join('') + 
         '</div>';
     }

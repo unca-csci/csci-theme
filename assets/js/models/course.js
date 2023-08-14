@@ -145,16 +145,16 @@ export default class Course {
         </div>`;
     }
 
-    appendToHTMLElement (parent, modal=window.lightbox) {
+    appendToHTMLElement (parent) {
         parent.insertAdjacentHTML(
             'beforeend', this.getTemplateListItem()
         );
-        this.addLinkEventHandler(parent.lastElementChild, modal);
+        this.addLinkEventHandler(parent.lastElementChild);
     }
 
-    addLinkEventHandler(a, modal=window.lightbox) {
-       a.addEventListener('click', (function () {
-            modal.show(this.getTemplate())
+    addLinkEventHandler(a) {
+        a.addEventListener('click', (function () {
+            window.modalManager.showModal(this.getTemplate())
         }).bind(this));
     }
 
@@ -176,7 +176,7 @@ export default class Course {
         const tr = parent.lastElementChild;
         const a = tr.querySelector('a');
         a.addEventListener('click', (function () {
-            window.lightbox.show(this.getTemplate())
+            window.modalManager.showModal(this.getTemplate())
         }).bind(this));
 
     }
@@ -191,7 +191,7 @@ export default class Course {
         const a = card.querySelector('a');
         
         a.addEventListener('click', (function () {
-            window.lightbox.show(this.getTemplate())
+            window.modalManager.showModal(this.getTemplate())
         }).bind(this));
     }
 
@@ -247,7 +247,7 @@ export default class Course {
         }
         return '<div><h3>CS Areas</h3>' + 
             this.cs_areas.map(item => {
-                return `<a href="#" onclick="window.modal.showCSArea(${item.id})" class="tag">${ item.title }</a>`;
+                return `<a href="#" onclick="window.modalManager.showCSArea(${item.id})" class="tag">${ item.title }</a>`;
             }).join('') + 
         '</div>';
     }

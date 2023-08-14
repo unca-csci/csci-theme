@@ -149,12 +149,13 @@ add_action( 'widgets_init', 'unca_csci_widgets_init' );
  */
 function unca_csci_scripts() {
 	wp_enqueue_style( 'unca-csci-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_enqueue_style( 'nav', get_template_directory_uri() . '/assets/css/navigation.css', array(), null, 'all' );
-	wp_enqueue_style( 'main', get_template_directory_uri() . '/assets/css/main.css', array(), null, 'all' );
 	wp_enqueue_style( 'areas', get_template_directory_uri() . '/assets/css/areas.css', array(), null, 'all' );
+	wp_enqueue_style( 'class-schedule', get_template_directory_uri() . '/assets/css/class-schedule.css', array(), null, 'all' );
+	wp_enqueue_style( 'lightbox', get_template_directory_uri() . '/assets/css/lightbox.css', array(), null, 'all' );
+	wp_enqueue_style( 'main', get_template_directory_uri() . '/assets/css/main.css', array(), null, 'all' );
+	wp_enqueue_style( 'nav', get_template_directory_uri() . '/assets/css/navigation.css', array(), null, 'all' );
 	wp_enqueue_style( 'people', get_template_directory_uri() . '/assets/css/people.css', array(), null, 'all' );
 	wp_enqueue_style( 'who-we-are', get_template_directory_uri() . '/assets/css/who-we-are.css', array(), null, 'all' );
-	wp_enqueue_style( 'class-schedule', get_template_directory_uri() . '/assets/css/class-schedule.css', array(), null, 'all' );
 	wp_style_add_data( 'unca-csci-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'unca-csci-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );

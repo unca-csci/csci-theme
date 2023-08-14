@@ -1,9 +1,5 @@
-import Person from './models/person.js';
-import Course from './models/course.js';
-import CSArea from './models/cs-area.js';
+export default class Modal {
 
-
-class Lightbox {
     constructor(id, className, zIndex=99999) {
         this.bgId = `${id}-bg`;
         this.id = id;
@@ -29,21 +25,23 @@ class Lightbox {
             `);
 
             // add event handlers:
-            document.querySelector(`#${this.id} .close`).addEventListener('click', this.hide.bind(this));
-            this.bg = document.getElementById(this.bgId).addEventListener('click', this.hide.bind(this));
+            document.querySelector(`#${this.id} .close`).addEventListener('click', this.destroy.bind(this));
+            this.bg = document.getElementById(this.bgId).addEventListener('click', this.destroy.bind(this));
         }
     }
 
     hide (ev) {
-        const classList = ev.target.classList;
-        let doClose = false;
-        classList.forEach(className => {
-            if (["fa-times", "close", "close-icon", "show"].includes(className)) {
-                doClose = true;
-                return;
-            }
-        })
-        if (!doClose) {return};
+        if (ev) {
+            const classList = ev.target.classList;
+            let doClose = false;
+            classList.forEach(className => {
+                if (["fa-times", "close", "close-icon", "show"].includes(className)) {
+                    doClose = true;
+                    return;
+                }
+            })
+            if (!doClose) {return};
+        }
     
         // hide bg overlay:
         this.bg.classList.remove("show");
@@ -58,6 +56,17 @@ class Lightbox {
         if (window.callingElement) {
             window.callingElement.focus();
         }
+    }
+
+    destroy(ev) {
+        this.hide(ev);
+        setTimeout((function () {
+            this.el.remove();
+            this.bg.remove();
+            if (window.modalManager) {
+                window.modalManager.remove(this.id);
+            }
+        }).bind(this), 500);
     }
 
     show(htmlOrElement) {
@@ -90,37 +99,4 @@ class Lightbox {
             this.el.querySelector(".close").focus();
         }).bind(this), 5);
     }
-    
-    async showCSArea (id) {
-        if (window.event) {
-            window.event.preventDefault();
-        }
-        const response = await fetch(`/wp-json/wp/v2/cs-areas/${id}?_embed=1`);
-        const data = await response.json();
-        const csArea = new CSArea(data);
-        this.show(csArea.getTemplate());
-    }
-
-    async showPerson (postID) {
-        if (window.event) {
-            window.event.preventDefault();
-        }
-        const response = await fetch(`/wp-json/wp/v2/people/${postID}?_embed=1`);
-        const data = await response.json();
-        const person = new Person(data);
-        this.show(person.getTemplate());
-    }
-    
-    async showCourse (postID) {
-        if (window.event) {
-            window.event.preventDefault();
-        }
-        const response = await fetch(`/wp-json/wp/v2/courses/${postID}?_embed=1`);
-        const data = await response.json();
-        const course = new Course(data);
-        this.show(course.getTemplate());
-    }
 }
-
-window.lightbox = new Lightbox('lightbox', 'lightbox');
-window.modal = new Lightbox('modal', 'lightbox', 100001); 

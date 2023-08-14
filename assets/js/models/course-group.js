@@ -137,7 +137,7 @@ export default class CourseGroup {
         );
         const card = parent.lastElementChild;
         card.querySelector('a').addEventListener('click', (function () {
-            window.lightbox.show(this.getTemplate())
+            window.modalManager.showModal(this.getTemplate())
         }).bind(this));
 
         // append child courses:
