@@ -17,11 +17,10 @@ class CSAreas {
         this.dm.csAreas.forEach((function(area) {
 
             function showLightbox(e) {
-                // for accessibility:
-                if (e && e.currentTarget.tagName === 'SECTION') {
-                    e.currentTarget.querySelector('a').click();
-                } else {
-                    window.modalManager.showModal(area.getTemplateElement());
+                window.modalManager.showModal(area.getTemplateElement());
+                if (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
                 }
             }
 

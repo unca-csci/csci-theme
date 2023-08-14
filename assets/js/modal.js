@@ -70,7 +70,6 @@ export default class Modal {
     }
 
     show(htmlOrElement) {
-        console.log(htmlOrElement);
         if (window.event) {
             window.event.preventDefault();
             window.callingElement = window.event.target;
