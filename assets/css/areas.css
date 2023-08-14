@@ -81,5 +81,6 @@ h2.area-header {
 @media screen and (max-width: 600px) {
     .areas {
         grid-template-columns: auto;
+        font-size: 1.3em;
     }
 }

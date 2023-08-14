@@ -117,4 +117,9 @@
         top: 0px;
         right: 0;
     }
+
+    /* Make text bigger on mobile */
+    .lightbox, .modal {
+        font-size: 1.3em;
+    }
 }

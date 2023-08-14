@@ -126,5 +126,6 @@
 @media screen and (max-width: 700px) {
     .people-list {
         grid-template-columns: auto;
+        font-size: 1.3em;
     }
 }

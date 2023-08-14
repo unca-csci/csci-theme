@@ -120,6 +120,10 @@ a:focus, a h2:focus, a h3:focus, div:focus {
         grid-template-columns: auto;
         padding: 0;
     }
+
+    .entry-content {
+        padding: 0 3vw;
+    }
 }
 
 /************** Footer ************************/
@@ -353,6 +357,12 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     /* position: sticky;
     top: 150px; */
     margin-bottom: 50px;
+}
+
+@media screen and (max-width: 1000px) {
+    .programs-submenu, .project-submenu {
+        margin-bottom: 0px;
+    }
 }
 
 .category-news .programs-submenu:first-child {
