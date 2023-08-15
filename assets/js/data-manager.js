@@ -162,7 +162,9 @@ export default class DataManager {
 
     async initializePeople () {
         this.people = await this.getPeople();
-        (async function theRest() {
+
+        // load this data after the page has loaded:
+        (async function () {
             this.courses = await this.getCourses();
             this.groups = await this.getGroups();
             this.courses.forEach(course => course.loadPrerequisites(this.courses, this.groups));

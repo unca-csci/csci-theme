@@ -38,9 +38,8 @@ export default class Course {
         
         this.prerequisites_ids = data.acf.prerequisites ? data.acf.prerequisites.map(item => item.ID) : [];
         this.cs_area_ids = data.acf.cs_areas ? data.acf.cs_areas.map(item => item.ID) : [];
-        
-        this.prerequisites = [];
         this.requirements = [];
+
     }
 
     is300PlusElective() {
@@ -49,10 +48,6 @@ export default class Course {
             ['3', '4'].includes(this.code[5]) &&
             this.credits >= 3
         );
-    }
-
-    loadPrerequisites() {
-        this.prerequisites = this.getPrereqs();
     }
 
 
@@ -71,15 +66,24 @@ export default class Course {
         }).bind(this));
     }
 
+    loadPrerequisites() {
+        this.getPrereqs();
+    }
+
     getPrereqs() {
-        if (!this.dm.courses || !this.dm.groups) { return null; }
+        if (!this.dm.courses || !this.dm.groups) { return []; }
+        if (this._prerequisites) {
+            return this._prerequisites;
+        }
 
         // returns a unique, sorted list of prerequisites:
         if (this.prerequisites_ids) {
             let prereqs = this.getPrereqsRecursive([]);
-            return [...new Set(prereqs)].sort(Course.courseSortFunction);
+            this._prerequisites = [...new Set(prereqs)].sort(Course.courseSortFunction);
+        } else {
+            this._prerequisites = [];
         }
-        return null;
+        return this._prerequisites;
     }
 
     getPrereqsRecursive(prereqs) {
@@ -115,7 +119,27 @@ export default class Course {
                 f.appendToHTMLElement(parent, window.modal)
             });
         }
+        parent = el.querySelector('.prerequisites');
+        if (parent) {
+            this.appendPrerequisites(parent);
+        }
         return el;
+    }
+
+    appendPrerequisites(parent) {
+        parent.innerHTML = '';
+        this.getPrereqs().forEach(prereq => {
+            if (prereq.dataType == 'course') {
+                prereq.appendToHTMLElementListItem(parent);
+            } else {
+                parent.insertAdjacentHTML('beforeend', `<li>${prereq.code}. ${prereq.name} Pick One: <ul>`);
+                parent.insertAdjacentHTML('beforeend', `<ul></ul>`);
+                parent = parent.lastElementChild;
+                prereq.courses.map(course => {
+                    course.appendToHTMLElementListItem(parent);
+                }) 
+            }
+        })
     }
 
     getTemplate() {
@@ -248,29 +272,30 @@ export default class Course {
     };
 
     getPrereqsHTML() {
-        if (this.prerequisites.length === 0) {
+        if (this.getPrereqs().length === 0) {
             return '<h3>Prerequisites</h3><p>None</p>';
         }
         return `
-            <h3>Prerequisites</h3>
-            <ul>
-            ${
-                this.prerequisites
-                    .map(prereq => {
-                        if (prereq.dataType == 'course') {
-                            return `<li>${ prereq.code }. ${ prereq.name }</li>`
-                        } else {
-                            return `<li>${prereq.code}. ${prereq.name} Pick One: <ul>${
-                                prereq.courses.map(course => {
-                                    return `<li>${ course.code }. ${ course.name }</li>`
-                                }).join('\n')
-                            }</ul></li>`
-                        }
-                    })
-                    .join('\n')
-            }
-            </ul>
+            <h3>Prerequisites</h3><ul class="prerequisites"></ul>
+            
         `;
+        // <ul>
+        //     ${
+        //         this.prerequisites
+        //             .map(prereq => {
+        //                 if (prereq.dataType == 'course') {
+        //                     return `<li>${ prereq.code }. ${ prereq.name }</li>`
+        //                 } else {
+        //                     return `<li>${prereq.code}. ${prereq.name} Pick One: <ul>${
+        //                         prereq.courses.map(course => {
+        //                             return `<li>${ course.code }. ${ course.name }</li>`
+        //                         }).join('\n')
+        //                     }</ul></li>`
+        //                 }
+        //             })
+        //             .join('\n')
+        //     }
+        //     </ul>
     }
 
     getAreasHTML() {
