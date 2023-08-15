@@ -151,14 +151,7 @@ export default class CourseGroup {
     }
 
     showPickOneCourseOptions(parent) {
-        parent.insertAdjacentHTML(
-            'beforeend', '. Pick One:<ul></ul>'
-        );
-        const ul = parent.lastElementChild;
-        this.courses.forEach((course => {
-            course.appendListItemToHTMLElement(ul);
-
-        }).bind(this));
+        this.showPickOneCourseOptionsInline(parent);
     }
 
     showPickOneCourseOptionsInline(parent) {
@@ -173,14 +166,6 @@ export default class CourseGroup {
                 );
             }
             course.appendLinkToHTMLElement(container);
-            // container.insertAdjacentHTML(
-            //     'beforeend', `<a href="#">${course.code}</a> `
-            // );
-
-            // const a = parent.lastElementChild;
-            // a.addEventListener('click', (function () {
-            //     window.lightbox.show(course.getTemplate())
-            // }).bind(course));
 
         }).bind(this));
     }

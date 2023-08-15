@@ -1,3 +1,5 @@
+import utils from '../utilities.js';
+
 export default class Course {
     
     static courseSortFunction (a, b) {
@@ -19,10 +21,10 @@ export default class Course {
     }
     
     constructor(data) {
+        this.dm = window.dataManager;
         this.id = data.id;
         this.dataType = 'course';
         this.course_category_ids = this.getCourseCategoryIds(data);
-        this.cs_areas = this.getCSAreas(data);
         this.code = data.acf.csci_num;
         try {
             this.department = data.acf.csci_num.split(' ')[0];
@@ -33,14 +35,12 @@ export default class Course {
         this.description = data.acf.description;
         this.offered = data.acf.offered || '';
         this.credits = data.acf.credits || 3;
-        this.prerequisites_ids = null;
-        this.prerequisites = null;
-
+        
+        this.prerequisites_ids = data.acf.prerequisites ? data.acf.prerequisites.map(item => item.ID) : [];
+        this.cs_area_ids = data.acf.cs_areas ? data.acf.cs_areas.map(item => item.ID) : [];
+        
+        this.prerequisites = [];
         this.requirements = [];
-        if (data.acf.prerequisites) {
-            this.prerequisites_ids = data.acf.prerequisites.map(item => item.ID);
-        }
-
     }
 
     is300PlusElective() {
@@ -51,30 +51,71 @@ export default class Course {
         );
     }
 
-    loadPrerequisites(availableCourses, availableGroups) {
-        this.prerequisites = this._getPrereqs(availableCourses, availableGroups);
+    loadPrerequisites() {
+        this.prerequisites = this.getPrereqs();
     }
 
-    _getPrereqs(availableCourses, availableGroups) {
+
+    loadRequirements() {
+        // look through all of the degree objects to see if the current course 
+        // is listed. If it is, add it to the requirements array:
+        this.dm.degrees.forEach((degree => {
+            degree.groups.forEach(group => {
+                if (group.groupType == 'All') {
+                    const courseIds = group.courses.map(course => course.id);
+                    if (courseIds.includes(this.id)) {
+                        this.requirements.push(degree.name);
+                    }
+                }
+            })
+        }).bind(this));
+    }
+
+    getPrereqs() {
+        if (!this.dm.courses || !this.dm.groups) { return null; }
+
         // returns a unique, sorted list of prerequisites:
         if (this.prerequisites_ids) {
-            let prereqs = this._getPrereqsRecursive([], availableCourses, availableGroups);
+            let prereqs = this.getPrereqsRecursive([]);
             return [...new Set(prereqs)].sort(Course.courseSortFunction);
         }
         return null;
     }
 
-    _getPrereqsRecursive(prereqs, availableCourses, availableGroups) {
-        if (this.prerequisites_ids) {
-            const newPrereqs = availableCourses.filter(course => this.prerequisites_ids.includes(course.id));
-            const newPrereqGroups = availableGroups.filter(group => this.prerequisites_ids.includes(group.id));
+    getPrereqsRecursive(prereqs) {
+        if (this.prerequisites_ids) { 
+            const newPrereqs = this.dm.courses.filter(course => this.prerequisites_ids.includes(course.id));
+            const newPrereqGroups = this.dm.groups.filter(group => this.prerequisites_ids.includes(group.id));
+            
             prereqs = prereqs.concat(newPrereqs);
             prereqs = prereqs.concat(newPrereqGroups);
             for (const newPrereq of newPrereqs) {
-                return newPrereq._getPrereqsRecursive(prereqs, availableCourses, availableGroups)
+                return newPrereq.getPrereqsRecursive(prereqs)
             }
         }
-        return prereqs;
+        return prereqs; 
+    }
+
+    getTemplateElement() {
+        const el = utils.createElementFromHTML(this.getTemplate());
+        // attach event handlers:
+        let parent = el.querySelector('.area-tags');
+        if (parent) {
+            parent.innerHTML = '';
+            this.cs_areas = this.dm.csAreas.filter(item => this.cs_area_ids.includes(item.id));
+            this.cs_areas.forEach(area => {
+                area.appendTagToHTMLElement(parent)
+            });
+        }
+
+        parent = el.querySelector('.faculty-list');
+        if (parent) {
+            parent.innerHTML = '';
+            this.faculty.forEach(f => {
+                f.appendToHTMLElement(parent, window.modal)
+            });
+        }
+        return el;
     }
 
     getTemplate() {
@@ -86,25 +127,25 @@ export default class Course {
                     <li>${this.credits} Credit Hour(s)</li>
                     ${this.offered ? `<li>Offered ${this.offered}</li>` : ''}
                 </ul>
-                ${ this.getPrereqs() }
-                ${ this.getRequirements() }
-                ${ this.getAreas() }
+                ${ this.getPrereqsHTML() }
+                ${ this.getRequirementsHTML() }
+                ${ this.getAreasHTML() }
             </section>
         `;
         return html;
     }
 
     getTemplateListItem(includeLinks=true) {
-        const tokens = this.name.split(": ");
-        const name = tokens.length > 1 ? tokens[1] : this.name;
+        // const tokens = this.name.split(": ");
+        // const name = tokens.length > 1 ? tokens[1] : this.name;
         if (includeLinks) {
             return `<li>
                 ${ this.code }. 
-                <a href="#">${ name }</a>
+                <a href="#">${ this.name }</a>
             </li>`;
         } else {
             return `<li>
-                ${ this.code }. ${ name } (${ this.credits } Credits)
+                ${ this.code }. ${ this.name } (${ this.credits } Credits)
             </li>`;
         }
     }
@@ -112,7 +153,6 @@ export default class Course {
     getTemplateLink() {
         return `<a href="#">${ this.code }</a>`;
     }
-    
 
     getTemplateTableRow() {
         if (!this.pick_one) {
@@ -145,17 +185,22 @@ export default class Course {
         </div>`;
     }
 
-    appendToHTMLElement (parent) {
+    addLinkEventHandler(a) {
+        a.addEventListener('click', this.showModal.bind(this));
+    }
+
+    appendToHTMLElementListItem (parent) {
         parent.insertAdjacentHTML(
             'beforeend', this.getTemplateListItem()
         );
         this.addLinkEventHandler(parent.lastElementChild);
     }
 
-    addLinkEventHandler(a) {
-        a.addEventListener('click', (function () {
-            window.modalManager.showModal(this.getTemplate())
-        }).bind(this));
+    appendToHTMLElement (parent) {
+        parent.insertAdjacentHTML(
+            'beforeend', this.getTemplate()
+        );
+        this.addLinkEventHandler(parent.lastElementChild);
     }
 
     appendLinkToHTMLElement (parent) {
@@ -168,16 +213,12 @@ export default class Course {
     }
 
     appendToHTMLElementTable (parent) {
-        
         parent.insertAdjacentHTML(
             'beforeend', this.getTemplateTableRow()
         );
         
-        const tr = parent.lastElementChild;
-        const a = tr.querySelector('a');
-        a.addEventListener('click', (function () {
-            window.modalManager.showModal(this.getTemplate())
-        }).bind(this));
+        const a = parent.lastElementChild.querySelector('a');
+        a.addEventListener('click', this.showModal.bind(this));
 
     }
 
@@ -187,12 +228,16 @@ export default class Course {
         );
 
         // Add event handler:
-        const card = parent.lastElementChild;
-        const a = card.querySelector('a');
-        
-        a.addEventListener('click', (function () {
-            window.modalManager.showModal(this.getTemplate())
-        }).bind(this));
+        const a = parent.lastElementChild.querySelector('a');
+        a.addEventListener('click', this.showModal.bind(this));
+    }
+
+    showModal(e) {
+        window.modalManager.showModal(this.getTemplateElement());
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
     }
 
     getCourseCategoryIds(data) {
@@ -202,20 +247,8 @@ export default class Course {
         return [];
     };
 
-    getCSAreas(data) {
-        if (data.acf.cs_areas && data.acf.cs_areas.length > 0) {
-            return data.acf.cs_areas.map(area => {
-                return {
-                    "id": area.ID, 
-                    "title": area.post_title
-                }
-            });
-        }
-        return [];
-    }
-
-    getPrereqs() {
-        if (!this.prerequisites) {
+    getPrereqsHTML() {
+        if (this.prerequisites.length === 0) {
             return '<h3>Prerequisites</h3><p>None</p>';
         }
         return `
@@ -224,7 +257,6 @@ export default class Course {
             ${
                 this.prerequisites
                     .map(prereq => {
-                        // handles the situation where there's an either / or:
                         if (prereq.dataType == 'course') {
                             return `<li>${ prereq.code }. ${ prereq.name }</li>`
                         } else {
@@ -241,18 +273,14 @@ export default class Course {
         `;
     }
 
-    getAreas() {
-        if (!this.cs_areas || this.cs_areas.length == 0) {
+    getAreasHTML() {
+        if (this.cs_area_ids.length === 0 || this.dm.csAreas.length === 0) {
             return '';
         }
-        return '<div><h3>CS Areas</h3>' + 
-            this.cs_areas.map(item => {
-                return `<a href="#" onclick="window.modalManager.showCSArea(${item.id})" class="tag">${ item.title }</a>`;
-            }).join('') + 
-        '</div>';
+        return '<h3>CS Areas</h3><div class="area-tags"></div>';
     }
 
-    getRequirements() {
+    getRequirementsHTML() {
         if (this.requirements.length === 0) {
             return '';
         }
@@ -261,22 +289,4 @@ export default class Course {
             <ul><li>${this.requirements.join('</li><li>')}</li></ul>
         `;
     }
-
-    setRequirements(degrees) {
-        // look through all of the degree objects to see if the current course 
-        // is listed. If it is, add it to the requirements array:
-        degrees.forEach((degree => {
-            degree.groups.forEach(group => {
-                if (group.groupType == 'All') {
-                    const courseIds = group.courses.map(course => course.id);
-                    if (courseIds.includes(this.id)) {
-                        this.requirements.push(degree.name);
-                    }
-                }
-            })
-            
-            
-        }).bind(this));
-    }
-    
 }

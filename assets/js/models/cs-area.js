@@ -13,6 +13,7 @@ export default class CSArea {
     }
     
     constructor(data, availableCourses) {
+        this.dm = window.dataManager;
         this.id = data.id;
         this.dataType = 'cs-area';
         this.ordering = data.menu_order;
@@ -20,39 +21,34 @@ export default class CSArea {
         this.overview = data.acf.overview || 'TBD';
         this.careers = data.acf.careers;
         this.featuredImageUrl = null;
-        this.faculty_objects = null;
-        this.faculty = null;
-        this.courses = null;
-
+        this.faculty_ids = data.acf.associated_faculty ? data.acf.associated_faculty.map(item => item.ID) : [];
+        
         if (data._embedded && data._embedded["wp:featuredmedia"] && data._embedded["wp:featuredmedia"].length > 0) {
             this.featuredImageUrl = data._embedded["wp:featuredmedia"][0].source_url;
         }
-        if (data.acf.associated_faculty) {
-            this.faculty_objects = data.acf.associated_faculty.map(item => {
-                return {
-                    id: item.ID,
-                    name: item.post_title
-                };
-            })
-        }
-
-        if (availableCourses) {
-            this.courses = availableCourses.filter(course => {
-                const area_ids = course.cs_areas.map(area => area.id);
-                return area_ids.includes(this.id);
-            });
-        }
     }
 
-    setPeople(facultyList) {
-        if (!facultyList) {return;}
-        const faculty_ids = this.faculty_objects.map(f => f.id);
-        this.faculty = facultyList.filter(faculty => {
-            return faculty_ids.includes(faculty.id);
+    getCourses() {
+        this.courses = this.dm.courses.filter(course => {
+            return course.cs_area_ids.includes(this.id);
+        });
+        return this.courses;
+    }
+
+    getPeople() {
+        this.people = [];
+        if (this.dm.people.length === 0 || this.faculty_ids.length === 0) { return; }
+        this.people = this.dm.people.filter(person => {
+            return this.faculty_ids.includes(person.id);
         })
+        return this.people;
     }
 
-    getListTemplate() {
+    getTagTemplate() {
+        return `<a href="#" class="tag">${ this.name }</a>`
+    }
+
+    getCardTemplate() {
         let style = '';
         if (this.featuredImageUrl) {
             style = `background-image: url('${ this.featuredImageUrl }');`;
@@ -69,14 +65,14 @@ export default class CSArea {
     getTemplate() {
         let html = `
             <div>
-                ${ this.getHeader() }
+                ${ this.getHeaderHTML() }
                 <section class="content-wrapper">
                     <h3>Overview</h3>
                     ${ this.overview }
                     <h3>Careers</h3>
                     ${ this.careers }
-                    ${ this.showFaculty() }
-                    ${ this.showCourses() }
+                    ${ this.getFacultyHTML() }
+                    ${ this.getCoursesHTML() }
                 </section>
             </div>
         `;
@@ -90,46 +86,59 @@ export default class CSArea {
         if (parent) {
             parent.innerHTML = '';
             this.courses.forEach(course => {
-                course.appendToHTMLElement(parent, window.modal)
+                course.appendToHTMLElementListItem(parent)
             });
         }
 
         parent = el.querySelector('.faculty-list');
         if (parent) {
             parent.innerHTML = '';
-            this.faculty.forEach(f => {
-                f.appendToHTMLElement(parent, window.modal)
+            this.people.forEach(f => {
+                f.appendToHTMLElement(parent)
             });
         }
         return el;
     }
+
+    appendTagToHTMLElement (parent) {
+        parent.insertAdjacentHTML(
+            'beforeend', this.getTagTemplate()
+        );
+        this.addLinkEventHandler(parent.lastElementChild);
+    }
+
+    addLinkEventHandler(a) {
+        a.addEventListener('click', this.showModal.bind(this));
+    }
+
+    showModal(e) {
+        window.modalManager.showModal(this.getTemplateElement());
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+    }
     
-    showFaculty() {
-        if (!this.faculty_objects) {
-            return '';
+    getFacultyHTML() {
+        const people = this.getPeople();
+        console.log(people);
+        if (people.length === 0) { 
+            return ''; 
         }
 
         return `
             <h3>Associated Faculty</h3>
-            <ul class="faculty-list">
-                ${ this.faculty_objects.map(f => `<li>${f.name}</li>`).join('\n') }
-            </ul>
+            <ul class="faculty-list"></ul>
         `;
     }
     
-    showCourses() {
-        if (!this.courses) {
-            return '';
-        }
+    getCoursesHTML() {
+        const courses = this.getCourses();
+        console.log(courses);
+        if (courses.length === 0) { return ''; }
         return `
             <h3>Course Offerings</h3>
-            <ul class="course-list">
-                ${
-                    this.courses.map( 
-                        course => course.getTemplateListItem(false)
-                    ).join('\n')
-                }
-            </ul>
+            <ul class="course-list"></ul>
         `;
     }
     
@@ -139,7 +148,7 @@ export default class CSArea {
             : '';
     }
 
-    getHeader() {
+    getHeaderHTML() {
         return this.featuredImageUrl ?
             `<div class="area-header" style="background-image: url('${this.featuredImageUrl}');">
                 <h2>${ this.name }</h2>

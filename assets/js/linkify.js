@@ -3,7 +3,7 @@ import CourseGeneric300 from './models/course-generic-300.js';
 
 export default class Linkify {
     constructor() {
-        this.dm = new DataManager();
+        this.dm = window.dataManager = new DataManager();
     }
 
     async fetchAndDisplayCourseLinks () {

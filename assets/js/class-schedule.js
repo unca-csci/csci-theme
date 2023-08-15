@@ -7,7 +7,7 @@ export default class ClassSchedule {
         document.querySelector('#unca-classes').innerHTML = this.getInterfaceHTML();
         utils.showSpinner(document.querySelector('#course-list'), 'Loading the university course catalog...');
         document.querySelector('#term').addEventListener('change', this.showNewTerm.bind(this));
-        this.dm = new DataManager();
+        this.dm = window.dataManager = new DataManager();
     }
 
     getInterfaceHTML() {

@@ -37,8 +37,8 @@ export default class CourseGeneric300 extends Course {
 
     async getCourses () {
         if (!this.courses) {
-            const dm = new DataManager();
-            this.courses = await dm.getCourses();
+            this.dm = window.dataManager = new DataManager();
+            this.courses = await this.dm.getCourses();
             return this.courses;
         } else {
             return this.courses;

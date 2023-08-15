@@ -7,7 +7,7 @@ export default class StudentProjects {
         this.parent = document.getElementById(id);
         
         utils.showSpinner(this.parent);
-        this.dm = new DataManager();
+        this.dm = window.dataManager = new DataManager();
     }
 
     async fetchAndDisplayById (projectId) {

@@ -10,6 +10,7 @@ export default class Person {
         return 0;
     }
     constructor(data) {
+        this.dm = window.dataManager;
         const tokens = data.title.rendered.split(', ');
         this.id = data.id;
         this.dataType = 'person';
@@ -22,7 +23,7 @@ export default class Person {
         this.bio = data.acf.bio ? data.acf.bio.replaceAll("\n", "<br>") : null;
         this.education = data.acf.education;
         this.interests = data.acf.interests;
-        this.cs_areas = this.getCSAreas(data);
+        // this.cs_areas = this.getCSAreas(data);
         this.website = data.acf.website;
         this.phone = data.acf.phone_number;
         this.email = data.acf.email;
@@ -31,6 +32,7 @@ export default class Person {
         if (data._embedded && data._embedded["wp:featuredmedia"] && data._embedded["wp:featuredmedia"].length > 0) {
             this.featuredImageUrl = data._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
         }
+        this.cs_area_ids = data.acf.cs_areas ? data.acf.cs_areas.map(item => item.ID) : [];
     }
 
     getTemplateList() {
@@ -56,6 +58,16 @@ export default class Person {
     getTemplateElement() {
         const el = utils.createElementFromHTML(this.getTemplate());
         console.log(el);
+        let parent = el.querySelector('.area-tags');
+        if (parent) {
+            parent.innerHTML = '';
+            this.cs_areas = this.dm.csAreas.filter(item => this.cs_area_ids.includes(item.id));
+            console.log(this.cs_areas);
+            this.cs_areas.forEach(area => {
+                area.appendTagToHTMLElement(parent)
+            });
+        }
+
         return el;
     }
 
@@ -92,7 +104,7 @@ export default class Person {
         const el = utils.createElementFromHTML(this.getCardTemplate());
         el.querySelectorAll('button').forEach((btn => {
             btn.addEventListener('click', (function () {
-                window.modalManager.showModal(this.getTemplate())
+                window.modalManager.showModal(this.getTemplateElement())
             }).bind(this));
         }).bind(this));
         return el;
@@ -107,31 +119,17 @@ export default class Person {
 
     addLinkEventHandler(a) {
         a.addEventListener('click', (function () {
-            window.modalManager.showModal(this.getTemplate())
+            window.modalManager.showModal(this.getTemplateElement())
          }).bind(this));
     }
 
-    getCSAreas(data) {
-        if (data.acf.cs_areas && data.acf.cs_areas.length > 0) {
-            return data.acf.cs_areas.map(area => {
-                return {
-                    "id": area.ID, 
-                    "title": area.post_title
-                }
-            });
-        }
-        return [];
-    }
-
     getAreas() {
-        if (!this.cs_areas || this.cs_areas.length == 0) {
+        console.log(this.cs_area_ids, this.dm.csAreas);
+        if (this.cs_area_ids.length === 0 || this.dm.csAreas.length === 0) {
             return '';
         }
-        return '<div><h3>CS Areas</h3>' + 
-            this.cs_areas.map(item => {
-                return `<a href="#" onclick="window.modalManager.showCSArea(${item.id})" class="tag">${ item.title }</a>`;
-            }).join('') + 
-        '</div>';
+        console.log(this.cs_area_ids, this.dm.csAreas);
+        return '<h3>CS Areas</h3><div class="area-tags"></div>';
     }
 
     getFeaturedImage() {

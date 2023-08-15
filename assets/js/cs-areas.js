@@ -5,7 +5,7 @@ class CSAreas {
 
     async fetchAndDisplay () {
         utils.showSpinner(document.querySelector('#cs-areas'));
-        this.dm = new DataManager();
+        this.dm = window.dataManager = new DataManager();
         await this.dm.initializeCSAreas();
 
         this.displayCSAreas();
@@ -26,7 +26,7 @@ class CSAreas {
 
             // 1. display each CS Area:
             parent.insertAdjacentHTML(
-                'beforeend', area.getListTemplate()
+                'beforeend', area.getCardTemplate()
             )
 
             // 2. Add click event handler:
@@ -38,8 +38,6 @@ class CSAreas {
 
         }).bind(this));
     }
-    
-
 }
 
 const csAreas = new CSAreas();

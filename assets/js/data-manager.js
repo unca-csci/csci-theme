@@ -111,13 +111,11 @@ export default class DataManager {
         return projects.map(project => new Project(project, this.students, this.people));
     }
 
-    async getCSAreas (availableCourses, availablePeople) {
+    async getCSAreas () {
         const csAreasWP = await this.fetchWordpressAreas();
         return csAreasWP
             .map(csAreaWP => {
-                const area = new CSArea(csAreaWP, availableCourses);
-                area.setPeople(availablePeople);
-                return area;
+                return new CSArea(csAreaWP);
             })
             .sort(CSArea.sortFunction);
     }
@@ -133,16 +131,18 @@ export default class DataManager {
         this.groups.forEach(group => group.loadCourses(this.courses, this.groups));
 
         // set up course dependency map
-        this.courses.forEach(course => course.loadPrerequisites(this.courses, this.groups));
+        this.courses.forEach(course => course.loadPrerequisites());
         this.degrees = await this.getDegrees(this.groups);
-        this.courses.forEach(course => course.setRequirements(this.degrees));
+        this.courses.forEach(course => course.loadRequirements());
+        this.people = await this.getPeople();
+        this.csAreas = await this.getCSAreas();
     }
 
     async initializeCourseScheduleData (term) {
         this.courses = await this.getCourses();
         this.groups = await this.getGroups();
         this.groups.forEach(group => group.loadCourses(this.courses, this.groups));
-        this.courses.forEach(course => course.loadPrerequisites(this.courses, this.groups));
+        this.courses.forEach(course => course.loadPrerequisites());
         this.degrees = await this.getDegrees(this.groups);
         this.courses.forEach(course => course.setRequirements(this.degrees));
         this.people = await this.getPeople();
@@ -161,12 +161,14 @@ export default class DataManager {
     }
 
     async initializePeople () {
-        // this.courses = await this.getCourses();
-        // this.groups = await this.getGroups();
-        // this.groups.forEach(group => group.loadCourses(this.courses, this.groups));
-        // this.courses.forEach(course => course.loadPrerequisites(this.courses, this.groups));
-        // this.csAreas = await this.getCSAreas(this.courses);
         this.people = await this.getPeople();
+        (async function theRest() {
+            this.courses = await this.getCourses();
+            this.groups = await this.getGroups();
+            this.courses.forEach(course => course.loadPrerequisites(this.courses, this.groups));
+            this.groups.forEach(group => group.loadCourses(this.courses, this.groups));
+            this.csAreas = await this.getCSAreas(this.courses);
+        }).bind(this)();
     }
 
     async initializeStudentProjects () {

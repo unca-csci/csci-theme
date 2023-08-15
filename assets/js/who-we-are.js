@@ -7,7 +7,7 @@ export default class WhoWeAre {
     async fetchAndDisplay () {
         this.parent = document.querySelector('.people-list');
         utils.showSpinner(this.parent);
-        this.dm = new DataManager();
+        this.dm = window.dataManager = new DataManager();
         await this.dm.initializePeople();
 
         this.displayPeople();

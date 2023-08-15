@@ -7,7 +7,7 @@ export default class StudentProject {
         this.mainContainer = document.querySelector('#project-main');
         this.sideContainer = document.querySelector('#project-side');
         utils.showSpinner(this.mainContainer);
-        this.dm = new DataManager();
+        this.dm = window.dataManager = new DataManager();
     }
 
     async fetchAndDisplayById (projectId) {

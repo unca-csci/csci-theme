@@ -3,7 +3,7 @@ import DataManager from '../data-manager.js';
 export default class BaseNavigator {
     constructor() {
         this.display = 'card-view';
-        this.dm = new DataManager();
+        this.dm = window.dataManager = new DataManager();
     }
 
     toggleDisplay (e) {
