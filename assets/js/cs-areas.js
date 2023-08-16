@@ -16,25 +16,15 @@ class CSAreas {
         parent.innerHTML = '';
         this.dm.csAreas.forEach((function(area) {
 
-            function showLightbox(e) {
-                window.modalManager.showModal(area.getTemplateElement());
-                if (e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                }
-            }
-
             // 1. display each CS Area:
-            parent.insertAdjacentHTML(
-                'beforeend', area.getCardTemplate()
-            )
+            parent.insertAdjacentHTML('beforeend', area.getCardTemplate())
 
             // 2. Add click event handler:
             const el = parent.lastElementChild;
 
             // multiple event handlers for accessibility:
-            el.addEventListener('click', showLightbox.bind(this));
-            el.querySelector('a').addEventListener('click', showLightbox.bind(this));
+            el.addEventListener('click', area.showModal.bind(area));
+            el.querySelector('a').addEventListener('click', area.showModal.bind(area));
 
         }).bind(this));
     }

@@ -45,4 +45,12 @@ export default class Student {
             `<img class="people-thumb" src="${this.featuredImageUrl}" />`
             : '';
     }
+
+    showModal(e) {
+        window.modalManager.showModal(this.getTemplate());
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+    }
 }

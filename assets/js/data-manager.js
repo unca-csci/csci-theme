@@ -186,6 +186,14 @@ export default class DataManager {
         this.students = await this.getStudents();
         this.people = await this.getPeople();
         this.projects = await this.getProjects();
+
+        (async function () {
+            this.courses = await this.getCourses();
+            this.groups = await this.getGroups();
+            this.courses.forEach(course => course.loadPrerequisites());
+            this.groups.forEach(group => group.loadCourses(this.courses, this.groups));
+            this.csAreas = await this.getCSAreas();
+        }).bind(this)();
     }
 
     async initializeAllData () {

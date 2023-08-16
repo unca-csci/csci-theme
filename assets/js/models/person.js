@@ -57,12 +57,10 @@ export default class Person {
 
     getTemplateElement() {
         const el = utils.createElementFromHTML(this.getTemplate());
-        console.log(el);
         let parent = el.querySelector('.area-tags');
         if (parent) {
             parent.innerHTML = '';
             this.cs_areas = this.dm.csAreas.filter(item => this.cs_area_ids.includes(item.id));
-            console.log(this.cs_areas);
             this.cs_areas.forEach(area => {
                 area.appendTagToHTMLElement(parent)
             });
