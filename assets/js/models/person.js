@@ -103,9 +103,7 @@ export default class Person {
     getCardTemplateElement() {
         const el = utils.createElementFromHTML(this.getCardTemplate());
         el.querySelectorAll('button').forEach((btn => {
-            btn.addEventListener('click', (function () {
-                window.modalManager.showModal(this.getTemplateElement())
-            }).bind(this));
+            btn.addEventListener('click', this.showModal.bind(this));
         }).bind(this));
         return el;
     }
@@ -117,10 +115,16 @@ export default class Person {
         this.addLinkEventHandler(parent.lastElementChild.querySelector('a'));
     }
 
+    showModal(e) {
+        window.modalManager.showModal(this.getTemplateElement());
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+    }
+
     addLinkEventHandler(a) {
-        a.addEventListener('click', (function () {
-            window.modalManager.showModal(this.getTemplateElement())
-         }).bind(this));
+        a.addEventListener('click', this.showModal.bind(this));
     }
 
     getAreas() {

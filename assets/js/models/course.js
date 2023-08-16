@@ -112,11 +112,11 @@ export default class Course {
             if (prereq.dataType == 'course') {
                 prereq.appendToHTMLElementListItem(parent);
             } else {
-                parent.insertAdjacentHTML('beforeend', `<li>${prereq.code}. ${prereq.name} Pick One: <ul>`);
+                parent.insertAdjacentHTML('beforeend', `<li>${prereq.code}. ${prereq.name}. Pick One: <ul>`);
                 parent.insertAdjacentHTML('beforeend', `<ul></ul>`);
-                parent = parent.lastElementChild;
+                const ul = parent.lastElementChild;
                 prereq.courses.map(course => {
-                    course.appendToHTMLElementListItem(parent);
+                    course.appendToHTMLElementListItem(ul);
                 }) 
             }
         })
