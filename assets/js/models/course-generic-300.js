@@ -1,5 +1,5 @@
 import Course from './course.js';
-import DataManager from '../data-manager.js';
+import utils from '../utilities.js';
 
 export default class CourseGeneric300 extends Course {
 
@@ -24,20 +24,25 @@ export default class CourseGeneric300 extends Course {
                 In other words, pick an elective that hasn't already 
                 counted towards another requirement.
             </p>
-            <ul>
-                ${ this.courses
-                    .filter(course => course.is300PlusElective())
-                    .map(course => course.getTemplateListItem(false))
-                    .join('\n')
-                }
-            </ul>
         </section>
         `;
     }
 
+    getTemplateElement() {
+        const el = utils.createElementFromHTML(this.getTemplate());
+        el.insertAdjacentHTML('beforeend', '<ul></ul>');
+        const ul = el.lastElementChild;
+        this.courses
+            .filter(course => course.is300PlusElective())
+            .forEach(course => {
+                course.appendToHTMLElementListItem(ul);
+            })
+        return el;
+    }
+
     async getCourses () {
         if (!this.courses) {
-            this.dm = window.dataManager = new DataManager();
+            this.dm = window.dataManager;
             this.courses = await this.dm.getCourses();
             return this.courses;
         } else {

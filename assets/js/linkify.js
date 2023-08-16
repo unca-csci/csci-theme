@@ -40,9 +40,7 @@ export default class Linkify {
             if (course) {
                 const code = elem.innerHTML.replace('.', '').trim();
                 elem.innerHTML = `<a href="#">${code}</a>. `;
-                elem.addEventListener('click', (function () {
-                    window.modalManager.showModal(course.getTemplate())
-                }).bind(this));
+                elem.querySelector('a').addEventListener('click', course.showModal.bind(course));
             }
         }).bind(this));
     }

@@ -1,5 +1,6 @@
 import Course from './course.js'
 import CourseGeneric300 from './course-generic-300.js';
+import utils from '../utilities.js';
 
 export default class CourseGroup {
     /**/
@@ -136,12 +137,18 @@ export default class CourseGroup {
             'beforeend', this.getTemplateCard()
         );
         const card = parent.lastElementChild;
-        card.querySelector('a').addEventListener('click', (function () {
-            window.modalManager.showModal(this.getTemplate())
-        }).bind(this));
+        card.querySelector('a').addEventListener('click', this.showModal.bind(this));
 
         // append child courses:
         this.showPickOneCourseOptionsInline(card);
+    }
+
+    showModal(e) {
+        window.modalManager.showModal(this.getTemplateElement());
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
     }
 
     getTemplateCard() {
@@ -185,15 +192,18 @@ export default class CourseGroup {
         <section class="group content-wrapper">
             <h2>${ this.name }</h2>
             ${ this.description }
-            <ul>
-                ${
-                    this.courses.map( 
-                        course => course.getTemplateListItem(false)
-                    ).join('\n')
-                }
-            </ul>
         </section>
         `;
+    }
+
+    getTemplateElement() {
+        const el = utils.createElementFromHTML(this.getTemplate());
+        el.insertAdjacentHTML('beforeend', '<ul></ul>');
+        const ul = el.lastElementChild;
+        this.courses.forEach(course => {
+            course.appendToHTMLElementListItem(ul);
+        })
+        return el;
     }
 
     appendTable(parent) {

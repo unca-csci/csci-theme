@@ -76,6 +76,7 @@ export default class Course {
     }
 
     getPrereqs() {
+        // this function caches prereqs if the data are available
         if (!this.dm.courses || !this.dm.groups) { return []; }
         if (this.prerequisites) {
             return this.prerequisites;
@@ -103,32 +104,6 @@ export default class Course {
             }
         }
         return prereqs; 
-    }
-
-    getTemplateElement() {
-        const el = utils.createElementFromHTML(this.getTemplate());
-        // attach event handlers:
-        let parent = el.querySelector('.area-tags');
-        if (parent) {
-            parent.innerHTML = '';
-            this.cs_areas = this.dm.csAreas.filter(item => this.cs_area_ids.includes(item.id));
-            this.cs_areas.forEach(area => {
-                area.appendTagToHTMLElement(parent)
-            });
-        }
-
-        parent = el.querySelector('.faculty-list');
-        if (parent) {
-            parent.innerHTML = '';
-            this.faculty.forEach(f => {
-                f.appendToHTMLElement(parent, window.modal)
-            });
-        }
-        parent = el.querySelector('.prerequisites');
-        if (parent) {
-            this.appendPrerequisites(parent);
-        }
-        return el;
     }
 
     appendPrerequisites(parent) {
@@ -162,6 +137,32 @@ export default class Course {
             </section>
         `;
         return html;
+    }
+
+    getTemplateElement() {
+        const el = utils.createElementFromHTML(this.getTemplate());
+        // attach event handlers:
+        let parent = el.querySelector('.area-tags');
+        if (parent) {
+            parent.innerHTML = '';
+            this.cs_areas = this.dm.csAreas.filter(item => this.cs_area_ids.includes(item.id));
+            this.cs_areas.forEach(area => {
+                area.appendTagToHTMLElement(parent)
+            });
+        }
+
+        parent = el.querySelector('.faculty-list');
+        if (parent) {
+            parent.innerHTML = '';
+            this.faculty.forEach(f => {
+                f.appendToHTMLElement(parent, window.modal)
+            });
+        }
+        parent = el.querySelector('.prerequisites');
+        if (parent) {
+            this.appendPrerequisites(parent);
+        }
+        return el;
     }
 
     getTemplateListItem(includeLinks=true) {
