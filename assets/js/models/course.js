@@ -38,7 +38,8 @@ export default class Course {
         
         this.prerequisites_ids = data.acf.prerequisites ? data.acf.prerequisites.map(item => item.ID) : [];
         this.cs_area_ids = data.acf.cs_areas ? data.acf.cs_areas.map(item => item.ID) : [];
-        this.requirements = [];
+        this.requirements = null;
+        this.prerequisites = null;
 
     }
 
@@ -54,6 +55,10 @@ export default class Course {
     loadRequirements() {
         // look through all of the degree objects to see if the current course 
         // is listed. If it is, add it to the requirements array:
+        if (this.requirements && this.requirements.length > 0) {
+            return;
+        }
+        this.requirements = [];
         this.dm.degrees.forEach((degree => {
             degree.groups.forEach(group => {
                 if (group.groupType == 'All') {
@@ -72,18 +77,18 @@ export default class Course {
 
     getPrereqs() {
         if (!this.dm.courses || !this.dm.groups) { return []; }
-        if (this._prerequisites) {
-            return this._prerequisites;
+        if (this.prerequisites) {
+            return this.prerequisites;
         }
 
         // returns a unique, sorted list of prerequisites:
         if (this.prerequisites_ids) {
             let prereqs = this.getPrereqsRecursive([]);
-            this._prerequisites = [...new Set(prereqs)].sort(Course.courseSortFunction);
+            this.prerequisites = [...new Set(prereqs)].sort(Course.courseSortFunction);
         } else {
-            this._prerequisites = [];
+            this.prerequisites = [];
         }
-        return this._prerequisites;
+        return this.prerequisites;
     }
 
     getPrereqsRecursive(prereqs) {
@@ -306,7 +311,7 @@ export default class Course {
     }
 
     getRequirementsHTML() {
-        if (this.requirements.length === 0) {
+        if (!this.requirements || this.requirements.length === 0) {
             return '';
         }
         return `
