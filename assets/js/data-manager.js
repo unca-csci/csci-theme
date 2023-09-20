@@ -64,7 +64,7 @@ export default class DataManager {
     async fetchWordpressAreas () {
         // Use _embed url param to get featured media:
         // https://dalenguyen.medium.com/how-to-get-featured-image-from-wordpress-rest-api-5e023b9896c6
-        const url = '/wp-json/wp/v2/cs-areas?_embed';
+        const url = '/wp-json/wp/v2/cs-areas?per_page=100&_embed';
         const response = await fetch(url);
         return await response.json();
     }
@@ -113,6 +113,7 @@ export default class DataManager {
 
     async getCSAreas () {
         const csAreasWP = await this.fetchWordpressAreas();
+        console.log(csAreasWP);
         return csAreasWP
             .map(csAreaWP => new CSArea(csAreaWP))
             .sort(CSArea.sortFunction);
