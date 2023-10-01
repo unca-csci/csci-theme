@@ -23,6 +23,7 @@ export default class Person {
         this.bio = data.acf.bio ? data.acf.bio.replaceAll("\n", "<br>") : null;
         this.education = data.acf.education;
         this.interests = data.acf.interests;
+        this.officeHours = data.acf.office_hours;
         // this.cs_areas = this.getCSAreas(data);
         this.website = data.acf.website;
         this.phone = data.acf.phone_number;
@@ -39,14 +40,15 @@ export default class Person {
         return `<li><a href="#">${this.name}</a></li>`;
     }
 
-    getTemplate() {
+    getTemplate(showTitle=true) {
         return `
             <section class="content-wrapper">
-                <h2 class="person-header">${this.name}${this.degree ? `, ${ this.degree }` : ''}</h2>
+                ${ showTitle ? this.getTitle() : '' }
                 ${ this.getFeaturedImage() }
                 <h3>${this.title}</h3>
                 ${ this.getContactInfo() }
-                ${this.bio ? `<h3>Bio</h3>${this.bio.replaceAll("\n","<br>")}` : "" }
+                ${ this.getOfficeHours() }
+                ${this.bio ? `<h3>Bio</h3>${this.bio.replaceAll("<br>","")}` : "" }
                 ${this.education ? `<h3>Education</h3>${this.education}` : "" }
                 ${this.interests ? `<h3>Research & Professional Interests</h3>${this.interests}` : "" }
                 ${ this.getAreas() }
@@ -80,9 +82,6 @@ export default class Person {
                     </div>
                     
                     ${ this.getFeaturedImage() }
-                    <p class="span-2">
-                        <button class="button dark">More</button>
-                    </p>
                 </div>
                 <div class="mobile">
                     <div class="content">
@@ -91,10 +90,12 @@ export default class Person {
                         <p class="title">${this.title}</p>
                         ${ this.getContactInfo() }
                     </div>
-                    <p class="span-2">
-                        <button class="button dark">More</button>
-                    </p>
                 </div>
+
+                ${ this.getOfficeHoursCard() }
+                <p>
+                    <button class="button dark">More</button>
+                </p>
             </div>`;
     }
 
@@ -123,6 +124,12 @@ export default class Person {
 
     addLinkEventHandler(a) {
         a.addEventListener('click', this.showModal.bind(this));
+    }
+
+    getTitle() {
+        return `<h2 class="person-header">
+            ${this.name}${this.degree ? `, ${ this.degree }` : ''}
+        </h2>`      
     }
 
     getAreas() {
@@ -159,10 +166,31 @@ export default class Person {
         if (this.address) {
             html += `
                 <div class="meta">
-                <i class="fa-solid fa-location-dot"></i>
+                    <i class="fa-solid fa-location-dot"></i>
                     ${this.address}
                 </div>`;
         } 
         return html + "</div>";
+    }
+
+    getOfficeHours() {
+        if(this.officeHours) {
+            return `
+                <h3>Office Hours</h3>
+                <p>${ this.officeHours }</p>
+            `;
+        }
+        return '';
+    }
+
+    getOfficeHoursCard() {
+        if (this.officeHours) {
+            return `
+                <p>
+                    <strong>Office Hours:</strong> ${ this.officeHours }
+                </p>
+            `;
+        }
+        return '';
     }
 }

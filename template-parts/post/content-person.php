@@ -14,91 +14,50 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+    
+    <div class="entry-wrapper two-column">
+        <div class="entry-content">
+            <header class="entry-header">
+                <?php
+                if ( is_singular() ) {
+                    echo '<div class="breadcrumbs">'; 
+                        echo '<h1 class="entry-title"><a href="/people/">People</a>';
+                        echo ' <i class="fa-solid fa-chevron-right"></i> ';
+                        the_title();
+                        echo '</h1>';
+                    echo '</div>';
+                } else {
+                    the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+                }
 
-	<?php
-    $styles = (has_post_thumbnail()) ? 'text-align: center' : '';
-	if ( is_single() && 'side-right' === inspiro_get_theme_mod( 'layout_single_post' ) && is_active_sidebar( 'blog-sidebar' ) ) {
-		echo '<div class="entry-wrapper">';
-	}
-	?>
+                if ( 'post' === get_post_type() ) :
+                    ?>
+                    <div class="entry-meta">
+                        <?php
+                        unca_csci_posted_on();
+                        ?>
+                    </div><!-- .entry-meta -->
+                <?php endif; ?>
+            </header><!-- .entry-header -->
 
-	<?php if ( is_single() || ( ! is_single() && 'full-content' === inspiro_get_theme_mod( 'display_content' ) ) ) : ?>
-		<div class="entry-content">
-            <h1 class="person-header" style="<?php echo $styles; ?>"><?php echo get_the_title() ?></h1>
-            <?php 
-            if ( has_post_thumbnail()) {
-                echo get_the_post_thumbnail( $post->ID, 'small', array( 'class' => 'people-thumb' ));
-            }
-            echo '<h2>' .get_post_meta($post->ID, 'title', true) . '</h2>';
-            echo getContactInfo($post->ID);
-            ?>
-			<?php
-			the_content(
-				sprintf(
-					/* translators: %s: Post title. */
-					__( 'Read more<span class="screen-reader-text"> "%s"</span>', 'inspiro' ),
-					get_the_title()
-				)
-			);
+            <div id="person-main">
+                <!-- populated by JavaScript -->
+            </div>
 
-            // Bio:
-            if ( get_post_meta($post->ID, 'bio', true) != '') {
-                echo '<h2>Bio</h2>';
-                
-                echo the_field('bio');
-            }
-
-            // Education: 
-            if ( get_post_meta($post->ID, 'education', true) != '') {
-                echo '<h2>Education</h2>';
-                echo the_field('education');
-            }
-            
-            // Interests:
-            if ( get_post_meta($post->ID, 'interests', true) != '') {
-                echo '<h2>Professional & Research Interests</h2>';
-                echo get_post_meta($post->ID, 'interests', true);
-            }
-
-            // Website:
-            if ( get_post_meta($post->ID, 'website', true) != '') {
-                echo '<h2>Website</h2>';
-                echo '<a href="' . get_post_meta($post->ID, 'website', true) . '" target="_blank">' .
-                    get_post_meta($post->ID, 'website', true) . '</a>';
-            }
-            
-			wp_link_pages(
-				array(
-					'before'      => '<div class="page-links">' . __( 'Pages:', 'inspiro' ),
-					'after'       => '</div>',
-					'link_before' => '<span class="page-number">',
-					'link_after'  => '</span>',
-				)
-			);
-
-            // New:
-
-			?>
-		</div><!-- .entry-content -->
-	<?php endif ?>
-
-	<?php if ( is_single() && 'side-right' === inspiro_get_theme_mod( 'layout_single_post' ) && is_active_sidebar( 'blog-sidebar' ) ) : ?>
-
-		<aside id="secondary" class="widget-area" role="complementary">
-			<?php dynamic_sidebar( 'blog-sidebar' ); ?>
-		</aside>
-
-		</div><!-- .entry-wrapper -->
-
-		<div class="clear"></div>
-
-	<?php endif ?>
-       
-
-	<?php
-	if ( is_single() && 1 == -1) {
-		inspiro_entry_footer();
-	}
-	?>
-
+        </div><!-- .entry-content -->
+        <aside id="secondary" class="widget-area" role="complementary">
+            <div class="programs-submenu news">
+                <?php
+                if ( is_active_sidebar( 'sidebar-post' ) ) {
+                    dynamic_sidebar( 'sidebar-post' );
+                }
+                ?>
+            </div>
+        </aside>
+    </div>
+	
 </article><!-- #post-<?php the_ID(); ?> -->
+
+<?php 
+    echo displayPerson();
+?>
