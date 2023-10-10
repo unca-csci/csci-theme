@@ -109,16 +109,33 @@ div:focus {
 }
 
 /************* Two Column Layout **************/
-.entry-wrapper.two-column {
+/* .entry-wrapper.two-column {
     display: grid;
     grid-template-columns: auto 350px;
+    padding: 0 5vw;
+    column-gap: 30px;
+} 
+.entry-wrapper.two-column .entry-content {
+    width: 100%;
+}
+*/
+
+
+.entry-wrapper.two-column {
+    display: flex;
     padding: 0 5vw;
     column-gap: 30px;
 }
 
 .entry-wrapper.two-column .entry-content {
-    width: 100%;
+    width: 40vw
 }
+
+.entry-wrapper.two-column>aside {
+    width: 20vw
+}
+
+
 
 @media screen and (max-width: 1000px) {
     .entry-wrapper.two-column {
@@ -128,6 +145,14 @@ div:focus {
 
     .entry-content {
         padding: 0 3vw;
+    }
+
+    .entry-wrapper.two-column .entry-content {
+        width: 100%;
+    }
+
+    .entry-wrapper.two-column>aside {
+        width: 100%;
     }
 }
 
