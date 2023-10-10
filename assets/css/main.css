@@ -128,18 +128,19 @@ div:focus {
 }
 
 .entry-wrapper.two-column .entry-content {
-    width: 40vw
+    width: 60vw
 }
 
 .entry-wrapper.two-column>aside {
-    width: 20vw
+    width: 30vw
 }
 
 
 
 @media screen and (max-width: 1000px) {
     .entry-wrapper.two-column {
-        grid-template-columns: auto;
+        display: flex;
+        flex-wrap: wrap;
         padding: 0;
     }
 
