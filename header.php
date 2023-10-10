@@ -47,8 +47,9 @@
 		</div> -->
 
         <nav id="unca">
-            <img class="unca-logo" src="https://www.unca.edu/wp-content/themes/tin/assets/logo.svg">
-            <a class="button" href="https://new.unca.edu/admission/apply/">Apply</a>
+            <!-- <img class="unca-logo" src="https://www.unca.edu/wp-content/themes/tin/assets/logo.svg"> -->
+            <img class="unca-logo" src="https://new.unca.edu/wp-content/uploads/2023/01/cropped-UNCAvl_H-logo_blue_RGB.png" alt="UNCA Logo" />
+            <a class="button apply" href="https://new.unca.edu/admission/apply/">Apply</a>
         </nav>
 		
 

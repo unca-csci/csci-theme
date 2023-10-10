@@ -172,6 +172,7 @@ export default class DataManager {
 
     async initializePeople () {
         this.people = await this.getPeople();
+        this.csAreas = await this.getCSAreas();
 
         // load this data after the page has loaded (speeds things up):
         (async function () {
@@ -179,7 +180,6 @@ export default class DataManager {
             this.groups = await this.getGroups();
             this.courses.forEach(course => course.loadPrerequisites());
             this.groups.forEach(group => group.loadCourses(this.courses, this.groups));
-            this.csAreas = await this.getCSAreas();
         }).bind(this)();
     }
 

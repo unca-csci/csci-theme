@@ -8,8 +8,12 @@ body {
 header and navigation
 */
 
-a:focus, a h2:focus, a h3:focus, div:focus {
-    outline: 1px solid var(--evening-blue); /*gold !important;*/
+a:focus,
+a h2:focus,
+a h3:focus,
+div:focus {
+    outline: 1px solid var(--evening-blue);
+    /*gold !important;*/
     outline-style: auto !important;
 }
 
@@ -34,7 +38,7 @@ a:focus, a h2:focus, a h3:focus, div:focus {
 }
 
 
-.admin-bar #masthead{
+.admin-bar #masthead {
     top: 32px;
 }
 
@@ -62,8 +66,9 @@ a:focus, a h2:focus, a h3:focus, div:focus {
     color: white;
     text-decoration: none;
 }
+
 #unca-navigation a:hover {
-    border-bottom: 1px solid rgba(255,255,255,.8);
+    border-bottom: 1px solid rgba(255, 255, 255, .8);
     opacity: .8;
 }
 
@@ -140,13 +145,14 @@ a:focus, a h2:focus, a h3:focus, div:focus {
 .footer-links a:link,
 .footer-links a:visited,
 .footer-links a:active,
-.footer-links a:hover   {
+.footer-links a:hover {
     color: white !important;
     padding: 0;
     margin: 0;
 }
+
 .footer-links a:hover {
-    border-bottom: 1px solid rgba(255,255,255,.8);
+    border-bottom: 1px solid rgba(255, 255, 255, .8);
     opacity: .8;
 }
 
@@ -158,18 +164,25 @@ footer p {
     #footer-animation {
         display: none;
     }
+
+    .footer-links {
+        justify-content: center;
+    }
 }
 
 .entry-content p,
-.entry-content li
- {
+.entry-content li {
     line-height: 1.7em;
 }
 
 
-.button, .button:active, .button:visited, .button:hover, .button:link {
+.button,
+.button:active,
+.button:visited,
+.button:hover,
+.button:link {
     color: white;
-    font-family: Montserrat,sans-serif;
+    font-family: Montserrat, sans-serif;
     font-weight: 700;
     display: inline-block;
     padding: 10px 25px;
@@ -178,13 +191,24 @@ footer p {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 12px;
-    border: 2px solid rgba(68,68,68,.19);
+    border: 2px solid rgba(68, 68, 68, .19);
     background-image: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    transition: color .2s ease,border-color .2s ease,background-color .2s ease;
+    transition: all .2s ease;
 }
+
+.button.apply {
+    background-color: var(--bulldog-blue);
+    border-radius: 2px;
+    padding: 7px 15px;
+}
+
+.button.apply:hover {
+    background-color: var(--sky-blue);
+}
+
 .button.dark {
     background-color: var(--night-sky);
 }
@@ -207,17 +231,22 @@ footer p {
 } */
 
 /* Top margin for page accounting for the fixed navbar */
-.admin-bar #masthead + * {
-    margin-top: 140px;
+.admin-bar #masthead+* {
+    margin-top: 170px;
 }
 
-#masthead + * {
+#masthead+* {
     /* margin-top: 108px; */
-    margin-top: 150px;
+    margin-top: 170px;
 }
 
 
-.page .entry-content, .page .entry-header .inner-wrap, .page:not(.inspiro-front-page) .entry-footer, .single .entry-content, .single .entry-footer, .single .entry-header .inner-wrap {
+.page .entry-content,
+.page .entry-header .inner-wrap,
+.page:not(.inspiro-front-page) .entry-footer,
+.single .entry-content,
+.single .entry-footer,
+.single .entry-header .inner-wrap {
     margin: 0 auto;
 }
 
@@ -230,6 +259,7 @@ footer p {
     color: white;
     font-family: 'Poppins', sans-serif;
     background-color: var(--bulldog-blue);
+    background-color: white;
     height: var(--banner-one-height);
     display: flex;
     align-items: center;
@@ -237,11 +267,12 @@ footer p {
 }
 
 .unca-logo {
-    height: 70%;
+    height: 60%;
     width: auto;
 }
 
-.has-header-image .navbar, .has-header-video .navbar {
+.has-header-image .navbar,
+.has-header-video .navbar {
     background-color: var(--night-sky);
     background-image: none;
 }
@@ -259,13 +290,16 @@ footer p {
 .entry-content h2 {
     font-weight: 400;
 }
+
 .entry-content h2,
 .entry-content h3,
 .entry-content h4 {
     margin-bottom: 5px;
 }
 
-body.elementor-page .entry-content a, body.fl-builder .entry-content a, body.woocommerce-page .entry-content a {
+body.elementor-page .entry-content a,
+body.fl-builder .entry-content a,
+body.woocommerce-page .entry-content a {
     text-decoration: underline;
 }
 
@@ -277,11 +311,12 @@ body:not(.elementor-editor-active) .elementor-widget-menu-anchor {
     position: relative;
     z-index: -1;
 }
+
 body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     content: "";
     display: block;
-    height: 160px; 
-    margin: -160px 0 0; 
+    height: 160px;
+    margin: -160px 0 0;
     visibility: hidden;
     pointer-events: none;
 }
@@ -324,6 +359,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     .page-layout-sidebar-right.has-sidebar.programs .entry-wrapper .entry-content {
         width: 66%;
     }
+
     .page-layout-sidebar-right.has-sidebar.programs #secondary {
         width: 33%;
         padding: 0 5vw 0 0;
@@ -337,7 +373,8 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
         max-width: 100%;
     }
 
-    .page-layout-sidebar-right.has-sidebar:not(.archive) #primary, .page-layout-sidebar-right.has-sidebar:not(.error404) #primary, 
+    .page-layout-sidebar-right.has-sidebar:not(.archive) #primary,
+    .page-layout-sidebar-right.has-sidebar:not(.error404) #primary,
     .page-layout-sidebar-right.has-sidebar.programs #primary {
         float: none;
         width: 100%;
@@ -351,7 +388,8 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     }
 }
 
-.programs-submenu, .project-submenu {
+.programs-submenu,
+.project-submenu {
     background: #F0F0F0;
     padding: 30px;
     /* position: sticky;
@@ -360,7 +398,9 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 }
 
 @media screen and (max-width: 1000px) {
-    .programs-submenu, .project-submenu {
+
+    .programs-submenu,
+    .project-submenu {
         margin-bottom: 0px;
     }
 }
@@ -371,15 +411,15 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 
 .programs-submenu h2,
 .programs-submenu h3 {
-    color: var(--e-global-color-primary );
-    font-family: var(--e-global-typography-primary-font-family ), Sans-serif;
+    color: var(--e-global-color-primary);
+    font-family: var(--e-global-typography-primary-font-family), Sans-serif;
     font-weight: 500;
     font-size: 1.5em;
 }
 
 .project-submenu h3 {
-    color: var(--e-global-color-primary );
-    font-family: var(--e-global-typography-primary-font-family ), Sans-serif;
+    color: var(--e-global-color-primary);
+    font-family: var(--e-global-typography-primary-font-family), Sans-serif;
     font-weight: 700;
     font-size: 1.2em;
     margin-bottom: 0;
@@ -403,6 +443,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 .programs-submenu img {
     width: 100%;
 }
+
 .programs-submenu.featured-image figcaption {
     text-align: center;
     font-size: 0.9em;
@@ -487,16 +528,19 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 .breadcrumbs h1 a:visited {
     text-decoration: none !important;
 }
+
 .breadcrumbs h1 a:hover {
     text-decoration: underline !important;
 }
+
 .breadcrumbs h1 i {
     font-size: 20px;
     margin: 0 10px;
 }
 
 
-.cards, .projects {
+.cards,
+.projects {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
@@ -508,13 +552,15 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     grid-template-columns: repeat(2, 1fr);
 }
 
-.card, .project {
+.card,
+.project {
     background: #F4F4F4;
     border: solid 1px #EEE;
     padding: 40px 20px;
     /* border-radius: 6px; */
     text-align: center;
 }
+
 .project {
     background: var(--night-sky);
     background-size: cover;
@@ -522,13 +568,16 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     padding: 0;
     transition: all 0.2s ease-in;
 }
+
 .project:hover {
     /* margin: 0px; */
     transform: scale(1.05);
 }
+
 .project:hover .overlay-box {
     background-color: #00000000;
 }
+
 .overlay-box {
     padding: 40px 20px;
     display: flex;
@@ -540,7 +589,8 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     background-color: #00000077;
     transition: all 0.2s ease-in;
 }
-.project a, 
+
+.project a,
 .project p,
 .project strong {
     color: white;
@@ -581,6 +631,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     font-size: 1.4em;
     color: var(--evening-blue);
 }
+
 .card p {
     margin: 0;
     font-size: 1.0em;

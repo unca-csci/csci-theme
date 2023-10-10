@@ -75,13 +75,18 @@
     column-gap: 10px;
     grid-template-columns: 20px auto;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
+    margin-bottom: 4px;
 }
 
 .people-card .meta,
 .people-card p {
     line-height: 1.5em;
     font-size: 0.95em;
+}
+
+.meta i {
+    margin-top: 5px;
 }
 
 .people-card .interests {

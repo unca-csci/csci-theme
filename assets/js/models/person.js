@@ -47,7 +47,6 @@ export default class Person {
                 ${ this.getFeaturedImage() }
                 <h3>${this.title}</h3>
                 ${ this.getContactInfo() }
-                ${ this.getOfficeHours() }
                 ${this.bio ? `<h3>Bio</h3>${this.bio.replaceAll("<br>","")}` : "" }
                 ${this.education ? `<h3>Education</h3>${this.education}` : "" }
                 ${this.interests ? `<h3>Research & Professional Interests</h3>${this.interests}` : "" }
@@ -57,8 +56,8 @@ export default class Person {
         `;
     }
 
-    getTemplateElement() {
-        const el = utils.createElementFromHTML(this.getTemplate());
+    getTemplateElement(showTitle=true) {
+        const el = utils.createElementFromHTML(this.getTemplate(showTitle));
         let parent = el.querySelector('.area-tags');
         if (parent) {
             parent.innerHTML = '';
@@ -91,8 +90,6 @@ export default class Person {
                         ${ this.getContactInfo() }
                     </div>
                 </div>
-
-                ${ this.getOfficeHoursCard() }
                 <p>
                     <button class="button dark">More</button>
                 </p>
@@ -169,28 +166,14 @@ export default class Person {
                     <i class="fa-solid fa-location-dot"></i>
                     ${this.address}
                 </div>`;
-        } 
-        return html + "</div>";
-    }
-
-    getOfficeHours() {
-        if(this.officeHours) {
-            return `
-                <h3>Office Hours</h3>
-                <p>${ this.officeHours }</p>
-            `;
         }
-        return '';
-    }
-
-    getOfficeHoursCard() {
         if (this.officeHours) {
-            return `
-                <p>
-                    <strong>Office Hours:</strong> ${ this.officeHours }
-                </p>
-            `;
+            html += `
+                <div class="meta">
+                    <i class="fa-regular fa-clock"></i>
+                    Office Hours: ${ this.officeHours }
+                </div>`;
         }
-        return '';
+        return html + "</div>";
     }
 }
