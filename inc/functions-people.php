@@ -16,6 +16,7 @@ function displayPerson() {
         import DataManager from "'.get_stylesheet_directory_uri() . '/assets/js/data-manager.js";
         const dm = window.dataManager = new DataManager();
 
+        // remote command test
         async function showPerson(personId) {
             const el = document.querySelector("#person-main");
             utils.showSpinner(el, "Loading...");
