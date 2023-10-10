@@ -19,10 +19,11 @@ function displayPerson() {
         async function showPerson(personId) {
             const el = document.querySelector("#person-main");
             utils.showSpinner(el, "Loading...");
-            // await dm.initializePeople();
-            // const person = dm.people.filter(person => personId === person.id)[0];
-            // // console.log(person);
-            // el.appendChild(person.getTemplateElement(false)); // = person.getTemplate(false);
+            await dm.initializePeople();
+            const person = dm.people.filter(person => personId === person.id)[0];
+            //console.log(person);
+            el.innerHTML = "";
+            el.appendChild(person.getTemplateElement(false)); // = person.getTemplate(false);
         }
 
         showPerson(' . get_the_ID() . ');
