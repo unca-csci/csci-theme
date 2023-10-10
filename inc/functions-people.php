@@ -22,7 +22,6 @@ function displayPerson() {
             await dm.initializePeople();
             const person = dm.people.filter(person => personId === person.id)[0];
             //console.log(person);
-            
             el.innerHTML = "";
             el.appendChild(person.getTemplateElement(false)); // = person.getTemplate(false);
         }
