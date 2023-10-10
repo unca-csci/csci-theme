@@ -137,7 +137,7 @@ div:focus {
 
 
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 800px) {
     .entry-wrapper.two-column {
         display: flex;
         flex-wrap: wrap;
