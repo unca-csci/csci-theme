@@ -107,7 +107,6 @@ export default class Person {
     getCardTemplate() {
         return `
             <div class="people-card">
-                ${this.getWaves()}
                 <div class="desktop">
                     <div>
                         <h2>${this.name}${
