@@ -317,6 +317,10 @@ footer p {
     font-weight: 400;
 }
 
+.entry content p {
+    margin-top: 0;
+}
+
 .entry-content h2,
 .entry-content h3,
 .entry-content h4 {
