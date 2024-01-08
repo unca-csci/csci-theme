@@ -56,7 +56,7 @@
         <div id="unca-navigation">
    
             <div class="header-logo-wrapper">
-                <a href="https://csci.ywtech.org" title="" class="custom-logo-text">Computer Science</a>		
+                <a href="/" title="" class="custom-logo-text">Computer Science</a>		
             </div>
             
             <!-- #site-navigation -->
