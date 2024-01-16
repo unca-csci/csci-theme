@@ -224,3 +224,35 @@ function generateRandomString($length = 10) {
 }
 
 
+/**
+ * Sarah Added this on 1/15/2024 based on this post:
+ * https://maheshwaghmare.com/rest-api/how-to/search-post-by-post-meta-in-rest-api/
+ * Add meta fields support in rest API for post type `Post`
+ *
+ * This function will allow custom parameters within API request URL. 
+ * Add post meta support for post type `Post`.
+ * 
+ * > How to use?
+ * http://mysite.com/wp-json/wp/v2/posts?meta_key=<my_meta_key>&meta_value=<my_meta_value>
+ * 
+ * > E.g. Get posts which post meta `already-visited` value is `true`.
+ *
+ * Request like: http://mysite.com/wp-json/wp/v2/post?meta_key=already-visited&meta_value=true
+ */
+if( ! function_exists( 'post_meta_request_params' ) ) :
+	function post_meta_request_params( $args, $request )
+	{
+		$args += array(
+			'meta_key'   => $request['meta_key'],
+			'meta_value' => $request['meta_value'],
+			'meta_query' => $request['meta_query'],
+		);
+
+	    return $args;
+	}
+    // Note: need to add a new line for every custom post type:
+	add_filter( 'rest_post_query', 'post_meta_request_params', 99, 2 ); // Add support for `post`
+	add_filter( 'rest_page_query', 'post_meta_request_params', 99, 2 ); // Add support for `page`
+	add_filter( 'rest_student-project_query', 'post_meta_request_params', 99, 2 ); // Add support for `student-project`
+	add_filter( 'rest_course_query', 'post_meta_request_params', 99, 2 ); // Add support for `courses`
+endif;

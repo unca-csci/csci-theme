@@ -1,5 +1,5 @@
 export default class Project {
-    constructor(data, availableStudents, availablePeople) {
+    constructor(data, availablePeople) {
         console.log(data);
         this.id = data.id;
         this.dataType = "student-project";
@@ -8,9 +8,16 @@ export default class Project {
         this.url = data.link;
         this.reportUrl = data.acf.report_link;
         this.codeUrl = data.acf.code_url;
+        this.presentationUrl = data.acf.presentation_url;
         this.videoUrl = data.acf.video_url;
         this.term = data.acf.term;
-        this.teamMemberIds = data.acf.team_members.map((person) => person.ID);
+        this.featured = data.acf.featured;
+        this.teamMembers = data.acf.students
+            .split(",")
+            .map((student) => student.trim());
+        // this.teamMemberIds = data.acf.team_members
+        //     ? data.acf.team_members.map((person) => person.ID)
+        //     : [];
         this.advisorIds = data.acf.advisors.map((person) => person.ID);
         if (
             data._embedded &&
@@ -22,12 +29,12 @@ export default class Project {
                     "wp:featuredmedia"
                 ][0].media_details.sizes.large.source_url;
         }
-        // console.log(this.featuredImageUrl)
-        if (availableStudents) {
-            this.teamMembers = availableStudents.filter((s) =>
-                this.teamMemberIds.includes(s.id)
-            );
-        }
+        // // console.log(this.featuredImageUrl)
+        // if (availableStudents) {
+        //     this.teamMembers = availableStudents.filter((s) =>
+        //         this.teamMemberIds.includes(s.id)
+        //     );
+        // }
 
         if (availablePeople) {
             this.advisors = availablePeople.filter((a) =>
@@ -83,9 +90,10 @@ export default class Project {
                 
                 <h3>Project Links</h3>
                 <ul class="students">
-                    <li><a href="${this.codeUrl}">Code</a></li>
-                    <li><a href="${this.reportUrl}">Report</a></li>
+                    <li><a href="${this.presentationUrl}">Presentation</a></li>
                     <li><a href="${this.videoUrl}">Video</a></li>
+                    <li><a href="${this.reportUrl}">Report</a></li>
+                    <!-- li><a href="${this.codeUrl}">Code</a></li -->
                 </ul>
                 
                 <h3>Advisors</h3>
@@ -100,7 +108,9 @@ export default class Project {
         parent.insertAdjacentHTML("beforeend", this.getSideTemplate());
 
         const studentsEl = parent.querySelector(".students");
-        this.addEventHandlers(this.teamMembers, studentsEl);
+        this.teamMembers.forEach((person) => {
+            studentsEl.insertAdjacentHTML("beforeend", `<li>${person}</li>`);
+        });
 
         const advisorsEl = parent.querySelector(".advisors");
         this.addEventHandlers(this.advisors, advisorsEl);
@@ -133,23 +143,45 @@ export default class Project {
             >
             <div class="overlay-box">
                 <div>
-                    <h2 class="title"><a href="${this.url}">${this.name}</a></h2>
+                    <h2 class="title">
+                        <a href="${this.url}">${this.name}</a>
+                    </h2>
                     <p>${this.teamMembers
-                        .map((student) => student.name)
+                        .map((student) => student)
                         .join(", ")}</p>
                 </div>
                 <div class="project-links">
                     ${this.getVideoLink()}
                     ${this.getReportLink()}
-                    ${this.getCodeLink()}
+                    ${this.getPresentationLink()}
+                    <!-- ${this.getCodeLink()} -->
                 </div>
             </div>
         </section>`;
     }
 
+    getCardTemplateSimple() {
+        return `
+        <section>
+                <div>
+                    <h2 class="title">
+                        <a href="${this.url}">${this.name}</a>
+                    </h2>
+                    <p>${this.teamMembers
+                        .map((student) => student)
+                        .join(", ")}</p>
+                </div>
+                <div class="project-links">
+                    ${this.getVideoLink()}
+                    ${this.getReportLink()}
+                    ${this.getPresentationLink()}
+                </div>
+        </section>`;
+    }
+
     getVideoLink() {
         // if (this.videoUrl) {
-        return `<a href="${this.videoUrl}" target="_blank"  title="link to project video">
+        return `<a href="${this.videoUrl}" target="_blank"  title="Project Video">
                 <i class="fa-solid fa-video" aria-label="video icon"></i>
             </a>`;
         // }
@@ -158,8 +190,8 @@ export default class Project {
 
     getReportLink() {
         // if (this.reportUrl) {
-        return `<a href="${this.reportUrl}" target="_blank" title="link to project report">
-                <i class="fa-regular fa-file" aria-label="report icon"></i>
+        return `<a href="${this.reportUrl}" target="_blank" title="Project Report">
+                <i class="fa-regular fa-file-pdf" aria-label="report icon"></i>
             </a>`;
         // }
         // return "";
@@ -167,8 +199,17 @@ export default class Project {
 
     getCodeLink() {
         // if (this.codeUrl) {
-        return `<a href="${this.reportUrl}"  target="_blank" title="link to project code">
+        return `<a href="${this.reportUrl}"  target="_blank" title="Project code">
                 <i class="fa-solid fa-code" aria-label="code icon"></i>
+            </a>`;
+        // }
+        // return "";
+    }
+
+    getPresentationLink() {
+        // if (this.presentationUrl) {
+        return `<a href="${this.presentationUrl}"  target="_blank" title="Presentation">
+            <i class="fa-regular fa-file-powerpoint" aria-label="presentation icon"></i>
             </a>`;
         // }
         // return "";
