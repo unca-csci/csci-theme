@@ -256,3 +256,11 @@ if( ! function_exists( 'post_meta_request_params' ) ) :
 	add_filter( 'rest_student-project_query', 'post_meta_request_params', 99, 2 ); // Add support for `student-project`
 	add_filter( 'rest_course_query', 'post_meta_request_params', 99, 2 ); // Add support for `courses`
 endif;
+
+
+add_filter( 'rest_custom-post-type_collection_params', 'my_prefix_add_rest_orderby_params', 10, 1 );
+function my_prefix_add_rest_orderby_params( $params ) {
+    $params['orderby']['enum'][] = 'menu_order';
+
+    return $params;
+}

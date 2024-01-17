@@ -7,17 +7,14 @@ export default class Project {
         this.description = data.acf.description;
         this.url = data.link;
         this.reportUrl = data.acf.report_link;
-        this.codeUrl = data.acf.code_url;
-        this.presentationUrl = data.acf.presentation_url;
-        this.videoUrl = data.acf.video_url;
+        this.presentationUrl = data.acf.presentation_link;
+        this.videoUrl = data.acf.video_link;
+        this.codeUrl = data.acf.code_link;
         this.term = data.acf.term;
         this.featured = data.acf.featured;
         this.teamMembers = data.acf.students
             .split(",")
             .map((student) => student.trim());
-        // this.teamMemberIds = data.acf.team_members
-        //     ? data.acf.team_members.map((person) => person.ID)
-        //     : [];
         this.advisorIds = data.acf.advisors.map((person) => person.ID);
         if (
             data._embedded &&
@@ -29,12 +26,6 @@ export default class Project {
                     "wp:featuredmedia"
                 ][0].media_details.sizes.large.source_url;
         }
-        // // console.log(this.featuredImageUrl)
-        // if (availableStudents) {
-        //     this.teamMembers = availableStudents.filter((s) =>
-        //         this.teamMemberIds.includes(s.id)
-        //     );
-        // }
 
         if (availablePeople) {
             this.advisors = availablePeople.filter((a) =>
@@ -78,6 +69,36 @@ export default class Project {
         return html;
     }
 
+    hasLinks() {
+        return this.presentationUrl || this.videoUrl || this.reportUrl;
+    }
+
+    getSidebarLinks() {
+        if (!this.hasLinks()) {
+            return "";
+        }
+        return `
+        <h3>Project Links</h3>
+        <ul class="students">
+            ${
+                this.presentationUrl
+                    ? `<li><a href="${this.presentationUrl}">Presentation</a></li>`
+                    : ""
+            }
+            ${
+                this.videoUrl
+                    ? `<li><a href="${this.videoUrl}">Video</a></li>`
+                    : ""
+            }
+            ${
+                this.reportUrl
+                    ? `<li><a href="${this.reportUrl}">Report</a></li>`
+                    : ""
+            }
+        </ul>
+        `;
+    }
+
     getSideTemplate() {
         return `
             <div class="project-submenu">
@@ -88,13 +109,7 @@ export default class Project {
                     <!-- populated with event handlers later -->
                 </ul>
                 
-                <h3>Project Links</h3>
-                <ul class="students">
-                    <li><a href="${this.presentationUrl}">Presentation</a></li>
-                    <li><a href="${this.videoUrl}">Video</a></li>
-                    <li><a href="${this.reportUrl}">Report</a></li>
-                    <!-- li><a href="${this.codeUrl}">Code</a></li -->
-                </ul>
+                ${this.getSidebarLinks()}
                 
                 <h3>Advisors</h3>
                 <ul class="advisors">
@@ -162,16 +177,17 @@ export default class Project {
 
     getCardTemplateSimple() {
         return `
-        <section>
+        <section class="project-simple">
                 <div>
-                    <h2 class="title">
+                    <h3>
                         <a href="${this.url}">${this.name}</a>
-                    </h2>
-                    <p>${this.teamMembers
+                    </h3>
+                    <p><strong>${this.teamMembers
                         .map((student) => student)
-                        .join(", ")}</p>
+                        .join(", ")}</strong></p>
+                    ${this.description.substring(0, 250) + "..."}
                 </div>
-                <div class="project-links">
+                <div class="project-links-simple">
                     ${this.getVideoLink()}
                     ${this.getReportLink()}
                     ${this.getPresentationLink()}
@@ -180,39 +196,39 @@ export default class Project {
     }
 
     getVideoLink() {
-        // if (this.videoUrl) {
-        return `<a href="${this.videoUrl}" target="_blank"  title="Project Video">
+        if (this.videoUrl) {
+            return `<a href="${this.videoUrl}" target="_blank"  title="Project Video">
                 <i class="fa-solid fa-video" aria-label="video icon"></i>
             </a>`;
-        // }
-        // return "";
+        }
+        return "";
     }
 
     getReportLink() {
-        // if (this.reportUrl) {
-        return `<a href="${this.reportUrl}" target="_blank" title="Project Report">
+        if (this.reportUrl) {
+            return `<a href="${this.reportUrl}" target="_blank" title="Project Report">
                 <i class="fa-regular fa-file-pdf" aria-label="report icon"></i>
             </a>`;
-        // }
-        // return "";
+        }
+        return "";
     }
 
     getCodeLink() {
-        // if (this.codeUrl) {
-        return `<a href="${this.reportUrl}"  target="_blank" title="Project code">
+        if (this.codeUrl) {
+            return `<a href="${this.reportUrl}"  target="_blank" title="Project code">
                 <i class="fa-solid fa-code" aria-label="code icon"></i>
             </a>`;
-        // }
-        // return "";
+        }
+        return "";
     }
 
     getPresentationLink() {
-        // if (this.presentationUrl) {
-        return `<a href="${this.presentationUrl}"  target="_blank" title="Presentation">
+        if (this.presentationUrl) {
+            return `<a href="${this.presentationUrl}"  target="_blank" title="Presentation">
             <i class="fa-regular fa-file-powerpoint" aria-label="presentation icon"></i>
             </a>`;
-        // }
-        // return "";
+        }
+        return "";
     }
 
     showDetail(e) {

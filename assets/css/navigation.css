@@ -1,41 +1,40 @@
-
 /* Navigation
 --------------------------------------------- */
 .main-navigation {
-	display: block;
-	width: 100%;
+    display: block;
+    width: 100%;
 }
 
-.menu-main-menu-container > ul > li.current_page_item {
+.menu-main-menu-container>ul>li.current_page_item {
     border-bottom: solid 2px white;
 }
 
 .main-navigation ul {
-	display: none;
-	list-style: none;
-	margin: 0;
-	padding-left: 0;
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
 }
 
 
-.main-navigation ul li:hover > ul,
-.main-navigation ul li.focus > ul {
-	left: auto;
+.main-navigation ul li:hover>ul,
+.main-navigation ul li.focus>ul {
+    left: auto;
 }
 
 .main-navigation li {
-	position: relative;
+    position: relative;
 }
 
 .main-navigation a {
-	display: block;
-	text-decoration: none;
+    display: block;
+    text-decoration: none;
 }
 
 /* Small menu. */
 .menu-toggle,
 .main-navigation.toggled ul {
-	display: block;
+    display: block;
 }
 
 .menu-toggle {
@@ -59,6 +58,7 @@
     flex-direction: column !important;
     background: var(--night-sky);
 }
+
 .sub-menu li a {
     padding: 5px 20px 5px 10px;
     text-decoration: none;
@@ -71,15 +71,16 @@
 
 /* Submenu hover effects only for desktop screens */
 @media screen and (min-width: 55em) {
-    .menu-item-has-children > a::after {
+    .menu-item-has-children>a::after {
         color: white;
         font-family: "Font Awesome 6 Free";
-        font-weight: 900; 
+        font-weight: 900;
         content: '\f078';
         margin-left: 6px;
         font-size: 12px;
     }
-    .menu-item-has-children > a:hover {
+
+    .menu-item-has-children>a:hover {
         border-bottom: 0 !important;
     }
 
@@ -97,8 +98,8 @@
         top: 0;
     }
 
-    .main-navigation ul ul li:hover > ul,
-    .main-navigation ul ul li.focus > ul {
+    .main-navigation ul ul li:hover>ul,
+    .main-navigation ul ul li.focus>ul {
         display: block;
         left: auto;
     }
@@ -107,17 +108,18 @@
         font-size: 0.9em;
         width: 250px;
     }
+
     #unca-navigation ul ul a:hover {
         border-bottom: 0;
     }
 
-    .menu-main-menu-container > ul > li:last-child a {
+    .menu-main-menu-container>ul>li:last-child a {
         border: solid 2px white;
         padding: 5px 20px;
         border-radius: 2px;
     }
-    
-    .menu-main-menu-container > ul > li:last-child a:hover {
+
+    .menu-main-menu-container>ul>li:last-child a:hover {
         background: #FFFFFF66;
         border: solid 2px white;
     }
@@ -132,7 +134,7 @@
         align-content: flex-end;
         align-items: flex-end;
         position: absolute;
-        top: 80px;
+        top: 100px;
         right: 0;
     }
 
@@ -145,10 +147,12 @@
         width: 100vw;
         margin-top: 28px;
     }
+
     .main-navigation ul a {
         padding: 10px 20px;
         font-size: 1.3em;
     }
+
     .main-navigation ul a:hover {
         border-width: 0 !important;
     }
@@ -180,5 +184,5 @@
         font-size: 20px;
         padding: 10px 10px;
     }
-	
+
 }

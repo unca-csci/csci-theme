@@ -427,9 +427,15 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     margin-bottom: 50px;
 }
 
-.project-links {
+.project-links,
+.project-links-simple {
     display: flex;
     column-gap: 10px;
+}
+
+.project-links a,
+.project-links-simple a {
+    font-size: 1.5em;
 }
 
 .project-links a,
@@ -438,11 +444,46 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 .project-links a:active,
 .project-links a:link {
     color: white;
-    font-size: 1.5em;
 }
 
 .project-links a:hover i {
     color: white !important;
+}
+
+.project-simple {
+    margin-bottom: 30px;
+}
+
+.project-simple p {
+    margin: 0;
+}
+
+.project-navigation {
+    background: #F0F0F0;
+    padding: 10px;
+}
+
+.project-navigation ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    /* column-gap: 10px; */
+}
+
+.project-navigation li {
+    margin: 0;
+}
+
+.project-navigation li::after {
+    content: '•';
+    margin: 0 10px;
+}
+
+.project-navigation li:last-child::after {
+    content: '';
+    margin: 0;
 }
 
 @media screen and (max-width: 1000px) {

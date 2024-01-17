@@ -45,9 +45,16 @@ function shortcode_student_project_list($args) {
         import StudentProjects from "'. get_stylesheet_directory_uri() . '/assets/js/student-projects.js";
         (function () {
             const projects = new StudentProjects("'. $id . '");
-            projects.fetchAndDisplayByTerm(' . $function_arg . ');
+            projects.fetchAndDisplay();
         })();
     </script>';
+}
+
+function getEntry($term, $selectedTerm) {
+    if ($term != $selectedTerm) {
+        return $term;
+    }
+    return "<a href='#'>" . $term . "</a>";
 }
 
 ?>
