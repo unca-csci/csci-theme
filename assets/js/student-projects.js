@@ -29,7 +29,7 @@ export default class StudentProjects {
                 project.getCardTemplate()
             );
         });
-        this.parent.insertAdjacentHTML("beforeend", `<button>More</button>`);
+        // this.parent.insertAdjacentHTML("beforeend", `<button>More</button>`);
     }
 
     getNavigationHTML(terms, term) {
@@ -65,7 +65,7 @@ export default class StudentProjects {
 
     async getTermDictionary() {
         const response = await fetch(
-            "/wp-json/wp/v2/student-projects?_fields=acf.term&orderby=id&order=asc"
+            "/wp-json/wp/v2/student-projects?_fields=acf.term&orderby=id&order=desc"
         );
         let data = await response.json();
         data = data.map((item) => item.acf.term);
