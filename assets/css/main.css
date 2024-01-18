@@ -137,26 +137,6 @@ div:focus {
 
 
 
-@media screen and (max-width: 800px) {
-    .entry-wrapper.two-column {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0;
-    }
-
-    .entry-content {
-        padding: 0 3vw;
-    }
-
-    .entry-wrapper.two-column .entry-content {
-        width: 100%;
-    }
-
-    .entry-wrapper.two-column>aside {
-        width: 100%;
-    }
-}
-
 /************** Footer ************************/
 .footer-links {
     list-style-type: none;
@@ -186,15 +166,6 @@ footer p {
     margin: 0;
 }
 
-@media screen and (max-width: 800px) {
-    #footer-animation {
-        display: none;
-    }
-
-    .footer-links {
-        justify-content: center;
-    }
-}
 
 .entry-content p,
 .entry-content li {
@@ -385,38 +356,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     /* padding: 0 3vw; */
 }
 
-@media screen and (min-width: 48em) {
-    .page-layout-sidebar-right.has-sidebar.programs .entry-wrapper .entry-content {
-        width: 66%;
-    }
 
-    .page-layout-sidebar-right.has-sidebar.programs #secondary {
-        width: 33%;
-        padding: 0 5vw 0 0;
-    }
-
-    .page-layout-sidebar-right.has-sidebar.programs .header-inner.inner-wrap {
-        max-width: 1200px;
-    }
-
-    .page-layout-sidebar-right.has-sidebar.programs #content .inner-wrap {
-        max-width: 100%;
-    }
-
-    .page-layout-sidebar-right.has-sidebar:not(.archive) #primary,
-    .page-layout-sidebar-right.has-sidebar:not(.error404) #primary,
-    .page-layout-sidebar-right.has-sidebar.programs #primary {
-        float: none;
-        width: 100%;
-        padding-right: 0;
-    }
-}
-
-@media screen and (max-width: 1200px) and (min-width: 800px) {
-    .page-layout-sidebar-right.has-sidebar.programs #secondary {
-        padding: 0 2vw 0 0;
-    }
-}
 
 .programs-submenu,
 .project-submenu {
@@ -486,14 +426,6 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     margin: 0;
 }
 
-@media screen and (max-width: 1000px) {
-
-    .programs-submenu,
-    .project-submenu {
-        margin-bottom: 0px;
-    }
-}
-
 .category-news .programs-submenu:first-child {
     padding-top: 60px;
 }
@@ -542,12 +474,6 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
  FAQs */
 .elementor-938 .elementor-element.elementor-element-93e8de3 .elementor-toggle-icon.elementor-toggle-icon-left {
     line-height: 1.5em;
-}
-
-@media screen and (max-width: 1000px) {
-    .people-list {
-        grid-template-columns: 1fr;
-    }
 }
 
 
@@ -749,4 +675,83 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 
 .loading p {
     font-size: 1.2rem !important;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .programs-submenu,
+    .project-submenu {
+        margin-bottom: 0px;
+    }
+
+    .people-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media screen and (min-width: 48em) {
+    .page-layout-sidebar-right.has-sidebar.programs .entry-wrapper .entry-content {
+        width: 66%;
+    }
+
+    .page-layout-sidebar-right.has-sidebar.programs #secondary {
+        width: 33%;
+        padding: 0 5vw 0 0;
+    }
+
+    .page-layout-sidebar-right.has-sidebar.programs .header-inner.inner-wrap {
+        max-width: 1200px;
+    }
+
+    .page-layout-sidebar-right.has-sidebar.programs #content .inner-wrap {
+        max-width: 100%;
+    }
+
+    .page-layout-sidebar-right.has-sidebar:not(.archive) #primary,
+    .page-layout-sidebar-right.has-sidebar:not(.error404) #primary,
+    .page-layout-sidebar-right.has-sidebar.programs #primary {
+        float: none;
+        width: 100%;
+        padding-right: 0;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 800px) {
+    .page-layout-sidebar-right.has-sidebar.programs #secondary {
+        padding: 0 2vw 0 0;
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    #footer-animation {
+        display: none;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+
+    .entry-wrapper.two-column {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+    }
+
+    .entry-content {
+        padding: 0 3vw;
+    }
+
+    .entry-wrapper.two-column .entry-content {
+        width: 100%;
+    }
+
+    .entry-wrapper.two-column>aside {
+        width: 100%;
+    }
+
+    .projects {
+        grid-template-columns: 1fr;
+    }
 }
