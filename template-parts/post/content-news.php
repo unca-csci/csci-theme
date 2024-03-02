@@ -62,16 +62,19 @@
             ?>
         </div><!-- .entry-content -->
         <aside id="secondary" class="widget-area" role="complementary">
-            <div class="programs-submenu featured-image">
-                
-                    <figure>
-                        <?php the_post_thumbnail( 'medium' ); ?>
-                        <figcaption>
-                            <?php the_title(); ?>
-                        </figcaption>
-                    </figure>
-                
-            </div>
+            
+            <?php if ( has_post_thumbnail()) { ?> 
+                <div class="programs-submenu featured-image">
+                    
+                        <figure>
+                            <?php the_post_thumbnail( 'medium' ); ?>
+                            <figcaption>
+                                <?php the_title(); ?>
+                            </figcaption>
+                        </figure>
+                    
+                </div>
+            <?php } ?>
             <div class="programs-submenu news">
                 <h2 class="h2-sidebar">More News</h2>
                 <?php
