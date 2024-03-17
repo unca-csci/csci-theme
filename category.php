@@ -24,21 +24,22 @@ get_header();
     ?>
 
     <script type="module">
-        import DataManager from "./data-manager.js";
-        import utils from "./utilities.js";
+        console.log("<?php echo $cur_cat ?>");
+        // import DataManager from "./data-manager.js";
+        // import utils from "./utilities.js";
         
-        export default class StudentProject {
-            constructor() {
-                this.mainContainer = document.querySelector("#category-main");
-                utils.showSpinner(this.mainContainer);
-                this.dm = window.dataManager = new DataManager();
-            }
+        // export default class StudentProject {
+        //     constructor() {
+        //         this.mainContainer = document.querySelector("#category-main");
+        //         utils.showSpinner(this.mainContainer);
+        //         this.dm = window.dataManager = new DataManager();
+        //     }
         
-            async fetchAndDisplayByCategory() {
-                const posts = await this.dm.fetchWordpressPosts("<?php echo $cur_cat ?>");
-                console.log(posts);
-            }
-        }
+        //     async fetchAndDisplayByCategory() {
+        //         const posts = await this.dm.fetchWordpressPosts("<?php echo $cur_cat ?>");
+        //         console.log(posts);
+        //     }
+        // }
     </script>
     <div id="category-main">12345</div>
 
