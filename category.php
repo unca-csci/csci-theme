@@ -27,7 +27,7 @@ get_header();
     <script type="module">
         console.log("<?php echo $cur_cat ?>");
         import DataManager from "<?php echo $js_path ?>/assets/js/data-manager.js";
-        import utils from "<?php echo $js_path ?>/utilities.js";
+        import utils from "<?php echo $js_path ?>/assets/js/utilities.js";
         
         export default class StudentProject {
             constructor() {
