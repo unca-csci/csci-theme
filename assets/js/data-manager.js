@@ -42,7 +42,7 @@ export default class DataManager {
 
     async fetchWordpressPosts(catID) {
         console.log(catID);
-        const url = `/wp-json/wp/v2/posts?&categories=${catID}`;
+        const url = `/wp-json/wp/v2/posts?&categories=${catID}&_embed`;
         const response = await fetch(url);
         return await response.json();
     }
