@@ -26,24 +26,10 @@ get_header();
 
     <script type="module">
         console.log("<?php echo $cur_cat ?>");
-        import DataManager from "<?php echo $js_path ?>/assets/js/data-manager.js";
-        import utils from "<?php echo $js_path ?>/assets/js/utilities.js";
-        
-        class StudentProject {
-            constructor() {
-                this.mainContainer = document.querySelector("#category-main");
-                utils.showSpinner(this.mainContainer);
-                this.dm = window.dataManager = new DataManager();
-            }
-        
-            async fetchAndDisplayByCategory() {
-                const posts = await this.dm.fetchWordpressPosts("<?php echo $cur_cat ?>");
-                console.log(posts);
-            }
-        }
+        import PostsByCategory from "<?php echo $js_path ?>/assets/js/posts-by-category.js";
 
-        const sp = new StudentProject();
-        sp.fetchAndDisplayByCategory();
+        const posts = new PostsByCategory(<?php echo $cur_cat ?>);
+        posts.fetchAndDisplayByCategory();
 
     </script>
     <div id="category-main">12345</div>

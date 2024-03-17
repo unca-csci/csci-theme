@@ -1,0 +1,16 @@
+import DataManager from "./data-manager.js";
+import utils from "./utilities.js";
+
+export default class PostsByCategory {
+    constructor(categoryId) {
+        this.categoryId = categoryId;
+        this.mainContainer = document.querySelector("#category-main");
+        utils.showSpinner(this.mainContainer);
+        this.dm = window.dataManager = new DataManager();
+    }
+
+    async fetchAndDisplayByCategory() {
+        const posts = await this.dm.fetchWordpressPosts(this.categoryId);
+        console.log(posts);
+    }
+}
