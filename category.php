@@ -29,7 +29,7 @@ get_header();
         import DataManager from "<?php echo $js_path ?>/assets/js/data-manager.js";
         import utils from "<?php echo $js_path ?>/assets/js/utilities.js";
         
-        export default class StudentProject {
+        class StudentProject {
             constructor() {
                 this.mainContainer = document.querySelector("#category-main");
                 utils.showSpinner(this.mainContainer);
@@ -41,6 +41,10 @@ get_header();
                 console.log(posts);
             }
         }
+
+        const sp = new StudentProject();
+        sp.fetchAndDisplayByCategory();
+
     </script>
     <div id="category-main">12345</div>
 
