@@ -4,6 +4,7 @@ import CourseGroup from "./models/course-group.js";
 import CSArea from "./models/cs-area.js";
 import Degree from "./models/degree.js";
 import Person from "./models/person.js";
+import Post from "./models/post.js";
 import Project from "./models/project.js";
 
 export default class DataManager {
@@ -41,7 +42,11 @@ export default class DataManager {
     }
 
     async fetchWordpressPosts(catID) {
-        const url = `/wp-json/wp/v2/posts?&categories=${catID}&_embed`;
+        let url = "/wp-json/wp/v2/posts?";
+        if (catID) {
+            url += `categories=${catID}`;
+        }
+        url += "&_embed";
         const response = await fetch(url);
         return await response.json();
     }
@@ -115,6 +120,11 @@ export default class DataManager {
         return people
             .map((person) => new Person(person))
             .sort(Person.sortFunction);
+    }
+
+    async getPostsByCategory(catId) {
+        const posts = await this.fetchWordpressPosts(catId);
+        return posts.map((post) => new Post(post)).sort(Post.sortFunction);
     }
 
     async getProjects(term = null) {

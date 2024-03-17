@@ -14,25 +14,18 @@ get_header();
 
     <?php
         the_archive_title( '<h1 class="page-title">', '</h1>' );
-        // get_cat_ID();
-        // $categories = get_the_category();
-        // var_dump($categories);
-        // $category_id = $categories[0]->cat_ID;
-        // echo $category_id;
-        // $current_category = get_queried_object();
         $cur_cat = get_cat_ID( single_cat_title("",false) );
         $js_path = get_stylesheet_directory_uri();
     ?>
 
     <script type="module">
-        console.log("<?php echo $cur_cat ?>");
         import PostsByCategory from "<?php echo $js_path ?>/assets/js/posts-by-category.js";
 
         const posts = new PostsByCategory(<?php echo $cur_cat ?>);
         posts.fetchAndDisplayByCategory();
 
     </script>
-    <div id="category-main">12345</div>
+    <div id="category-main">Categories go here...</div>
 
 	</main><!-- #main -->
 

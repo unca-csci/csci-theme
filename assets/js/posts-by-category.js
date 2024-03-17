@@ -10,7 +10,7 @@ export default class PostsByCategory {
     }
 
     async fetchAndDisplayByCategory() {
-        const posts = await this.dm.fetchWordpressPosts(this.categoryId);
+        const posts = await this.dm.getPostsByCategory(this.categoryId);
         console.log(posts);
     }
 }
