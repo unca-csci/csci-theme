@@ -19,8 +19,8 @@ export default class Student {
 
     getTemplate() {
         return `
-            <section class="content-wrapper">
-                <h2 class="person-header">${this.title}</h2>
+            <section>
+                <h2>${this.title}</h2>
                 ${this.getFeaturedImage()}
             </section>
         `;
@@ -28,7 +28,7 @@ export default class Student {
 
     getCardTemplate() {
         return `
-            <div class="people-card">
+            <div>
                 <div>
                     <h2>${this.title}</h2>
                 </div>
@@ -39,7 +39,7 @@ export default class Student {
 
     getFeaturedImage() {
         return this.featuredImageUrl
-            ? `<img class="people-thumb" src="${this.featuredImageUrl}" />`
+            ? `<img src="${this.featuredImageUrl}" />`
             : "";
     }
 }

@@ -12,7 +12,7 @@ export default class PostsByCategory {
     async fetchAndDisplayByCategory() {
         const posts = await this.dm.getPostsByCategory(this.categoryId);
         console.log(posts);
-        this.mainContainer.innerHTML = '<div class="projects"></div>';
+        this.mainContainer.innerHTML = '<div class="posts"></div>';
         const container = this.mainContainer.lastElementChild;
         posts.forEach((post) => {
             console.log(post.name, post.term);
