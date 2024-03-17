@@ -19,6 +19,8 @@ get_header();
         var_dump($categories);
         $category_id = $categories[0]->cat_ID;
         echo $category_id;
+        $current_category = get_queried_object();
+        echo $current_category;
     ?>
     <div id="category-main">12345</div>
 
