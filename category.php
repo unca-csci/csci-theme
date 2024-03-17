@@ -15,10 +15,10 @@ get_header();
     <?php
         the_archive_title( '<h1 class="page-title">', '</h1>' );
         // get_cat_ID();
-        $categories = get_the_category();
-        var_dump($categories);
-        $category_id = $categories[0]->cat_ID;
-        echo $category_id;
+        // $categories = get_the_category();
+        // var_dump($categories);
+        // $category_id = $categories[0]->cat_ID;
+        // echo $category_id;
         $current_category = get_queried_object();
         echo $current_category;
     ?>
