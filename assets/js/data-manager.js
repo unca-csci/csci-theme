@@ -40,6 +40,12 @@ export default class DataManager {
         return await response.json();
     }
 
+    async fetchWordpressPosts() {
+        const url = "/wp-json/wp/v2/people?per_page=100&_embed";
+        const response = await fetch(url);
+        return await response.json();
+    }
+
     async fetchWordpressProjects(term = null) {
         let url = "/wp-json/wp/v2/student-projects?per_page=100&_embed";
         if (term) {
