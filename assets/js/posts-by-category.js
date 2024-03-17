@@ -12,5 +12,14 @@ export default class PostsByCategory {
     async fetchAndDisplayByCategory() {
         const posts = await this.dm.getPostsByCategory(this.categoryId);
         console.log(posts);
+        this.mainContainer.innerHTML = '<div class="projects"></div>';
+        const container = this.parent.lastElementChild;
+        posts.forEach((post) => {
+            console.log(post.name, post.term);
+            container.insertAdjacentHTML(
+                "beforeend",
+                post.getCardTemplate()
+            );
+        });
     }
 }
