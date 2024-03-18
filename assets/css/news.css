@@ -2,17 +2,17 @@
     margin: 0 5vw;
 }
 
-.news-h1 {
-    color: var(--night-sky);
-    font-weight: 400;
-    padding-top: 50px;
-}
-
 .news-custom {
     display: grid;
     grid-template-columns: 300px auto;
     gap: 30px;
     margin-bottom: 30px;
+}
+
+.news-h1 {
+    color: var(--night-sky);
+    font-weight: 400;
+    padding-top: 50px;
 }
 
 .news-custom p {
@@ -61,4 +61,14 @@
 .news-custom .btn:visited,
 .news-custom .btn:active {
     color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .news-custom {
+        display: grid;
+        grid-template-columns: auto;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
 }
