@@ -1,7 +1,19 @@
+.categories {
+    margin: 0 5vw;
+}
+
 .news {
     display: grid;
     grid-template-columns: 200px auto;
     gap: 30px;
+    margin-bottom: 30px;
+}
+
+.news h2 {
+    font-weight: 400;
+    font-size: 1.4em;
+    color: var(--night-sky);
+    margin-bottom: 6px;
 }
 
 .news .featured {
