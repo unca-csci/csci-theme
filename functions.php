@@ -152,7 +152,7 @@ function unca_csci_scripts() {
 	/* remember tat order matters here */
     wp_enqueue_style( 'main', get_template_directory_uri() . '/assets/css/main.css', array(), null, 'all' );
 	wp_enqueue_style( 'nav', get_template_directory_uri() . '/assets/css/navigation.css', array(), null, 'all' );
-	wp_enqueue_style( 'areas', get_template_directory_uri() . '/assets/css/news.css', array(), null, 'all' );
+	wp_enqueue_style( 'news', get_template_directory_uri() . '/assets/css/news.css', array(), null, 'all' );
 	wp_enqueue_style( 'areas', get_template_directory_uri() . '/assets/css/areas.css', array(), null, 'all' );
 	wp_enqueue_style( 'class-schedule', get_template_directory_uri() . '/assets/css/class-schedule.css', array(), null, 'all' );
 	wp_enqueue_style( 'lightbox', get_template_directory_uri() . '/assets/css/lightbox.css', array(), null, 'all' );
