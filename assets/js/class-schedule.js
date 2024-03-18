@@ -18,6 +18,7 @@ export default class ClassSchedule {
     getInterfaceHTML() {
         return `
         <select id="term">
+            <option value="2024/fall/">Fall 2024</option>
             <option value="2024/spring/">Spring 2024</option>
             <option value="2023/fall/">Fall 2023</option>
             <option value="2023/spring/">Spring 2023</option>
