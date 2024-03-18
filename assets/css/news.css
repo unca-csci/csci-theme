@@ -22,7 +22,8 @@
 
 .news .featured {
     background-color: #F0F0F0;
-    min-height: 200px;
+    min-height: 150px;
+    max-height: 250px;
 }
 
 .news .featured img {
