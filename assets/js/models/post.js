@@ -29,12 +29,14 @@ export default class Post {
 
     getCardTemplate() {
         return `
-            <div>
+            <div class="news">
+                <div class="featured">
+                    ${this.getFeaturedImage()}
+                </div>
                 <div>
                     <h2>${this.title}</h2>
+                    <p>${this.excerpt}</p>
                 </div>
-                ${this.getFeaturedImage()}
-                <p>${this.excerpt}</p>
             </div>`;
     }
 
