@@ -15,6 +15,7 @@ get_header();
     <?php
         the_archive_title( '<h1 class="news-h1">', '</h1>' );
         $cur_cat = get_cat_ID( single_cat_title("",false) );
+        echo  '<h1 class="news-h1">' . $cur_cat . '</h1>';
         $js_path = get_stylesheet_directory_uri();
     ?>
 
