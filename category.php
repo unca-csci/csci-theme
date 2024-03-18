@@ -13,9 +13,8 @@ get_header();
 	<main id="primary" class="site-main categories">
 
     <?php
-        the_archive_title( '<h1 class="news-h1">', '</h1>' );
-        $cur_cat = get_cat_ID( single_cat_title("",false) );
         echo  '<h1 class="news-h1">' . single_cat_title("",false) . '</h1>';
+        $cur_cat = get_cat_ID( single_cat_title("",false) );
         $js_path = get_stylesheet_directory_uri();
     ?>
 
