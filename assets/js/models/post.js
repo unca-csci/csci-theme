@@ -31,7 +31,7 @@ export default class Post {
 
     getCardTemplate() {
         return `
-            <div class="news">
+            <div class="news-custom">
                 <div class="featured">
                     ${this.getFeaturedImage()}
                 </div>
