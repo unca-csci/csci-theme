@@ -1,10 +1,10 @@
-export default class Student {
+export default class Post {
     constructor(data) {
         console.log(data);
         this.id = data.id;
         this.dataType = "post";
         this.title = data.title.rendered;
-        this.bio = data.acf.bio;
+        this.excerpt = data.excerpt.rendered;
         if (
             data._embedded &&
             data._embedded["wp:featuredmedia"] &&
@@ -22,6 +22,7 @@ export default class Student {
             <section>
                 <h2>${this.title}</h2>
                 ${this.getFeaturedImage()}
+                <p>${this.excerpt}</p>
             </section>
         `;
     }
@@ -32,8 +33,8 @@ export default class Student {
                 <div>
                     <h2>${this.title}</h2>
                 </div>
-                
                 ${this.getFeaturedImage()}
+                <p>${this.excerpt}</p>
             </div>`;
     }
 
