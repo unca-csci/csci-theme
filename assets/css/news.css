@@ -33,18 +33,18 @@
 }
 
 .btn {
-    background-color: var(--e-global-color-primary);
-    color: var(--e-global-color-3f6b09a);
-    border-color: var(--e-global-color-primary);
+    display: inline-block;
+    background-color: var(--night-sky);
+    color: white;
+    border-color: var(--night-sky);
     transition-duration: 0.1s;
     border-style: solid;
     border-width: 1px 1px 1px 1px;
     padding: 8px 25px 8px 25px;
     border-radius: 4px 4px 4px 4px;
+    margin-top: 9px;
 }
 
 .btn:hover {
-    background-color: #00386575;
-    color: white;
-    border-color: #0076a5;
+    background-color: var(--evening-blue);
 }

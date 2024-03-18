@@ -24,7 +24,7 @@ export default class Post {
                 <h2>${this.title}</h2>
                 ${this.getFeaturedImage()}
                 <p>${this.excerpt}</p>
-                <a href="${this.link}" class="btn">Read More</a>
+                <a href="${this.url}" class="btn">Read More</a>
             </section>
         `;
     }
@@ -38,7 +38,7 @@ export default class Post {
                 <div>
                     <h2>${this.title}</h2>
                     <p>${this.excerpt}</p>
-                    <a href="${this.link}" class="btn">Read More</a>
+                    <a href="${this.url}" class="btn">Read More</a>
                 </div>
             </div>`;
     }
