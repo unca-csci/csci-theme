@@ -1,5 +1,9 @@
-.categories {
+.site-main.categories {
     margin: 0 5vw;
+}
+
+#category-main {
+    margin-top: 50px;
 }
 
 .news-custom {
