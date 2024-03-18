@@ -3,6 +3,7 @@ export default class Post {
         console.log(data);
         this.id = data.id;
         this.dataType = "post";
+        this.url = data.link;
         this.title = data.title.rendered;
         this.excerpt = data.excerpt.rendered;
         if (
@@ -23,6 +24,7 @@ export default class Post {
                 <h2>${this.title}</h2>
                 ${this.getFeaturedImage()}
                 <p>${this.excerpt}</p>
+                <a href="btn">Read More</a>
             </section>
         `;
     }
