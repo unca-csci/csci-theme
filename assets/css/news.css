@@ -2,6 +2,12 @@
     margin: 0 5vw;
 }
 
+.news-h1 {
+    color: var(--night-sky);
+    font-weight: 400;
+    padding-top: 50px;
+}
+
 .news-custom {
     display: grid;
     grid-template-columns: 300px auto;
