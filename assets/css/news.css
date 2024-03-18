@@ -66,6 +66,8 @@
 @media screen and (max-width: 600px) {
     .news-custom {
         grid-template-columns: auto;
+        gap: 0px;
+        margin-bottom: 70px;
     }
 
 }
