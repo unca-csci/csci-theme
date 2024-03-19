@@ -149,8 +149,8 @@
     }
 
     .main-navigation ul a {
-        padding: 10px 20px;
-        font-size: 1.3em;
+        padding: 6px 20px;
+        font-size: 1.1em;
     }
 
     .main-navigation ul a:hover {
@@ -168,7 +168,7 @@
 
     .main-navigation.toggled ul ul a {
         width: auto;
-        font-size: 1.3em;
+        font-size: 1.1em;
     }
 
     .main-navigation li:last-child {
