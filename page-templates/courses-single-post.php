@@ -1,7 +1,7 @@
 <?php
 /**
- * Template Name: Custom People Template
- * Template Post Type: post, page, product, person
+ * Template Name: Custom Course Template
+ * Template Post Type: person, people
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *

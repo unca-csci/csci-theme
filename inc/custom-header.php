@@ -73,6 +73,15 @@ if ( ! function_exists( 'unca_csci_header_style' ) ) :
 			}
 		<?php endif; ?>
 		</style>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1K1MBSMSN0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-1K1MBSMSN0');
+    </script>
 		<?php
 	}
 endif;
