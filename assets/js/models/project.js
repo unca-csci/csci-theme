@@ -21,10 +21,13 @@ export default class Project {
             data._embedded["wp:featuredmedia"] &&
             data._embedded["wp:featuredmedia"].length > 0
         ) {
-            this.featuredImageUrl =
-                data._embedded[
-                    "wp:featuredmedia"
-                ][0].media_details.sizes.large.source_url;
+            const imageSizes =
+                data._embedded["wp:featuredmedia"][0].media_details.sizes;
+            if (imageSizes.large) {
+                this.featuredImageUrl = imageSizes.large.source_url;
+            } else if (imageSizes.full) {
+                this.imgFull = imageSizes.full.source_url;
+            }
         }
 
         if (availablePeople) {
