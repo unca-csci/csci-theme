@@ -26,7 +26,7 @@ export default class Project {
             if (imageSizes.large) {
                 this.featuredImageUrl = imageSizes.large.source_url;
             } else if (imageSizes.full) {
-                this.imgFull = imageSizes.full.source_url;
+                this.featuredImageUrl = imageSizes.full.source_url;
             }
         }
 
