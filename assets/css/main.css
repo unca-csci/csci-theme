@@ -574,6 +574,12 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     padding: 40px 20px;
     /* border-radius: 6px; */
     text-align: center;
+    transition: all 0.5s;
+}
+
+.card.course:hover {
+    transform: scale(1.05);
+
 }
 
 .project {
@@ -616,6 +622,13 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 .card a:link,
 .card a:visited,
 .card a:active {
+    text-decoration: none !important;
+}
+
+.card.course a,
+.card.course a:link,
+.card.course a:visited,
+.card.course a:active {
     text-decoration: none !important;
 }
 
