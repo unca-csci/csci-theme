@@ -229,7 +229,7 @@ export default class Course {
     }
 
     getTemplateCard() {
-        return `<div class="card course">
+        return `<div class="card course-card">
             <a href="#"><h3>${this.code}</h3></a>
             <p>${this.name}<br>(${this.credits} Credits)</p>
         </div>`;

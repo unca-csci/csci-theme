@@ -577,7 +577,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     transition: all 0.5s;
 }
 
-.card.course:hover {
+.course-card:hover {
     transform: scale(1.05);
     border: solid 1px var(--bright-blue);
     border-radius: 4px;
