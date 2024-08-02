@@ -185,8 +185,10 @@ Elementor Overrides for font settings
 button,
 .elementor-button-text,
 .wpr-grid-filters li,
-.wpr-grid-filters span {
+.wpr-grid-filters span,
+.course h3 {
     font-family: var(--montserrat) !important;
+    letter-spacing: 0;
 }
 
 .wpr-grid-item-title a {
@@ -194,6 +196,17 @@ button,
     color: var(--navy-blue) !important;
 }
 
+.programs-submenu h2,
+.programs-submenu h3 {
+    font: var(--h3) !important;
+    letter-spacing: 2px;
+    color: var(--navy-blue);
+}
+
+.header-box h2,
+.header-box h3 {
+    font-size: 2em !important;
+}
 
 .admin-bar #masthead {
     top: 32px;
