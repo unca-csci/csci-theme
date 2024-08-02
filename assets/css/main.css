@@ -1,12 +1,114 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 
+@font-face {
+    font-family: "Denton Condensed";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Denton Condensed Thin"), url("../fonts/DentonCondensed-Thin-1.woff2") format("woff2"), url("../fonts/DentonCondensed-Thin-1.woff") format("woff");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: denton;
+    font-style: normal;
+    font-weight: 100;
+    src: url(../fonts/Denton-Thin.otf)
+}
+
+@font-face {
+    font-family: denton;
+    font-style: italic;
+    font-weight: 100;
+    src: url(../fonts/Denton-ThinItalic.otf)
+}
+
+@font-face {
+    font-family: denton;
+    font-style: normal;
+    font-weight: 300;
+    src: url(../fonts/Denton-Light.otf)
+}
+
+@font-face {
+    font-family: denton;
+    font-style: italic;
+    font-weight: 300;
+    src: url(../fonts/Denton-LightItalic.otf)
+}
+
+@font-face {
+    font-family: denton;
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/Denton-Regular.otf)
+}
+
+@font-face {
+    font-family: denton;
+    font-style: italic;
+    font-weight: 400;
+    src: url(../fonts/Denton-RegularItalic.otf)
+}
+
+:root {
+    --h2: 100 clamp(2.25rem, 1.1vw + 1.9rem, 2.625rem) var(--denton);
+    --denton: "denton", serif;
+    --black: #000;
+    --white: #fff;
+    --blue: #003DA5;
+    --blue-90: RGBA(0, 61, 165, .9);
+    --blue-20: RGBA(0, 61, 165, .2);
+    --navy-blue: #002855;
+    --evening-blue: #0076A5;
+    --evening-blue-lt: #71B2C9;
+    --morning-blue: #AFCDD7;
+    --morning-blue-lt: #D1DDE6;
+    --stone: #888B8D;
+    --stone-lt: #C8C9C7;
+    --sand: #BEB8A8;
+    --sand-lt: #D9D9D6;
+    --rust: #914E43;
+    --rust-lt: #C26E60;
+    --gold: #BD9B60;
+    --gold-lt: #EBBC4E;
+    --evergreen: #2F594C;
+    --evergreen-lt: #7F9C90;
+    --accent-purple: #9878B6;
+    --accent-blue: #75CEDE;
+    --accent-green: #6BC077;
+    --accent-orange: #F58220;
+    --accent-yellow: #FFDD00;
+    --accent-pink: #F17BB0;
+    --shadow: -2px 3px 15px 0px #0000002E;
+    --denton: "denton", serif;
+    --chainprinter: "chainprinter", sans-serif;
+    --montserrat: "Montserrat", sans-serif;
+    --body: 500 1rem/1.5 var(--montserrat);
+    --small: 300 .875rem/1.5 var(--denton);
+    --h1: 100 clamp(2.75rem, 2.4vw + 2.2rem, 4.0625rem)/.923 var(--denton);
+    --h2: 100 clamp(2.25rem, 1.1vw + 1.9rem, 2.625rem) var(--denton);
+    --h3: 400 1.5rem/1.5 var(--denton);
+    --h4: 600 1.25rem/1.4 var(--montserrat);
+    --h5: 600 1rem/1.5 var(--montserrat);
+    --h6: 600 .75rem/1.6 var(--denton);
+    --transition: .4s ease;
+    --header: 4.5rem;
+    --gutter: 1.5rem;
+    --space: 6rem;
+    --space-sm: calc(var(--space) / 2);
+    --container: max(var(--gutter), (100% - 80rem) / 2);
+    --container-md: max(var(--gutter), (100% - 60rem) / 2);
+    --container-sm: max(var(--gutter), (100% - 48rem) / 2);
+    --space-fw: clamp(3rem, 8vw, 6rem);
+    --heading: var(--blue);
+    --link: var(--blue);
+    --text: var(--navy-blue);
+}
+
 body {
     font-family: "Montserrat";
 }
 
-/*
-header and navigation
-*/
 
 a:focus,
 a h2:focus,
@@ -32,9 +134,64 @@ div:focus {
     font-size: 0.9em;
 }
 
+h1,
 .h1 {
-    font-weight: 400;
-    color: var(--night-sky);
+    font: var(--h1);
+    letter-spacing: 3.51px;
+    color: var(--heading, var(--blue))
+}
+
+h2,
+.h2 {
+    font: var(--h2);
+    letter-spacing: 2px;
+    color: var(--heading, var(--blue))
+}
+
+h3,
+.h3 {
+    font: var(--h3);
+    letter-spacing: 2px;
+    color: var(--heading, var(--blue))
+}
+
+h4,
+.h4 {
+    font: var(--h4);
+    color: var(--heading, var(--blue))
+}
+
+h5,
+.h5 {
+    font: var(--h5);
+    color: var(--heading, var(--blue))
+}
+
+/***
+Elementor Overrides for font settings
+*/
+.elementor-heading-title {
+    font: var(--h2) !important;
+    line-height: 1.2em !important;
+    letter-spacing: 2px !important;
+}
+
+.wpcp-all-captions h2 a {
+    font-family: var(--montserrat);
+    letter-spacing: 0;
+    color: var(--navy-blue);
+}
+
+button,
+.elementor-button-text,
+.wpr-grid-filters li,
+.wpr-grid-filters span {
+    font-family: var(--montserrat) !important;
+}
+
+.wpr-grid-item-title a {
+    letter-spacing: 0px !important;
+    color: var(--navy-blue) !important;
 }
 
 
@@ -50,7 +207,7 @@ div:focus {
 }
 
 #unca-navigation {
-    background-color: #003865;
+    background-color: var(--night-sky);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,11 +257,11 @@ div:focus {
 .header-logo-wrapper {
     min-width: 350px;
     max-width: 350px;
-    font-size: 26px;
-    line-height: 1.8;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
+    /* font-size: 26px; */
+    /* line-height: 1.8; */
+    /* font-family: 'Montserrat', sans-serif; */
+    /* font-weight: 700; */
+    /* text-transform: uppercase; */
     vertical-align: middle;
 }
 
@@ -254,7 +411,7 @@ footer p {
     /* position: fixed; */
     width: 100%;
     color: white;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Denton Condensed", sans-serif;
     background-color: var(--bulldog-blue);
     background-color: white;
     height: var(--banner-one-height);
@@ -574,13 +731,6 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     padding: 40px 20px;
     /* border-radius: 6px; */
     text-align: center;
-    transition: all 0.5s;
-}
-
-.course-card:hover {
-    transform: scale(1.05);
-    border: solid 1px var(--bright-blue);
-    border-radius: 4px;
 }
 
 .project {
@@ -652,6 +802,8 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 .card h3 {
     font-size: 1.4em;
     color: var(--evening-blue);
+    font-family: Montserrat, sans-serif;
+    letter-spacing: normal;
 }
 
 .card p {

@@ -64,7 +64,7 @@
 
         <div id="unca-navigation">
    
-            <div class="header-logo-wrapper">
+            <div class="header-logo-wrapper h2">
                 <a href="/" title="" class="custom-logo-text">Computer Science</a>		
             </div>
             
