@@ -114,15 +114,14 @@
         border-bottom: 0;
     }
 
-    .menu-main-menu-container>ul>li:last-child a {
+    #unca-navigation .menu-main-menu-container>ul>li:last-child a {
         border: solid 2px white;
         padding: 5px 20px;
         border-radius: 2px;
     }
 
-    .menu-main-menu-container>ul>li:last-child a:hover {
-        background: #FFFFFF66;
-        border: solid 2px white;
+    #unca-navigation .menu-main-menu-container>ul>a:hover {
+        background: #FFF6;
     }
 }
 

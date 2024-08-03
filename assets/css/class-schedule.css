@@ -6,11 +6,13 @@
     column-gap: 20px;
     padding-top: 20px;
 }
+
 .buttons {
     display: flex;
 }
 
-a:hover i, .buttons a.selected i  {
+a:hover i,
+.buttons a.selected i {
     color: var(--evening-blue);
 }
 
@@ -26,7 +28,7 @@ a:hover i, .buttons a.selected i  {
     padding: 6px;
 }
 
-.buttons a.selected  {
+.buttons a.selected {
     background-color: #EEE;
     border: solid 2px var(--evening-blue);
 }
@@ -43,7 +45,7 @@ a:hover i, .buttons a.selected i  {
     -moz-appearance: none;
     appearance: none;
     background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) white no-repeat 96% !important;
-    
+
 }
 
 .toolbar i {
@@ -102,11 +104,12 @@ a:hover i, .buttons a.selected i  {
 
 
 .group h2 {
-    margin-top: 0px;
+    /* margin-top: 0px;
     margin-bottom: 0px;
     color: var(--night-sky);
     font-size: 1.6em;
-    font-weight: 700;
+    font-weight: 700; */
+    font-size: 2.3rem;
 }
 
 
@@ -142,7 +145,8 @@ a:hover i, .buttons a.selected i  {
     /* padding: 3px 10px; */
 }
 
-.course p, .course a {
+.course p,
+.course a {
     /* font-size: 0.9em; */
     margin-bottom: 0px;
     margin-top: 5px;

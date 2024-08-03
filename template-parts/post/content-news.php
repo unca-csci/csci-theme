@@ -11,7 +11,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     
-    <div class="entry-wrapper two-column">
+    <div class="entry-wrapper two-column news">
         <div class="entry-content">
             <header class="entry-header">
                 <?php

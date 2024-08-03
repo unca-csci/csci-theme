@@ -50,6 +50,7 @@
     src: url(../fonts/Denton-RegularItalic.otf)
 }
 
+
 :root {
     --h2: 100 clamp(2.25rem, 1.1vw + 1.9rem, 2.625rem) var(--denton);
     --denton: "denton", serif;
@@ -85,8 +86,11 @@
     --montserrat: "Montserrat", sans-serif;
     --body: 500 1rem/1.5 var(--montserrat);
     --small: 300 .875rem/1.5 var(--denton);
-    --h1: 100 clamp(2.75rem, 2.4vw + 2.2rem, 4.0625rem)/.923 var(--denton);
-    --h2: 100 clamp(2.25rem, 1.1vw + 1.9rem, 2.625rem) var(--denton);
+    --heading: var(--blue);
+    --link: var(--blue);
+    --text: var(--navy-blue);
+    --h1: 100 3.5rem var(--denton);
+    --h2: 100 2.5rem var(--denton);
     --h3: 400 1.5rem/1.5 var(--denton);
     --h4: 600 1.25rem/1.4 var(--montserrat);
     --h5: 600 1rem/1.5 var(--montserrat);
@@ -104,6 +108,11 @@
     --link: var(--blue);
     --text: var(--navy-blue);
 }
+
+/* p,
+span {
+    color: var(--text, var(--navy-blue));
+} */
 
 body {
     font-family: "Montserrat";
@@ -137,8 +146,9 @@ div:focus {
 h1,
 .h1 {
     font: var(--h1);
-    letter-spacing: 3.51px;
-    color: var(--heading, var(--blue))
+    letter-spacing: 2px;
+    color: var(--heading, var(--blue));
+    line-height: 3.5rem;
 }
 
 h2,
@@ -151,7 +161,7 @@ h2,
 h3,
 .h3 {
     font: var(--h3);
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: var(--heading, var(--blue))
 }
 
@@ -167,18 +177,39 @@ h5,
     color: var(--heading, var(--blue))
 }
 
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: var(--blue);
+    /* font-weight: 600; */
+    text-decoration: none;
+}
+
+
 /***
 Elementor Overrides for font settings
 */
-.elementor-heading-title {
+h1.elementor-heading-title {
+    font: var(--h1) !important;
+    line-height: 3.5rem !important;
+    /* letter-spacing: 0px !important; */
+}
+
+h2.elementor-heading-title {
     font: var(--h2) !important;
-    line-height: 1.2em !important;
-    letter-spacing: 2px !important;
+    line-height: 2.5rem !important;
+    /* letter-spacing: 0px !important; */
+}
+
+h2.wpcp-post-title,
+h2.wpr-grid-item-title {
+    letter-spacing: 0;
 }
 
 .wpcp-all-captions h2 a {
     font-family: var(--montserrat);
-    letter-spacing: 0;
     color: var(--navy-blue);
 }
 
@@ -188,18 +219,18 @@ button,
 .wpr-grid-filters span,
 .course h3 {
     font-family: var(--montserrat) !important;
-    letter-spacing: 0;
+    /* letter-spacing: 0; */
 }
 
 .wpr-grid-item-title a {
-    letter-spacing: 0px !important;
+    /* letter-spacing: 0px !important; */
     color: var(--navy-blue) !important;
 }
 
 .programs-submenu h2,
 .programs-submenu h3 {
     font: var(--h3) !important;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: var(--navy-blue);
 }
 
@@ -207,6 +238,25 @@ button,
 .header-box h3 {
     font-size: 2em !important;
 }
+
+.overlay-box h2 {
+    font-family: var(--montserrat) !important;
+    font-size: 1.5rem !important;
+    line-height: 1.9rem;
+    letter-spacing: 0 !important;
+}
+
+.breadcrumbs h1.entry-title {
+    font-size: 2.4rem !important;
+    line-height: 3rem;
+}
+
+h2.entry-title a {
+    font: var(--h3) !important;
+}
+
+
+
 
 .admin-bar #masthead {
     top: 32px;
@@ -290,6 +340,11 @@ button,
 }
 */
 
+
+.entry-wrapper p,
+entry-wrapper span {
+    color: var(--navy-blue);
+}
 
 .entry-wrapper.two-column {
     display: flex;
@@ -454,9 +509,9 @@ footer p {
 /***********************/
 /* Elementor Overrides */
 /***********************/
-.entry-content h2 {
+/* .entry-content h2 {
     font-weight: 400;
-}
+} */
 
 .entry-content p {
     margin-top: 0;
@@ -591,7 +646,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     margin: 0 10px;
 }
 
-.project-navigation li:last-child::after {
+.project-navigation ::after {
     content: '';
     margin: 0;
 }
@@ -676,9 +731,11 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     padding: 0px 0px 10px 0px !important;
 }
 
-.h2-sidebar {
-    font-weight: 700 !important;
-    color: var(--evening-blue) !important;
+.news .h2-sidebar {
+    font: var(--h2) !important;
+    font-size: 3rem;
+    /* font-weight: 600 !important; */
+    color: var(--blue) !important;
 }
 
 /*****************/
@@ -814,9 +871,10 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 
 .card h3 {
     font-size: 1.4em;
-    color: var(--evening-blue);
+    color: var(--blue);
     font-family: Montserrat, sans-serif;
     letter-spacing: normal;
+    font-weight: 500;
 }
 
 .card p {

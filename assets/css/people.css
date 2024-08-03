@@ -1,6 +1,7 @@
 /**********/
 /* People */
 /**********/
+
 .people-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -56,9 +57,7 @@
 }
 
 .people-card h2 {
-    font-weight: 400;
-    font-size: 1.4em;
-    color: var(--night-sky);
+    font-size: 2rem;
     margin-bottom: 6px;
 }
 
@@ -94,7 +93,7 @@
 }
 
 .person-header {
-    color: var(--night-sky);
+    /* color: var(--night-sky); */
     text-align: center;
     align-self: stretch;
 }
