@@ -128,12 +128,12 @@
 @media screen and (max-width: 55em) {
     .main-navigation {
         display: flex;
-        width: 100%;
+        /* width: 100%; */
         justify-content: flex-end;
         flex-direction: column;
         align-content: flex-end;
         align-items: flex-end;
-        position: absolute;
+        /* position: absolute; */
         top: 100px;
         right: 0;
     }
