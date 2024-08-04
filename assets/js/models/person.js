@@ -54,23 +54,23 @@ export default class Person {
             <section class="content-wrapper">
                 ${showTitle ? this.getTitle() : ""}
                 ${this.getFeaturedImage()}
-                <h3>${this.title}</h3>
+                <h2>${this.title}</h2>
                 ${this.getContactInfo()}
                 ${
                     this.bio
-                        ? `<h3>Bio</h3>${this.bio.replaceAll("<br>", "")}`
+                        ? `<h2>Bio</h2>${this.bio.replaceAll("<br>", "")}`
                         : ""
                 }
-                ${this.education ? `<h3>Education</h3>${this.education}` : ""}
+                ${this.education ? `<h2>Education</h2>${this.education}` : ""}
                 ${
                     this.interests
-                        ? `<h3>Research & Professional Interests</h3>${this.interests}`
+                        ? `<h2>Research & Professional Interests</h2>${this.interests}`
                         : ""
                 }
                 ${this.getAreas()}
                 ${
                     this.website
-                        ? `<h3>Website</h3><a href="${this.website}" target="_blank">${this.website}</a>`
+                        ? `<h2>Website</h2><a href="${this.website}" target="_blank">${this.website}</a>`
                         : ""
                 }
             </section>
@@ -162,9 +162,9 @@ export default class Person {
     }
 
     getTitle() {
-        return `<h2 class="person-header">
+        return `<h1 class="person-header">
             ${this.name}${this.degree ? `, ${this.degree}` : ""}
-        </h2>`;
+        </h1>`;
     }
 
     getAreas() {
@@ -173,7 +173,7 @@ export default class Person {
             return "";
         }
         console.log(this.cs_area_ids, this.dm.csAreas);
-        return '<h3>CS Areas</h3><div class="area-tags"></div>';
+        return '<h2>CS Areas</h2><div class="area-tags"></div>';
     }
 
     getFeaturedImage() {

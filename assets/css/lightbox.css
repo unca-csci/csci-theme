@@ -69,8 +69,10 @@
     margin-left: 0vw;
 }
 
+.lightbox.show h2,
 .lightbox.show h3 {
     margin-bottom: 5px;
+    font-weight: 100;
 }
 
 .lightbox.show p,

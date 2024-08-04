@@ -1,53 +1,46 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 
 @font-face {
-    font-family: "Denton Condensed";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Denton Condensed Thin"), url("../fonts/DentonCondensed-Thin-1.woff2") format("woff2"), url("../fonts/DentonCondensed-Thin-1.woff") format("woff");
-    font-display: swap;
-}
-
-@font-face {
     font-family: denton;
     font-style: normal;
     font-weight: 100;
-    src: url(../fonts/Denton-Thin.otf)
+    src: url("/wp-content/themes/unca-csci/assets/fonts/Denton-Thin.otf");
 }
 
 @font-face {
     font-family: denton;
     font-style: italic;
     font-weight: 100;
-    src: url(../fonts/Denton-ThinItalic.otf)
+    src: url("/wp-content/themes/unca-csci/assets/fonts/Denton-ThinItalic.otf");
 }
 
 @font-face {
     font-family: denton;
     font-style: normal;
     font-weight: 300;
-    src: url(../fonts/Denton-Light.otf)
+    src: url("/wp-content/themes/unca-csci/assets/fonts/Denton-Light.otf");
 }
 
 @font-face {
     font-family: denton;
     font-style: italic;
     font-weight: 300;
-    src: url(../fonts/Denton-LightItalic.otf)
+    src: url("/wp-content/themes/unca-csci/assets/fonts/Denton-LightItalic.otf");
 }
 
 @font-face {
     font-family: denton;
     font-style: normal;
     font-weight: 400;
-    src: url(../fonts/Denton-Regular.otf)
+    src: url("/wp-content/themes/unca-csci/assets/fonts/Denton-Regular.otf");
+
 }
 
 @font-face {
     font-family: denton;
     font-style: italic;
     font-weight: 400;
-    src: url(../fonts/Denton-RegularItalic.otf)
+    src: url("/wp-content/themes/unca-csci/assets/fonts/Denton-RegularItalic.otf");
 }
 
 
@@ -92,6 +85,7 @@
     --h1: 100 3.5rem var(--denton);
     --h2: 100 2.5rem var(--denton);
     --h3: 400 1.5rem/1.5 var(--denton);
+    --h3-light: 100 1.5rem/1.5 var(--denton);
     --h4: 600 1.25rem/1.4 var(--montserrat);
     --h5: 600 1rem/1.5 var(--montserrat);
     --h6: 600 .75rem/1.6 var(--denton);
@@ -128,6 +122,15 @@ div:focus {
     outline-style: auto !important;
 }
 
+.elementor-button {
+    background-color: var(--blue);
+    border-color: white !important;
+}
+
+.elementor-button-text {
+    color: white;
+}
+
 
 .sidebar-programs ul {
     padding-left: 10px;
@@ -148,7 +151,7 @@ h1,
     font: var(--h1);
     letter-spacing: 2px;
     color: var(--heading, var(--blue));
-    line-height: 3.5rem;
+    /* line-height: 4.5rem; */
 }
 
 h2,
@@ -193,13 +196,13 @@ Elementor Overrides for font settings
 */
 h1.elementor-heading-title {
     font: var(--h1) !important;
-    line-height: 3.5rem !important;
+    /* line-height: 3.5rem !important; */
     /* letter-spacing: 0px !important; */
 }
 
 h2.elementor-heading-title {
     font: var(--h2) !important;
-    line-height: 2.5rem !important;
+    line-height: 3rem !important;
     /* letter-spacing: 0px !important; */
 }
 
@@ -227,7 +230,15 @@ button,
     color: var(--navy-blue) !important;
 }
 
-.programs-submenu h2,
+.programs-submenu h2 {
+    font: var(--h2) !important;
+    letter-spacing: 0;
+    color: var(--navy-blue);
+    font-size: 1.5em;
+    margin: 40px 0 5px 0 !important;
+
+}
+
 .programs-submenu h3 {
     font: var(--h3) !important;
     letter-spacing: 1px;
@@ -239,12 +250,19 @@ button,
     font-size: 2em !important;
 }
 
-.overlay-box h2 {
+.overlay-box h2,
+.overlay-box h2.title {
     font-family: var(--montserrat) !important;
     font-size: 1.5rem !important;
     line-height: 1.9rem;
     letter-spacing: 0 !important;
 }
+
+.overlay-box h2.title {
+    font-weight: 500;
+}
+
+
 
 .breadcrumbs h1.entry-title {
     font-size: 2.4rem !important;
@@ -252,7 +270,8 @@ button,
 }
 
 h2.entry-title a {
-    font: var(--h3) !important;
+    font: var(--h3-light) !important;
+    line-height: 1.9rem !important;
 }
 
 
@@ -290,10 +309,6 @@ h2.entry-title a {
 #unca-navigation a:hover {
     border-bottom: 1px solid rgba(255, 255, 255, .8);
     opacity: .8;
-}
-
-.programs-submenu h2 {
-    margin: 40px 0 5px 0 !important;
 }
 
 .programs-submenu ul {
@@ -479,7 +494,7 @@ footer p {
     /* position: fixed; */
     width: 100%;
     color: white;
-    font-family: "Denton Condensed", sans-serif;
+    font: var(--denton);
     background-color: var(--bulldog-blue);
     background-color: white;
     height: var(--banner-one-height);
@@ -570,7 +585,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 .entry-title {
     margin-top: 50px;
     color: var(--night-sky);
-    font-weight: 300;
+    font-weight: 100;
 }
 
 /*****************/
@@ -619,6 +634,10 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     margin-bottom: 30px;
 }
 
+.project-simple h3 {
+    font-weight: 100;
+}
+
 .project-simple p {
     margin: 0;
 }
@@ -655,13 +674,6 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     padding-top: 60px;
 }
 
-.programs-submenu h2,
-.programs-submenu h3 {
-    color: var(--e-global-color-primary);
-    font-family: var(--e-global-typography-primary-font-family), Sans-serif;
-    font-weight: 500;
-    font-size: 1.5em;
-}
 
 .project-submenu h3 {
     color: var(--e-global-color-primary);
@@ -676,10 +688,11 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
 }
 
 .programs-submenu h3 {
-    margin-top: 0;
-    font-weight: 700;
-    font-size: 1.2em;
-    margin-bottom: 0;
+    font: var(--h2);
+    letter-spacing: 2px;
+    color: var(--navy-blue) !important;
+    font-size: 1.8em;
+    margin: 40px 0 5px 0 !important;
 }
 
 .programs-submenu.featured-image figure {
@@ -736,6 +749,7 @@ body:not(.elementor-editor-active) .elementor-menu-anchor:before {
     font-size: 3rem;
     /* font-weight: 600 !important; */
     color: var(--blue) !important;
+    margin-bottom: 30px !important;
 }
 
 /*****************/

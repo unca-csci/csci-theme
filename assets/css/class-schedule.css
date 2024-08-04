@@ -165,6 +165,10 @@ a:hover i,
     font-weight: 600;
 }
 
+h3.title {
+    letter-spacing: 0px;
+}
+
 @media screen and (max-width: 1250px) {
     #term {
         float: none;
